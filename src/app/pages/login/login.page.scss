@@ -6,14 +6,14 @@
     height: 100%;
     background-color: #151515;
 }
-  
+
 h1 {
-    color: #06b6d4; 
+    color: #ffffff;
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
 }
-  
+
 .login-card {
     width: 90%;
     max-width: 400px;
@@ -21,36 +21,39 @@ h1 {
     background-color: #202020;
     padding: 20px;
 }
-  
+
 ion-item {
     --background: transparent;
-    color: rgb(0, 255, 52);
+    color: rgb(236, 236, 236);
 }
-  
+
 ion-label {
-    color: rgb(0, 255, 52);
+    color: rgb(225, 225, 225);
 }
-  
+
 .login-button {
     --background: #06b6d4;
     color: #000;
     margin-top: 20px;
 }
-  
+
 .quick-login {
     margin-top: 20px;
     text-align: center;
 }
-  
-  
+
 .quick-login-button {
-    --background: #333; /* Botones más sutiles */
-    color: rgb(0, 255, 52); /* Verde brillante */
+    --background: #333;
+    color: rgb(231, 231, 231);
     width: 30%;
 }
-  
+
 .signup p {
     color: #fff;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 12px;
+}
+
+.btn {
+    --background: #06b6d4;
 }
