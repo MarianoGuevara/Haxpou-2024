@@ -7,9 +7,9 @@
             fill="solid"
             formControlName="email"
         ></ion-input>
-        @if(email && email.touched && email.errors){
+        @if(this.email && this.email.touched && obtenerMensajeError("email") !== null){
         <ion-note slot="error" color="danger" class="text-base"
-            >El correo no es válido</ion-note
+            >{{obtenerMensajeError("email")}}</ion-note
         >
         }
     </div>
@@ -24,9 +24,9 @@
         >
             <ion-input-password-toggle slot="end"></ion-input-password-toggle>
         </ion-input>
-        @if(password && password.touched && password.errors){
-        <ion-note slot="bottom" color="danger" class="text-base"
-            >Mínimo 6 caracteres</ion-note
+        @if(this.password && this.password.touched && obtenerMensajeError("password") !== null){
+        <ion-note slot="error" color="danger" class="text-base"
+            >{{obtenerMensajeError("password")}}</ion-note
         >
         }
     </div>
