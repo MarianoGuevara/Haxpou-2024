@@ -1,85 +1,10 @@
 <ion-content>
     <div class="login-container">
-        <img src="assets/logo.png" width="100px" height="auto" />
-        <br />
-        <h1 style="margin-bottom: 10px">¡Bienvenido a Haxpou!</h1>
+        <img class="mb-8" src="assets/logo.png" width="170px" height="auto" />
+        <h1 class="text-2xl mb-3 font-bold">¡Bienvenido a Haxpou!</h1>
 
         <ion-card class="login-card">
-            <ion-item>
-                <ion-input
-                    class="input-group"
-                    type="email"
-                    placeholder="Ingrese su correo electrónico"
-                ></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-input type="password" placeholder="Ingrese su clave">
-                    <ion-input-password-toggle
-                        slot="end"
-                    ></ion-input-password-toggle>
-                </ion-input>
-            </ion-item>
-
-            <ion-button expand="block" class="login-button"
-                >Ingresar</ion-button
-            >
-
-            <div class="quick-login">
-                <p class="text-white" style="margin-bottom: 5px">
-                    Inicio rápido con:
-                </p>
-                <div class="quick-buttons grid grid-cols-4">
-                    <ion-button fill="solid" class="btn"
-                        ><img
-                            src="assets/inicios_rapidos/cocinero.png"
-                            width="40px"
-                            height="auto"
-                    /></ion-button>
-                    <ion-button fill="solid" class="btn"
-                        ><img
-                            src="assets/inicios_rapidos/barman.png"
-                            width="40px"
-                            height="auto"
-                    /></ion-button>
-                    <ion-button fill="solid" class="btn"
-                        ><img
-                            src="assets/inicios_rapidos/mesero.png"
-                            width="40px"
-                            height="auto"
-                    /></ion-button>
-                    <ion-button fill="solid" class="btn"
-                        ><img
-                            src="assets/inicios_rapidos/anonimo.png"
-                            width="40px"
-                            height="auto"
-                    /></ion-button>
-                    <ion-button fill="solid" class="btn"
-                        ><img
-                            src="assets/inicios_rapidos/dueño.png"
-                            width="40px"
-                            height="auto"
-                    /></ion-button>
-                    <ion-button fill="solid" class="btn"
-                        ><img
-                            src="assets/inicios_rapidos/supervisor.png"
-                            width="40px"
-                            height="auto"
-                    /></ion-button>
-                    <ion-button fill="solid" class="btn"
-                        ><img
-                            src="assets/inicios_rapidos/usuario.png"
-                            width="40px"
-                            height="auto"
-                    /></ion-button>
-                    <ion-button fill="solid" class="btn"
-                        ><img
-                            src="assets/inicios_rapidos/jefe_1.png"
-                            width="40px"
-                            height="auto"
-                    /></ion-button>
-                </div>
-            </div>
+            <app-auth-form></app-auth-form>
         </ion-card>
     </div>
 </ion-content>

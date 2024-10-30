@@ -1,3 +1,93 @@
-<p>
-  auth-form works!
-</p>
+<form [formGroup]="credentials" class="w-full">
+    <div class="ion-margin-bottom">
+        <ion-input
+            class="input-group text-xl"
+            type="email"
+            placeholder="Correo electrónico"
+            fill="solid"
+            formControlName="email"
+        ></ion-input>
+        @if(email && email.touched && email.errors){
+        <ion-note slot="error" color="danger" class="text-base"
+            >El correo no es válido</ion-note
+        >
+        }
+    </div>
+
+    <div class="ion-margin-bottom">
+        <ion-input
+            type="password"
+            placeholder="Contraseña"
+            class="text-xl"
+            fill="solid"
+            formControlName="password"
+        >
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+        @if(password && password.touched && password.errors){
+        <ion-note slot="bottom" color="danger" class="text-base"
+            >Mínimo 6 caracteres</ion-note
+        >
+        }
+    </div>
+
+    <ion-button expand="block" class="login-button text-xl" (click)="this.login()"
+        >Ingresar</ion-button
+    >
+
+    <div class="quick-login">
+        <p class="text-white text-xl" style="margin-bottom: 5px">
+            Inicio rápido con:
+        </p>
+        <div class="quick-buttons grid grid-cols-4">
+            <ion-button fill="solid" class="btn"
+                ><img
+                    src="assets/inicios_rapidos/cocinero.png"
+                    width="40px"
+                    height="auto"
+            /></ion-button>
+            <ion-button fill="solid" class="btn"
+                ><img
+                    src="assets/inicios_rapidos/barman.png"
+                    width="40px"
+                    height="auto"
+            /></ion-button>
+            <ion-button fill="solid" class="btn"
+                ><img
+                    src="assets/inicios_rapidos/mesero.png"
+                    width="40px"
+                    height="auto"
+            /></ion-button>
+            <ion-button fill="solid" class="btn"
+                ><img
+                    src="assets/inicios_rapidos/anonimo.png"
+                    width="40px"
+                    height="auto"
+            /></ion-button>
+            <ion-button fill="solid" class="btn"
+                ><img
+                    src="assets/inicios_rapidos/dueño.png"
+                    width="40px"
+                    height="auto"
+            /></ion-button>
+            <ion-button fill="solid" class="btn"
+                ><img
+                    src="assets/inicios_rapidos/supervisor.png"
+                    width="40px"
+                    height="auto"
+            /></ion-button>
+            <ion-button fill="solid" class="btn"
+                ><img
+                    src="assets/inicios_rapidos/usuario.png"
+                    width="40px"
+                    height="auto"
+            /></ion-button>
+            <ion-button fill="solid" class="btn"
+                ><img
+                    src="assets/inicios_rapidos/jefe_1.png"
+                    width="40px"
+                    height="auto"
+            /></ion-button>
+        </div>
+    </div>
+</form>
