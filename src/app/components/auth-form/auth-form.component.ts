@@ -82,6 +82,40 @@ export class AuthFormComponent {
         }
     }
 
+    /**
+     * Devuelve un mensaje de error personalizado basado en las validaciones de un campo de un formulario reactivo específico.
+     *
+     * @param {string} campo - El nombre del campo en el formulario reactivo que se está validando.
+     *
+     * @returns {string | null} - Un mensaje de error si existen errores de validación en el campo, o `null` si no hay errores.
+     *
+     * Esta función accede al formulario
+     * y verifica si existen errores de validación en dicho campo. Según el tipo de error encontrado (`required`, `minlength`, `maxlength`,
+     * `pattern`, `min`, `max`, `email`), se retorna un mensaje de error descriptivo para el usuario. Si no hay errores, devuelve `null`.
+     */
+    protected obtenerMensajeError(campo: string): string | null {
+        const control = this.credentials.get(campo);
+
+        if (control?.errors) {
+            if (control.errors['required']) {
+                return 'Este campo es obligatorio';
+            } else if (control.errors['minlength']) {
+                return `Mínimo ${control.errors['minlength'].requiredLength} caracteres`;
+            } else if (control.errors['maxlength']) {
+                return `Máximo ${control.errors['maxlength'].requiredLength} caracteres`;
+            } else if (control.errors['pattern']) {
+                return 'El formato no es válido';
+            } else if (control.errors['min']) {
+                return `El valor mínimo es ${control.errors['min'].min}`;
+            } else if (control.errors['max']) {
+                return `El valor máximo es ${control.errors['max'].max}`;
+            } else if (control.errors['email']) {
+                return 'El correo no es válido';
+            }
+        }
+        return null;
+    }
+
     private async showAlert(header: string, message: string) {
         const alert = await this.alertController.create({
             header,
