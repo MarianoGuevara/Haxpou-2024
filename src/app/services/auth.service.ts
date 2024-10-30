@@ -5,18 +5,18 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from '@angular/fire/auth';
-import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { CollectionsNames } from '../utils/firebase-names.enum';
 import { UserDetails } from '../interfaces/user-details.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
-    firestore = inject(AngularFirestore);
-    router = inject(Router);
-    auth = inject(Auth);
+    private firestore = inject(AngularFirestore);
+    private auth = inject(Auth);
+    private spinner = inject(NgxSpinnerService);
     currentUserSig = signal<UserDetails | null | undefined>(undefined);
 
     constructor() {
@@ -62,15 +62,18 @@ export class AuthService {
     // Inicio de sesión
     // me retorna el usuario creado si salio todo bien, si hay errores, retorna null
     public async login(email: string, password: string) {
+        this.spinner.show();
         try {
             const user = await signInWithEmailAndPassword(
                 this.auth,
                 email,
                 password
             );
+            this.spinner.hide();
             return user;
         } catch (error) {
             console.error(error);
+            this.spinner.hide();
             return null;
         }
     }

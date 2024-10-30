@@ -21,6 +21,7 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { Perfiles } from 'src/app/interfaces/user-details.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-auth-form',
@@ -45,6 +46,7 @@ export class AuthFormComponent {
     private authService = inject(AuthService);
     private router = inject(Router);
     private fb = inject(FormBuilder);
+    private spinner = inject(NgxSpinnerService);
     // Por ahí reemplazarlo con un modal propio vvvv <============
     private alertController = inject(AlertController);
 
@@ -55,6 +57,13 @@ export class AuthFormComponent {
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]],
         });
+    }
+
+    aaaaaaaaaaaaaa() {
+        this.spinner.show();
+        setTimeout(() => {
+            this.spinner.hide();
+        }, 3000);
     }
 
     get email() {

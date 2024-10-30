@@ -7,10 +7,11 @@
             fill="solid"
             formControlName="email"
         ></ion-input>
-        @if(this.email && this.email.touched && obtenerMensajeError("email") !== null){
-        <ion-note slot="error" color="danger" class="text-base"
-            >{{obtenerMensajeError("email")}}</ion-note
-        >
+        @if(this.email && this.email.touched && obtenerMensajeError("email") !==
+        null){
+        <ion-note slot="error" color="danger" class="text-base">{{
+            obtenerMensajeError("email")
+        }}</ion-note>
         }
     </div>
 
@@ -24,14 +25,18 @@
         >
             <ion-input-password-toggle slot="end"></ion-input-password-toggle>
         </ion-input>
-        @if(this.password && this.password.touched && obtenerMensajeError("password") !== null){
-        <ion-note slot="error" color="danger" class="text-base"
-            >{{obtenerMensajeError("password")}}</ion-note
-        >
+        @if(this.password && this.password.touched &&
+        obtenerMensajeError("password") !== null){
+        <ion-note slot="error" color="danger" class="text-base">{{
+            obtenerMensajeError("password")
+        }}</ion-note>
         }
     </div>
 
-    <ion-button expand="block" class="login-button text-xl" (click)="this.login()"
+    <ion-button
+        expand="block"
+        class="login-button text-xl"
+        (click)="this.login()"
         >Ingresar</ion-button
     >
 
@@ -40,7 +45,7 @@
             Inicio rápido con:
         </p>
         <div class="quick-buttons grid grid-cols-4">
-            <ion-button fill="solid" class="btn"
+            <ion-button fill="solid" class="btn" (click)="this.aaaaaaaaaaaaaa()"
                 ><img
                     src="assets/inicios_rapidos/cocinero.png"
                     width="40px"
