@@ -1,20 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonButton, IonInput, IonLabel, IonItem, IonCard, IonContent, IonInputPasswordToggle  } from '@ionic/angular/standalone';
+import { IonCard, IonContent } from '@ionic/angular/standalone';
+import { AuthFormComponent } from 'src/app/components/auth-form/auth-form.component';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
-  standalone: true,
-  imports: [CommonModule, FormsModule, IonButton, IonInput, IonLabel, IonItem, IonCard, IonContent, IonInputPasswordToggle ]
+    selector: 'app-login',
+    templateUrl: './login.page.html',
+    styleUrls: ['./login.page.scss'],
+    standalone: true,
+    imports: [CommonModule, FormsModule, IonCard, IonContent, AuthFormComponent],
 })
-export class LoginPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class LoginPage {
+    constructor() {}
 }
