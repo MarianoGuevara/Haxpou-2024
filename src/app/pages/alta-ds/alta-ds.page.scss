@@ -1,0 +1,26 @@
+// ion-content{
+// 	background-color: black;
+// }
+
+.custom-background {
+	--background: #3f3f46;
+  }
+
+.estilo{
+	--background: #1c1c1f;
+}
+
+.custom-button { /* Morado intenso */
+    color: #ffffff; /* Blanco para el texto */
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+	width: 65%;
+}
+
+

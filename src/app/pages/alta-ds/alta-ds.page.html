@@ -1,0 +1,37 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="estilo">
+    <ion-buttons slot="start" > 
+      <ion-back-button default-href="#" class="text-cyan-50"></ion-back-button>
+      <h2 class="font-bold font-sans text-cyan-50">Alta de dueño / supervisor</h2>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="custom-background" style="width: 100%;">
+    <div class="mt-2 flex flex-col p-4 gap-2 justify-center items-center">
+      <label style="font-family: Georgia, 'Times New Roman', Times, serif;color: white;" for="nombre">Nombre</label>
+      <input class="h-8"  type="text" id="nombre" name="nombre" style="width: 70%;border-radius: 5px;">
+    </div>
+    <div class="flex flex-col p-4 gap-2 items-center">
+      <label style="font-family: Georgia, 'Times New Roman', Times, serif;color: white;" for="nombre">Apellido</label>
+      <input class="h-8"  type="text" id="nombre" name="nombre" style="width: 70%;border-radius: 5px;">
+    </div>
+    <div class="flex flex-col p-4 gap-2 items-center">
+      <label style="font-family: Georgia, 'Times New Roman', Times, serif;color: white;" for="nombre">DNI</label>
+      <input class="h-8"  type="text" id="nombre" name="nombre" style="width: 70%;border-radius: 5px;">
+    </div>
+    <div class="flex flex-col p-4 gap-2 items-center">
+      <label style="font-family: Georgia, 'Times New Roman', Times, serif;color: white;" for="nombre">Cuil</label>
+      <input class="h-8"  type="text" id="nombre" name="nombre" style="width: 70%;border-radius: 5px;">
+    </div>
+    <div class="flex flex-col p-4 gap-2 items-center">
+      <label style="font-family: Georgia, 'Times New Roman', Times, serif;color: white;" for="nombre">Perfil</label>
+      <input class="h-8"  type="text" id="nombre" name="nombre" style="width: 70%;border-radius: 5px;">
+    </div>
+    <div class="flex flex-row pt-4 justify-center items-center">
+      <button (click)="tomarFoto()" class="custom-button " style="background-color: #0c2b93;">Tomar foto</button>
+    </div>
+    <div class="flex flex-row pt-4 justify-center items-center">
+      <button (click)="tomarFoto()" class="custom-button bg-gray-800">Guardar</button>
+    </div>
+</ion-content>
