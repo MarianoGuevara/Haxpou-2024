@@ -20,6 +20,8 @@ import { environment } from './environments/environment';
 
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 bootstrapApplication(AppComponent, {
     providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -31,5 +33,7 @@ bootstrapApplication(AppComponent, {
         provideFirestore(() => getFirestore()),
         provideStorage(() => getStorage()),
         { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
+		
+		provideAnimations(),
     ],
 });
