@@ -14,4 +14,13 @@ export const routes: Routes = [
         path: 'login',
         loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
     },
+    {
+        path: '',
+        redirectTo: 'alta-ds', //modificar esto
+        pathMatch: 'full',
+    },
+    {
+      path: 'alta-ds',
+      loadComponent: () => import('./pages/alta-ds/alta-ds.page').then( m => m.AltaDSPage)
+    },
 ];
