@@ -20,7 +20,7 @@ import {
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { Perfiles } from 'src/app/interfaces/user-details.interface';
+import { PerfilesType } from 'src/app/interfaces/user-details.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -135,7 +135,7 @@ export class AuthFormComponent {
         await alert.present();
     }
 
-    public fillInGuest(guest: Perfiles) {
+    public fillInGuest(guest: PerfilesType) {
         if (guest === 'dueno') {
             this.credentials.setValue({
                 email: 'guest1@guest.com',
