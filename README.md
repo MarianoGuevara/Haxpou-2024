@@ -1,5 +1,11 @@
 <h1 align="center">Haxpou</h1>
 
+<br/>
+<div align="center">
+    <img src="src/assets/icon/favicon.png" alt="Logo" width="250">
+</div>
+<br/>
+
 <h2 align="center">División de tareas</h1>
 
 #### Icono
