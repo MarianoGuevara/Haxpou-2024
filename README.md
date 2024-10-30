@@ -1,6 +1,6 @@
-# Haxpou
+<h1 align="center">Haxpou</h1>
 
-## División de tareas
+<h2 align="center">División de tareas</h1>
 
 #### Icono
 
@@ -21,7 +21,7 @@
 | Valentín Gradia, Mariano Guevara   | 28/10  | xx/10 | `guevara` |
 
 
-### Altas
+## Altas
 
 #### Página previa de altas
 
