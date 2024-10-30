@@ -1,21 +1,48 @@
 export interface UserDetails {
-    uid: string;
+    uid?: string;
     email: string;
     password: string;
     nombre: string;
     apellido: string;
     dni: number;
-    cuil: number;
     foto: string; // url a storage
-    perfil: 'dueno' | 'supervisor';
 }
 
-export type Perfiles =
-    | 'dueno'
-    | 'supervisor'
-    | 'maitre'
-    | 'mozo'
-    | 'cocinero'
-    | 'bartender'
-    | 'clienteRegistrado'
-    | 'clienteAnonimo';
+export interface Empleado extends UserDetails {
+    cuil: number;
+    tipo: EmpleadoType;
+}
+
+export interface Supervisor extends UserDetails {
+    cuil: number;
+    perfil: JefeType;
+}
+
+export interface Cliente {
+    uid?: string;
+    email: string;
+    password: string;
+    nombre: string;
+    apellido?: string;
+    dni?: number;
+    foto: string; // url a storage
+    tipo: ClienteType;
+}
+
+export interface Producto {
+    uid?: string;
+    nombre: string;
+    descripcion: string;
+    tiempoElaboracion: number;
+    precio: number;
+    fotos: string[];
+    qr: string;
+}
+
+export type JefeType = 'dueno' | 'supervisor';
+
+export type EmpleadoType = 'maitre' | 'mozo' | 'cocinero' | 'bartender';
+
+export type ClienteType = 'registrado' | 'anonimo';
+
+export type PerfilesType = JefeType | EmpleadoType | ClienteType;
