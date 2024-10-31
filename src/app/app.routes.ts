@@ -18,7 +18,7 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: 'alta-ds', //modificar esto
+        redirectTo: 'clientes-pendientes', //modificar esto
         pathMatch: 'full',
     },
     {

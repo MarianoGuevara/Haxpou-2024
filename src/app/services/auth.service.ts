@@ -43,9 +43,10 @@ export class AuthService {
         });
     }
 
+    // por ahi ni hace falta esta funcion, pero por las dudas la dejo -- Fran
     getAllUsers(): Observable<(Cliente | Empleado | Supervisor)[]> {
         return this.firestore
-            .collection<UserDetails>('users')
+            .collection<UserDetails>(CollectionsNames.USUARIOS)
             .valueChanges()
             .pipe(
                 map((users) =>
