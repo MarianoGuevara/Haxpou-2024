@@ -1,5 +1,5 @@
 <form [formGroup]="credentials" class="w-full">
-    <div class="ion-margin-bottom">
+    <div class="mb-6 relative">
         <ion-input
             class="input-group text-xl"
             type="email"
@@ -9,13 +9,16 @@
         ></ion-input>
         @if(this.email && this.email.touched && obtenerMensajeError("email") !==
         null){
-        <ion-note slot="error" color="danger" class="text-base">{{
-            obtenerMensajeError("email")
-        }}</ion-note>
+        <ion-note
+            slot="error"
+            color="danger"
+            class="absolute -bottom-6 text-red-500 text-lg"
+            >{{ obtenerMensajeError("email") }}</ion-note
+        >
         }
     </div>
 
-    <div class="ion-margin-bottom">
+    <div class="mb-8 relative">
         <ion-input
             type="password"
             placeholder="Contraseña"
@@ -27,9 +30,12 @@
         </ion-input>
         @if(this.password && this.password.touched &&
         obtenerMensajeError("password") !== null){
-        <ion-note slot="error" color="danger" class="text-base">{{
-            obtenerMensajeError("password")
-        }}</ion-note>
+        <ion-note
+            slot="error"
+            color="danger"
+            class="absolute -bottom-6 text-red-500 text-lg"
+            >{{ obtenerMensajeError("password") }}</ion-note
+        >
         }
     </div>
 

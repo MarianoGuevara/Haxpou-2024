@@ -21,6 +21,7 @@ import {
     IonFab,
     IonFabButton,
     IonInputPasswordToggle,
+    IonInput,
 } from '@ionic/angular/standalone';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { UserDetails } from 'src/app/interfaces/user-details.interface';
@@ -46,7 +47,8 @@ import { PhotoService } from 'src/app/services/photo.service';
         IonFab,
         IonFabButton,
         IonInputPasswordToggle,
-		ReactiveFormsModule
+        ReactiveFormsModule,
+        IonInput,
     ],
 })
 export class AltaDSPage {
@@ -63,24 +65,28 @@ export class AltaDSPage {
 
     constructor() {
         this.loading = false;
-        this.credentials = this.fb.group(
-            {
-                apellidos: ['', Validators.required],
-                nombres: ['', Validators.required],
-                dni: [
-                    '',
-                    [
-                        Validators.required,
-                        Validators.min(10000000),
-                        Validators.max(99999999),
-                    ],
+        this.credentials = this.fb.group({
+            apellidos: ['', Validators.required],
+            nombres: ['', Validators.required],
+            dni: [
+                '',
+                [
+                    Validators.required,
+                    Validators.min(10000000),
+                    Validators.max(99999999),
                 ],
-                correo: ['', [Validators.required, Validators.email]],
-                clave1: ['', Validators.required],
-                clave2: ['', Validators.required],
-            },
-            { validator: this.passwordMatchValidator }
-        );
+            ],
+            cuil: [
+                '',
+                [
+                    Validators.required,
+                    Validators.min(10000000000),
+                    Validators.max(99999999999),
+                ],
+            ],
+            correo: ['', [Validators.required, Validators.email]],
+            clave1: ['', Validators.required],
+        });
     }
 
     get apellidos() {
@@ -95,16 +101,16 @@ export class AltaDSPage {
         return this.credentials.get('dni');
     }
 
+    get cuil() {
+        return this.credentials.get('cuil');
+    }
+
     get correo() {
         return this.credentials.get('correo');
     }
 
     get clave1() {
         return this.credentials.get('clave1');
-    }
-
-    get clave2() {
-        return this.credentials.get('clave2');
     }
 
     async onScanClick() {
@@ -200,17 +206,6 @@ export class AltaDSPage {
             cssClass: 'custom-alert-class',
         });
         await alert.present();
-    }
-
-    passwordMatchValidator(group: AbstractControl) {
-        const clave1 = group.get('clave1')?.value;
-        const clave2 = group.get('clave2')?.value;
-
-        if (clave1 !== clave2 || clave2 === '') {
-            group.get('clave2')?.setErrors({ mismatch: true });
-        } else {
-            group.get('clave2')?.setErrors(null); // Elimina el error si coinciden
-        }
     }
 
     async tomarFoto(): Promise<void> {
