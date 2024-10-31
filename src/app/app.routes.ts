@@ -18,17 +18,21 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: 'clientes-pendientes', //modificar esto
+        redirectTo: 'alta-cliente', //modificar esto
         pathMatch: 'full',
     },
     {
-        path: 'alta-ds',
+        path: 'alta-cliente',
         loadComponent: () =>
-            import('./pages/alta-ds/alta-ds.page').then((m) => m.AltaDSPage),
+            import('./pages/alta-cliente/alta-cliente.page').then(
+                (m) => m.AltaDSPage
+            ),
     },
     {
         path: 'clientes-pendientes',
-        loadComponent: () => import('./pages/clientes-pendientes/clientes-pendientes.page').then( m => m.ClientesPendientesPage)
+        loadComponent: () =>
+            import('./pages/clientes-pendientes/clientes-pendientes.page').then(
+                (m) => m.ClientesPendientesPage
+            ),
     },
-
 ];

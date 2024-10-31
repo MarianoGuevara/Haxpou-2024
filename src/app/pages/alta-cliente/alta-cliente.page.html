@@ -109,40 +109,47 @@
 </ion-content> -->
 
 <ion-content class="custom" [fullscreen]="true">
-    <div class="min-h-screen p-4">
+    <div class="h-[calc(100vh-56px)] p-4">
         <ion-fab class="mt-16" slot="fixed" horizontal="end" vertical="top">
             <ion-fab-button (click)="onScanClick()">
                 <img class="w-9" src="/assets/scanner.svg" alt="" />
             </ion-fab-button>
         </ion-fab>
-        <div class="flex items-center justify-center">
-            <!-- <div
-                class="w-fit flex items-center justify-center mb-2 bg-slate-400 p-1 image"
-                (click)="onTakePhotoClick()"
-            >
-                <img class="w-32 h-32 image" [src]="this.userImage" alt="" />
-                <img
-                    class="w-9 -translate-x-24 translate-y-10 -m-5"
-                    src="/assets/addPhoto.svg"
-                    alt=""
-                />
-            </div> -->
+        <form
+            [formGroup]="credentials"
+            class="space-y-6 text-xl flex flex-col justify-between"
+        >
+            <div class="flex items-center justify-center">
+                <div
+                    class="w-fit flex items-center justify-center bg-slate-400 p-1 image"
+                    (click)="onTakePhotoClick()"
+                >
+                    <img
+                        class="w-20 h-20 image"
+                        [src]="this.userImage"
+                        alt=""
+                    />
+                    <img
+                        class="w-6 -translate-x-10 translate-y-5 -m-3"
+                        src="/assets/addPhoto.svg"
+                        alt=""
+                    />
+                </div>
+                <!-- <ion-button
+                    expand="block"
+                    class="login-button text-xl mt-4"
+                    (click)="this.onTakePhotoClick()"
+                    >Sacar foto
+                </ion-button> -->
+            </div>
 
-            <ion-button
-                expand="block"
-                class="login-button text-xl mt-4 mb-5"
-                (click)="this.onTakePhotoClick()"
-                >Sacar foto</ion-button
-            >
-        </div>
-        <form [formGroup]="credentials" class="space-y-6 text-xl">
             <!-- Apellidos -->
             <div class="relative">
                 <ion-input
                     fill="solid"
                     placeholder="Apellidos"
                     formControlName="apellidos"
-                    class="custom w-full"
+                    class="w-full text-2xl"
                 ></ion-input>
                 @if(this.apellidos && this.apellidos.touched &&
                 obtenerMensajeError("apellidos") !== null){
@@ -161,7 +168,7 @@
                     fill="solid"
                     placeholder="Nombres"
                     formControlName="nombres"
-                    class="custom w-full"
+                    class="w-full text-2xl"
                 ></ion-input>
                 @if(this.nombres && this.nombres.touched &&
                 obtenerMensajeError("nombres") !== null){
@@ -181,7 +188,7 @@
                     placeholder="DNI"
                     formControlName="dni"
                     type="number"
-                    class="custom w-full"
+                    class="w-full text-2xl"
                 ></ion-input>
                 @if(this.dni && this.dni.touched && obtenerMensajeError("dni")
                 !== null){
@@ -201,9 +208,9 @@
                     placeholder="CUIL"
                     formControlName="cuil"
                     type="number"
-                    class="custom w-full"
-					minlength="11"
-					maxlength="11"
+                    class="w-full text-2xl"
+                    minlength="11"
+                    maxlength="11"
                 ></ion-input>
                 @if(this.cuil && this.cuil.touched &&
                 obtenerMensajeError("cuil") !== null){
@@ -222,7 +229,7 @@
                     fill="solid"
                     placeholder="Correo"
                     formControlName="correo"
-                    class="custom w-full text-xl"
+                    class="custom w-full text-2xl"
                 ></ion-input>
                 @if(this.correo && this.correo.touched &&
                 obtenerMensajeError("correo") !== null){
@@ -242,7 +249,7 @@
                     placeholder="Contraseña"
                     type="password"
                     formControlName="clave1"
-                    class="custom w-full"
+                    class="w-full text-2xl"
                 >
                     <ion-input-password-toggle
                         slot="end"

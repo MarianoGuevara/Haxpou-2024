@@ -1,7 +1,7 @@
 export interface UserDetails {
     uid?: string;
-    email: string;
-    password: string;
+    correo: string;
+    clave: string;
     nombre: string;
     apellido?: string;
     dni?: number;
