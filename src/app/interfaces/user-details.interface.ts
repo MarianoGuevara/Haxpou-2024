@@ -43,6 +43,6 @@ export type JefeType = 'dueno' | 'supervisor';
 
 export type EmpleadoType = 'maitre' | 'mozo' | 'cocinero' | 'bartender';
 
-export type ClienteType = 'registrado' | 'anonimo';
+export type ClienteType = 'clienteRegistrado' | 'clienteAnonimo';
 
 export type PerfilesType = JefeType | EmpleadoType | ClienteType;
