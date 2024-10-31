@@ -26,4 +26,9 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./pages/alta-ds/alta-ds.page').then((m) => m.AltaDSPage),
     },
+    {
+        path: 'clientes-pendientes',
+        loadComponent: () => import('./pages/clientes-pendientes/clientes-pendientes.page').then( m => m.ClientesPendientesPage)
+    },
+
 ];

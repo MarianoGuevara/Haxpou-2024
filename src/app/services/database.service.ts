@@ -22,7 +22,7 @@ export class DatabaseService {
 
   //Devolvemos un observable para que "escuche" los cambios
   //Observable -> tipo de dato que puede variar
-  traerClientes() : Observable<Cliente[]>
+  traerClientesPendientes() : Observable<Cliente[]>
   {
     const col = collection(this.firestore,'Usuarios');
 

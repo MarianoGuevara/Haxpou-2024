@@ -64,7 +64,7 @@ export class AltaDSPage {
 
     protected credentials: FormGroup;
 
-    constructor(private dbService : DatabaseService) {
+    constructor() {
         this.loading = false;
         this.credentials = this.fb.group({
             apellidos: ['', Validators.required],
@@ -89,9 +89,6 @@ export class AltaDSPage {
             clave1: ['', Validators.required],
         });
 
-        this.dbService.traerClientes().subscribe((data) => {
-            console.log(data[0]);
-        });
 
     }
 

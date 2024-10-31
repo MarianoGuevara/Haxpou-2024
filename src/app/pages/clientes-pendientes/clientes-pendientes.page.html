@@ -1,0 +1,26 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="estilo">
+      <ion-buttons slot="start">
+          <ion-back-button
+              default-href="#"
+              class="text-cyan-50"
+          ></ion-back-button>
+          <h2 class="font-bold text-cyan-50 ml-8 text-xl">Clientes pendientes</h2>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="h-screen p-5">
+    <table class="styled-table">
+      <tbody>
+        @for (cliente of clientes; track $index) {
+          <tr class="w-full ">
+            <td class="text-left w 3/6 flex flex-row justify-center items-center"><p class="w-5/6">{{cliente.nombre}} {{cliente.apellido}}</p> <img style="height: 50px;width: 50px;" class="ml-4 mr-2 text-center mb-2" [src]="cliente.foto"></td>
+            <td class="pt-0"><button (click)="aprobar(cliente)" type="button" class="btn btn-secondary">Aprobar cliente</button></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</ion-content>
