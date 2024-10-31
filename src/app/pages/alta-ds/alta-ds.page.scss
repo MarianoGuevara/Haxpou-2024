@@ -3,14 +3,15 @@
 // }
 
 .custom-background {
-	--background: #3f3f46;
-  }
-
-.estilo{
-	--background: #1c1c1f;
+    --background: #3f3f46;
 }
 
-.custom-button { /* Morado intenso */
+.estilo {
+    --background: #1c1c1f;
+}
+
+.custom-button {
+    /* Morado intenso */
     color: #ffffff; /* Blanco para el texto */
     padding: 12px 24px;
     border: none;
@@ -20,7 +21,9 @@
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease, transform 0.2s ease;
-	width: 65%;
+    width: 65%;
 }
 
-
+.image {
+    border-radius: 50%;
+}
