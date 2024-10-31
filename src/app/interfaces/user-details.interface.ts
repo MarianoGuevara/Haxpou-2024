@@ -3,8 +3,8 @@ export interface UserDetails {
     email: string;
     password: string;
     nombre: string;
-    apellido: string;
-    dni: number;
+    apellido?: string;
+    dni?: number;
     foto: string; // url a storage
 }
 
@@ -18,14 +18,7 @@ export interface Supervisor extends UserDetails {
     perfil: JefeType;
 }
 
-export interface Cliente {
-    uid?: string;
-    email: string;
-    password: string;
-    nombre: string;
-    apellido?: string;
-    dni?: number;
-    foto: string; // url a storage
+export interface Cliente extends UserDetails {
     tipo: ClienteType;
 }
 
