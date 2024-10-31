@@ -27,6 +27,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { UserDetails } from 'src/app/interfaces/user-details.interface';
 import { QrscannerService } from 'src/app/services/qrscanner.service';
 import { PhotoService } from 'src/app/services/photo.service';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
     selector: 'app-alta-ds',
@@ -63,7 +64,7 @@ export class AltaDSPage {
 
     protected credentials: FormGroup;
 
-    constructor() {
+    constructor(private dbService : DatabaseService) {
         this.loading = false;
         this.credentials = this.fb.group({
             apellidos: ['', Validators.required],
@@ -87,6 +88,11 @@ export class AltaDSPage {
             correo: ['', [Validators.required, Validators.email]],
             clave1: ['', Validators.required],
         });
+
+        this.dbService.traerClientes().subscribe((data) => {
+            console.log(data[0]);
+        });
+
     }
 
     get apellidos() {
