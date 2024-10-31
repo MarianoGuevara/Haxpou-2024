@@ -1,18 +1,20 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-    {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full',
-    },
+    // {
+    //     path: '',
+    //     redirectTo: 'login',
+    //     pathMatch: 'full',
+    // },
     {
         path: 'home',
-        loadComponent: () => import('./pages/home/home.page').then((m) => m.HomePage),
+        loadComponent: () =>
+            import('./pages/home/home.page').then((m) => m.HomePage),
     },
     {
         path: 'login',
-        loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+        loadComponent: () =>
+            import('./pages/login/login.page').then((m) => m.LoginPage),
     },
     {
         path: '',
@@ -20,7 +22,8 @@ export const routes: Routes = [
         pathMatch: 'full',
     },
     {
-      path: 'alta-ds',
-      loadComponent: () => import('./pages/alta-ds/alta-ds.page').then( m => m.AltaDSPage)
+        path: 'alta-ds',
+        loadComponent: () =>
+            import('./pages/alta-ds/alta-ds.page').then((m) => m.AltaDSPage),
     },
 ];
