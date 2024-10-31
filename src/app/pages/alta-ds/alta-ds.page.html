@@ -116,7 +116,7 @@
             </ion-fab-button>
         </ion-fab>
         <div class="flex items-center justify-center">
-            <div
+            <!-- <div
                 class="w-fit flex items-center justify-center mb-2 bg-slate-400 p-1 image"
                 (click)="onTakePhotoClick()"
             >
@@ -126,7 +126,14 @@
                     src="/assets/addPhoto.svg"
                     alt=""
                 />
-            </div>
+            </div> -->
+
+            <ion-button
+                expand="block"
+                class="login-button text-xl mt-4 mb-5"
+                (click)="this.onTakePhotoClick()"
+                >Sacar foto</ion-button
+            >
         </div>
         <form [formGroup]="credentials" class="space-y-6 text-xl">
             <!-- Apellidos -->
@@ -135,7 +142,7 @@
                     fill="solid"
                     placeholder="Apellidos"
                     formControlName="apellidos"
-                    class=" custom w-full"
+                    class="custom w-full"
                 ></ion-input>
                 @if(apellidos && apellidos.touched && apellidos.errors) {
                 <ion-note
@@ -153,7 +160,7 @@
                     fill="solid"
                     placeholder="Nombres"
                     formControlName="nombres"
-                    class=" custom w-full"
+                    class="custom w-full"
                 ></ion-input>
                 @if(nombres && nombres.touched && nombres.errors) {
                 <ion-note
@@ -172,9 +179,28 @@
                     placeholder="DNI"
                     formControlName="dni"
                     type="number"
-                    class=" custom w-full"
+                    class="custom w-full"
                 ></ion-input>
                 @if(dni && dni.touched && dni.errors) {
+                <ion-note
+                    slot="error"
+                    color="danger"
+                    class="absolute -bottom-6 text-red-500 text-lg"
+                    >Longitud de 8 digitos</ion-note
+                >
+                }
+            </div>
+
+            <!-- CUIL -->
+            <div class="relative">
+                <ion-input
+                    fill="solid"
+                    placeholder="CUIL"
+                    formControlName="cuil"
+                    type="number"
+                    class="custom w-full"
+                ></ion-input>
+                @if(cuil && cuil.touched && cuil.errors) {
                 <ion-note
                     slot="error"
                     color="danger"
@@ -190,7 +216,7 @@
                     fill="solid"
                     placeholder="Correo"
                     formControlName="correo"
-                    class=" custom w-full text-xl"
+                    class="custom w-full text-xl"
                 ></ion-input>
                 @if(correo && correo.touched && correo.errors) {
                 <ion-note
@@ -209,7 +235,7 @@
                     placeholder="Contraseña"
                     type="password"
                     formControlName="clave1"
-                    class=" custom w-full"
+                    class="custom w-full"
                 >
                     <ion-input-password-toggle
                         slot="end"
@@ -221,29 +247,6 @@
                     color="danger"
                     class="absolute -bottom-6 text-red-500 text-lg"
                     >Campo requerido</ion-note
-                >
-                }
-            </div>
-
-            <!-- Repetir Clave -->
-            <div class="relative">
-                <ion-input
-                    fill="solid"
-                    placeholder="Repetir Contraseña"
-                    type="password"
-                    formControlName="clave2"
-                    class=" custom w-full"
-                >
-                    <ion-input-password-toggle
-                        slot="end"
-                    ></ion-input-password-toggle>
-                </ion-input>
-                @if(clave2 && clave2.touched && clave2.errors) {
-                <ion-note
-                    slot="error"
-                    color="danger"
-                    class="absolute -bottom-6 text-red-500 text-lg"
-                    >Las contraseñas no coinciden</ion-note
                 >
                 }
             </div>
