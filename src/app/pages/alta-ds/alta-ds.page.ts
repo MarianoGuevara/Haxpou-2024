@@ -69,27 +69,38 @@ export class AltaDSPage {
         this.credentials = this.fb.group({
             apellidos: ['', Validators.required],
             nombres: ['', Validators.required],
-            dni: [
-                '',
-                [
-                    Validators.required,
-                    Validators.min(10000000),
-                    Validators.max(99999999),
-                ],
-            ],
-            cuil: [
-                '',
-                [
-                    Validators.required,
-                    Validators.min(10000000000),
-                    Validators.max(99999999999),
-                ],
-            ],
+            dni: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
+            cuil: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
             correo: ['', [Validators.required, Validators.email]],
-            clave1: ['', Validators.required],
+            clave1: ['', [Validators.required, Validators.minLength(6)]],
         });
 
 
+    }
+
+    protected obtenerMensajeError(campo: string): string | null {
+        const control = this.credentials.get(campo);
+
+        if (control?.errors) {
+            if (control.errors['required']) {
+                return 'Este campo es obligatorio';
+            } else if (control.errors['minlength']) {
+                return `Mínimo ${control.errors['minlength'].requiredLength} caracteres`;
+            } else if (control.errors['maxlength']) {
+                return `Máximo ${control.errors['maxlength'].requiredLength} caracteres`;
+            } else if (control.errors['pattern'] && campo === 'dni') {
+                return 'Debe tener 8 dígitos exactos';
+            } else if (control.errors['pattern'] && campo === 'cuil') {
+                return 'Debe tener 11 dígitos exactos';
+            } else if (control.errors['min']) {
+                return `El valor mínimo es ${control.errors['min'].min}`;
+            } else if (control.errors['max']) {
+                return `El valor máximo es ${control.errors['max'].max}`;
+            } else if (control.errors['email']) {
+                return 'El correo no es válido';
+            }
+        }
+        return null;
     }
 
     get apellidos() {

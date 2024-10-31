@@ -144,12 +144,13 @@
                     formControlName="apellidos"
                     class="custom w-full"
                 ></ion-input>
-                @if(apellidos && apellidos.touched && apellidos.errors) {
+                @if(this.apellidos && this.apellidos.touched &&
+                obtenerMensajeError("apellidos") !== null){
                 <ion-note
                     slot="error"
                     color="danger"
                     class="absolute -bottom-6 text-red-500 text-lg"
-                    >Campo requerido</ion-note
+                    >{{ obtenerMensajeError("apellidos") }}</ion-note
                 >
                 }
             </div>
@@ -162,12 +163,13 @@
                     formControlName="nombres"
                     class="custom w-full"
                 ></ion-input>
-                @if(nombres && nombres.touched && nombres.errors) {
+                @if(this.nombres && this.nombres.touched &&
+                obtenerMensajeError("nombres") !== null){
                 <ion-note
                     slot="error"
                     color="danger"
                     class="absolute -bottom-6 text-red-500 text-lg"
-                    >Campo requerido</ion-note
+                    >{{ obtenerMensajeError("nombres") }}</ion-note
                 >
                 }
             </div>
@@ -181,12 +183,13 @@
                     type="number"
                     class="custom w-full"
                 ></ion-input>
-                @if(dni && dni.touched && dni.errors) {
+                @if(this.dni && this.dni.touched && obtenerMensajeError("dni")
+                !== null){
                 <ion-note
                     slot="error"
                     color="danger"
                     class="absolute -bottom-6 text-red-500 text-lg"
-                    >Longitud de 8 digitos</ion-note
+                    >{{ obtenerMensajeError("dni") }}</ion-note
                 >
                 }
             </div>
@@ -199,13 +202,16 @@
                     formControlName="cuil"
                     type="number"
                     class="custom w-full"
+					minlength="11"
+					maxlength="11"
                 ></ion-input>
-                @if(cuil && cuil.touched && cuil.errors) {
+                @if(this.cuil && this.cuil.touched &&
+                obtenerMensajeError("cuil") !== null){
                 <ion-note
                     slot="error"
                     color="danger"
                     class="absolute -bottom-6 text-red-500 text-lg"
-                    >Longitud de 8 digitos</ion-note
+                    >{{ obtenerMensajeError("cuil") }}</ion-note
                 >
                 }
             </div>
@@ -218,12 +224,13 @@
                     formControlName="correo"
                     class="custom w-full text-xl"
                 ></ion-input>
-                @if(correo && correo.touched && correo.errors) {
+                @if(this.correo && this.correo.touched &&
+                obtenerMensajeError("correo") !== null){
                 <ion-note
                     slot="error"
                     color="danger"
                     class="absolute -bottom-6 text-red-500 text-lg"
-                    >Correo no válido</ion-note
+                    >{{ obtenerMensajeError("correo") }}</ion-note
                 >
                 }
             </div>
@@ -241,12 +248,13 @@
                         slot="end"
                     ></ion-input-password-toggle>
                 </ion-input>
-                @if(clave1 && clave1.touched && clave1.errors) {
+                @if(this.clave1 && this.clave1.touched &&
+                obtenerMensajeError("clave1") !== null){
                 <ion-note
                     slot="error"
                     color="danger"
                     class="absolute -bottom-6 text-red-500 text-lg"
-                    >Campo requerido</ion-note
+                    >{{ obtenerMensajeError("clave1") }}</ion-note
                 >
                 }
             </div>
