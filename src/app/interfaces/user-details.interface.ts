@@ -20,7 +20,7 @@ export interface Supervisor extends UserDetails {
 
 export interface Cliente extends UserDetails {
     tipo: ClienteType;
-    aprobado : boolean;
+    aprobado: EstadoCliente;
 }
 
 export interface Producto {
@@ -32,6 +32,8 @@ export interface Producto {
     fotos: string[];
     qr: string;
 }
+
+export type EstadoCliente = 'pendiente' | 'aprobado' | 'rechazado';
 
 export type JefeType = 'dueno' | 'supervisor';
 
