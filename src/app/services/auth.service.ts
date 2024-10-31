@@ -86,24 +86,22 @@ export class AuthService {
 
     // Registro de usuarios, puede ser paciente, especialista o admin
     public async register(newUser: UserDetails) {
-        const promise = createUserWithEmailAndPassword(
+        const res = await createUserWithEmailAndPassword(
             this.auth,
-            newUser.email,
-            newUser.password
-        ).then((res) => {
-            const ref = this.firestore
-                .collection(CollectionsNames.USUARIOS)
-                .doc(res.user.uid);
+            newUser.correo,
+            newUser.clave
+        );
+        const ref = this.firestore
+            .collection(CollectionsNames.USUARIOS)
+            .doc(res.user.uid);
 
-            const completeUser: UserDetails = {
-                ...newUser,
-                uid: res.user.uid,
-            };
+        const completeUser: UserDetails = {
+            ...newUser,
+            uid: res.user.uid,
+        };
 
-            ref.set(completeUser);
-            this.currentUserSig.set(completeUser);
-        });
-        return promise;
+        ref.set(completeUser);
+        this.currentUserSig.set(completeUser);
     }
 
     // Inicio de sesión

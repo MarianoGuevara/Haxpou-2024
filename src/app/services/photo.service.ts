@@ -5,6 +5,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { AuthService } from './auth.service';
+import { CollectionsNames } from '../utils/firebase-names.enum';
 
 @Injectable({
     providedIn: 'root',
@@ -26,14 +27,10 @@ export class PhotoService {
     }
 
     async uploadPhoto(photoData: string): Promise<string | null> {
-        const user = this.authService.currentUserSig();
-        if (!user) {
-            throw new Error('User not logged in');
-        }
         try {
             if (photoData !== '/assets/DefaultUser.png') {
-                const fileName = `${new Date().getTime()}_${user.nombre}.jpg`;
-                const filePath = `users-photos/${fileName}`;
+                const fileName = `${new Date().getTime()}_img.jpg`;
+                const filePath = `${CollectionsNames.IMAGENES_PERFIL}/${fileName}`;
                 const fileRef = this.storage.ref(filePath);
 
                 // Convert base64 to blob

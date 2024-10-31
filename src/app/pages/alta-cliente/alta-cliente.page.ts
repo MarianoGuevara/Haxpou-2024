@@ -24,15 +24,20 @@ import {
     IonInput,
 } from '@ionic/angular/standalone';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { UserDetails } from 'src/app/interfaces/user-details.interface';
+import {
+    Cliente,
+    UserDetails,
+} from 'src/app/interfaces/user-details.interface';
 import { QrscannerService } from 'src/app/services/qrscanner.service';
 import { PhotoService } from 'src/app/services/photo.service';
 import { DatabaseService } from 'src/app/services/database.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-    selector: 'app-alta-ds',
-    templateUrl: './alta-ds.page.html',
-    styleUrls: ['./alta-ds.page.scss'],
+    selector: 'app-alta-cliente',
+    templateUrl: './alta-cliente.page.html',
+    styleUrls: ['./alta-cliente.page.scss'],
     standalone: true,
     imports: [
         IonContent,
@@ -57,6 +62,8 @@ export class AltaDSPage {
     private qrscannerService = inject(QrscannerService);
     private alertController = inject(AlertController);
     private photoService = inject(PhotoService);
+    private spinner = inject(NgxSpinnerService);
+    private authService = inject(AuthService);
 
     protected userImage = '/assets/DefaultUser.png';
     private content: string[] = [];
@@ -65,7 +72,6 @@ export class AltaDSPage {
     protected credentials: FormGroup;
 
     constructor() {
-        this.loading = false;
         this.credentials = this.fb.group({
             apellidos: ['', Validators.required],
             nombres: ['', Validators.required],
@@ -74,57 +80,6 @@ export class AltaDSPage {
             correo: ['', [Validators.required, Validators.email]],
             clave1: ['', [Validators.required, Validators.minLength(6)]],
         });
-
-
-    }
-
-    protected obtenerMensajeError(campo: string): string | null {
-        const control = this.credentials.get(campo);
-
-        if (control?.errors) {
-            if (control.errors['required']) {
-                return 'Este campo es obligatorio';
-            } else if (control.errors['minlength']) {
-                return `Mínimo ${control.errors['minlength'].requiredLength} caracteres`;
-            } else if (control.errors['maxlength']) {
-                return `Máximo ${control.errors['maxlength'].requiredLength} caracteres`;
-            } else if (control.errors['pattern'] && campo === 'dni') {
-                return 'Debe tener 8 dígitos exactos';
-            } else if (control.errors['pattern'] && campo === 'cuil') {
-                return 'Debe tener 11 dígitos exactos';
-            } else if (control.errors['min']) {
-                return `El valor mínimo es ${control.errors['min'].min}`;
-            } else if (control.errors['max']) {
-                return `El valor máximo es ${control.errors['max'].max}`;
-            } else if (control.errors['email']) {
-                return 'El correo no es válido';
-            }
-        }
-        return null;
-    }
-
-    get apellidos() {
-        return this.credentials.get('apellidos');
-    }
-
-    get nombres() {
-        return this.credentials.get('nombres');
-    }
-
-    get dni() {
-        return this.credentials.get('dni');
-    }
-
-    get cuil() {
-        return this.credentials.get('cuil');
-    }
-
-    get correo() {
-        return this.credentials.get('correo');
-    }
-
-    get clave1() {
-        return this.credentials.get('clave1');
     }
 
     async onScanClick() {
@@ -180,29 +135,31 @@ export class AltaDSPage {
     }
 
     async addUser() {
-        this.loading = true;
+        this.spinner.show();
 
-        // const url = await this.photoService.uploadPhoto(this.userImage);
-        // if (url === null) {
-        //     this.loading = false;
-        //     this.showAlert('Error', 'Ha ocurrido un error');
-        //     return;
-        // }
+        const url = await this.photoService.uploadPhoto(this.userImage);
+        if (url === null) {
+            this.spinner.hide();
+            this.showAlert('Error', 'Ha ocurrido un error');
+            return;
+        }
 
-        // const newAppUser: UserDetails = {
-        //     imageUrl: url,
-        //     nombres: this.nombres?.value,
-        //     apellidos: this.apellidos?.value,
-        //     correo: this.correo?.value,
-        //     dni: this.dni?.value,
-        //     clave: this.clave1?.value,
-        // };
+        const newClient: Cliente = {
+            nombre: this.nombres?.value,
+            apellido: this.apellidos?.value,
+            correo: this.correo?.value,
+            dni: this.dni?.value,
+            clave: this.clave1?.value,
+            aprobado: 'pendiente',
+            tipo: 'clienteRegistrado',
+            foto: this.userImage,
+        };
 
-        // console.log(newAppUser);
+        console.log(newClient);
 
-        // await this.appUserService.addAppUser(newAppUser);
+        await this.authService.register(newClient);
 
-        this.loading = false;
+        this.spinner.hide();
 
         this.credentials.reset();
         this.userImage = '/assets/DefaultUser.png';
@@ -233,5 +190,54 @@ export class AltaDSPage {
         //validamos que haya sacado la foto
         if (image && image.dataUrl) {
         }
+    }
+
+    protected obtenerMensajeError(campo: string): string | null {
+        const control = this.credentials.get(campo);
+
+        if (control?.errors) {
+            if (control.errors['required']) {
+                return 'Este campo es obligatorio';
+            } else if (control.errors['minlength']) {
+                return `Mínimo ${control.errors['minlength'].requiredLength} caracteres`;
+            } else if (control.errors['maxlength']) {
+                return `Máximo ${control.errors['maxlength'].requiredLength} caracteres`;
+            } else if (control.errors['pattern'] && campo === 'dni') {
+                return 'Debe tener 8 dígitos exactos';
+            } else if (control.errors['pattern'] && campo === 'cuil') {
+                return 'Debe tener 11 dígitos exactos';
+            } else if (control.errors['min']) {
+                return `El valor mínimo es ${control.errors['min'].min}`;
+            } else if (control.errors['max']) {
+                return `El valor máximo es ${control.errors['max'].max}`;
+            } else if (control.errors['email']) {
+                return 'El correo no es válido';
+            }
+        }
+        return null;
+    }
+
+    get apellidos() {
+        return this.credentials.get('apellidos');
+    }
+
+    get nombres() {
+        return this.credentials.get('nombres');
+    }
+
+    get dni() {
+        return this.credentials.get('dni');
+    }
+
+    get cuil() {
+        return this.credentials.get('cuil');
+    }
+
+    get correo() {
+        return this.credentials.get('correo');
+    }
+
+    get clave1() {
+        return this.credentials.get('clave1');
     }
 }
