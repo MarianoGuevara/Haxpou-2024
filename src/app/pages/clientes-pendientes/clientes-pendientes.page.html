@@ -11,16 +11,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="h-screen p-5">
+  <div class="h-screen p-5" style="max-height: 650px;overflow-y: scroll;">
     <table class="styled-table">
       <tbody>
         @for (cliente of clientes; track $index) {
           <tr class="w-full ">
-            <td class="text-left w 3/6 flex flex-row justify-center items-center"><p class="w-5/6">{{cliente.nombre}} {{cliente.apellido}}</p> <img style="height: 50px;width: 50px;" class="ml-4 mr-2 text-center mb-2" [src]="cliente.foto"></td>
-            <td class="pt-0"><button (click)="aprobar(cliente)" type="button" class="btn btn-secondary">Aprobar cliente</button></td>
+            <td  class="text-left w 3/6 flex flex-row justify-center items-center"><p class="w-5/6">{{cliente.nombre}} {{cliente.apellido}}</p> <img style="height: 50px;width: 50px;" class="ml-4 mr-2 text-center mb-2" [src]="cliente.foto"></td>
+            <td style="padding-top: 2px;"><button (click)="aprobar(cliente)" type="button" class="btn-aprobar">Aprobar cliente</button></td>
           </tr>
         }
       </tbody>
     </table>
   </div>
+
 </ion-content>

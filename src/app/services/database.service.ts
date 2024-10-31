@@ -16,7 +16,17 @@ export class DatabaseService {
   {
     const clientesCol = collection(this.firestore,'Usuarios');
 
+  }
 
+
+  aprobarCliente(cliente : Cliente) : void
+  {
+    const col = collection(this.firestore, 'Usuarios');
+
+    //Referencia hacia el documento de firebase
+    const documento = doc(col,cliente.uid);
+
+    updateDoc(documento,{...cliente});
   }
 
 
@@ -26,9 +36,10 @@ export class DatabaseService {
   {
     const col = collection(this.firestore,'Usuarios');
 
-    const clienes = query(col, where('aprobado','==',false));
+    const clientes = query(col, where('aprobado','==',false));
 
-    return collectionData(clienes, { idField: 'id' }) as Observable<Cliente[]>
+    //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
+    return collectionData(clientes, { idField: 'uid' }) as Observable<Cliente[]>
   }
   //Luego para utilizarlo nos suscribimos al metodo asi mientras esta en ejecucion y se agrega un cliente
   //este se va a actualizar

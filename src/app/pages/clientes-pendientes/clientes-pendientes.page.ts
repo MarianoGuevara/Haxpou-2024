@@ -25,6 +25,7 @@ import {
 } from '@angular/forms';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Cliente } from 'src/app/interfaces/user-details.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-clientes-pendientes',
@@ -52,22 +53,22 @@ import { Cliente } from 'src/app/interfaces/user-details.interface';
 export class ClientesPendientesPage implements OnInit {
 
   clientes : Cliente[] = [];
-  cargando : boolean = false;
 
 
-  constructor(private db : DatabaseService) {}
+  constructor(private db : DatabaseService, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
-    this.cargando = true;
+    this.spinner.show();
     this.db.traerClientesPendientes().subscribe((data) => {
       this.clientes = data;
-      this.cargando = false;
+      this.spinner.hide();
     })
   }
 
   aprobar(cliente : Cliente) : void
   {
-
+    cliente.aprobado = true;
+    this.db.aprobarCliente(cliente);
   }
 
 }
