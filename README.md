@@ -24,7 +24,7 @@
 
 | Encargado/s                        | Inicio | Final | Rama     |
 | :--------------------------------- | :----- | :---- | :------- |
-| Valentín Gradia, Mariano Guevara   | 28/10  | xx/10 | `guevara` |
+| Valentín Gradia, Mariano Guevara   | 28/10  | 31/10 | `guevara` |
 
 
 ## Altas
