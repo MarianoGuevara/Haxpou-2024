@@ -20,6 +20,7 @@ export interface Supervisor extends UserDetails {
 
 export interface Cliente extends UserDetails {
     tipo: ClienteType;
+    aprobado : boolean;
 }
 
 export interface Producto {

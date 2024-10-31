@@ -27,6 +27,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { UserDetails } from 'src/app/interfaces/user-details.interface';
 import { QrscannerService } from 'src/app/services/qrscanner.service';
 import { PhotoService } from 'src/app/services/photo.service';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
     selector: 'app-alta-ds',
@@ -87,6 +88,8 @@ export class AltaDSPage {
             correo: ['', [Validators.required, Validators.email]],
             clave1: ['', Validators.required],
         });
+
+
     }
 
     get apellidos() {
