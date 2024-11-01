@@ -151,7 +151,7 @@ export class AltaDSPage {
             clave: this.clave1?.value,
             aprobado: 'pendiente',
             tipo: 'clienteRegistrado',
-            foto: this.userImage,
+            foto: url,
         };
 
         console.log(newClient);
