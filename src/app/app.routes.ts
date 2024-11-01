@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-    // {
-    //     path: '',
-    //     redirectTo: 'login',
-    //     pathMatch: 'full',
-    // },
+    {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+    },
     {
         path: 'home',
         loadComponent: () =>
@@ -16,11 +16,11 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./pages/login/login.page').then((m) => m.LoginPage),
     },
-    {
-        path: '',
-        redirectTo: 'alta-cliente', //modificar esto
-        pathMatch: 'full',
-    },
+    // {
+    //     path: '',
+    //     redirectTo: 'alta-cliente', //modificar esto
+    //     pathMatch: 'full',
+    // },
     {
         path: 'alta-cliente',
         loadComponent: () =>
