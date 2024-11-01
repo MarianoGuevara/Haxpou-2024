@@ -20,8 +20,13 @@ import {
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { PerfilesType } from 'src/app/interfaces/user-details.interface';
+import {
+    Cliente,
+    EstadoCliente,
+    PerfilesType,
+} from 'src/app/interfaces/user-details.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
     selector: 'app-auth-form',
@@ -44,6 +49,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class AuthFormComponent {
     private authService = inject(AuthService);
+    private dbService = inject(DatabaseService);
     private router = inject(Router);
     private fb = inject(FormBuilder);
     private spinner = inject(NgxSpinnerService);
@@ -74,7 +80,40 @@ export class AuthFormComponent {
         return this.credentials.get('password');
     }
 
+    private async checkClienteAprobado(): Promise<EstadoCliente> {
+        const res = await this.dbService.getCliente(
+            this.email?.value,
+            this.password?.value
+        );
+
+        if (res.docs.length === 0) {
+            return 'aprobado';
+        }
+
+        const cliente = res.docs[0].data() as Cliente;
+
+        return cliente.aprobado;
+    }
+
     public async login() {
+        const clientState = await this.checkClienteAprobado();
+        switch (clientState) {
+            case 'aprobado':
+                break;
+            case 'pendiente':
+                this.showAlert(
+                    'Error',
+                    'El cliente todavía esta pendiente de aprobación'
+                );
+                return;
+            case 'rechazado':
+                this.showAlert(
+                    'Error',
+                    'El cliente ha sido rechazado de la aplicación'
+                );
+                return;
+        }
+
         const user = await this.authService.login(
             this.email?.value,
             this.password?.value

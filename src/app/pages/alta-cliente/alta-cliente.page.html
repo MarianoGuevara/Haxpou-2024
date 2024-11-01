@@ -10,104 +10,6 @@
     </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content [fullscreen]="true" class="custom-background" style="width: 100%">
-    <div class="mt-2 flex flex-col p-4 gap-2 justify-center items-center">
-        <label
-            for="nombre"
-            >Nombre</label
-        >
-        <input
-            class="h-8"
-            type="text"
-            id="nombre"
-            name="nombre"
-            style="width: 70%; border-radius: 5px"
-        />
-    </div>
-    <div class="flex flex-col p-4 gap-2 items-center">
-        <label
-            style="
-                font-family: Georgia, 'Times New Roman', Times, serif;
-                color: white;
-            "
-            for="nombre"
-            >Apellido</label
-        >
-        <input
-            class="h-8"
-            type="text"
-            id="nombre"
-            name="nombre"
-            style="width: 70%; border-radius: 5px"
-        />
-    </div>
-    <div class="flex flex-col p-4 gap-2 items-center">
-        <label
-            style="
-                font-family: Georgia, 'Times New Roman', Times, serif;
-                color: white;
-            "
-            for="nombre"
-            >DNI</label
-        >
-        <input
-            class="h-8"
-            type="text"
-            id="nombre"
-            name="nombre"
-            style="width: 70%; border-radius: 5px"
-        />
-    </div>
-    <div class="flex flex-col p-4 gap-2 items-center">
-        <label
-            style="
-                font-family: Georgia, 'Times New Roman', Times, serif;
-                color: white;
-            "
-            for="nombre"
-            >Cuil</label
-        >
-        <input
-            class="h-8"
-            type="text"
-            id="nombre"
-            name="nombre"
-            style="width: 70%; border-radius: 5px"
-        />
-    </div>
-    <div class="flex flex-col p-4 gap-2 items-center">
-        <label
-            style="
-                font-family: Georgia, 'Times New Roman', Times, serif;
-                color: white;
-            "
-            for="nombre"
-            >Perfil</label
-        >
-        <input
-            class="h-8"
-            type="text"
-            id="nombre"
-            name="nombre"
-            style="width: 70%; border-radius: 5px"
-        />
-    </div>
-    <div class="flex flex-row pt-4 justify-center items-center">
-        <button
-            (click)="tomarFoto()"
-            class="custom-button"
-            style="background-color: #0c2b93"
-        >
-            Tomar foto
-        </button>
-    </div>
-    <div class="flex flex-row pt-4 justify-center items-center">
-        <button (click)="tomarFoto()" class="custom-button bg-gray-800">
-            Guardar
-        </button>
-    </div>
-</ion-content> -->
-
 <ion-content class="custom" [fullscreen]="true">
     <div class="h-[calc(100vh-56px)] p-4">
         <ion-fab class="mt-16" slot="fixed" horizontal="end" vertical="top">
@@ -197,28 +99,6 @@
                     color="danger"
                     class="absolute -bottom-6 text-red-500 text-lg"
                     >{{ obtenerMensajeError("dni") }}</ion-note
-                >
-                }
-            </div>
-
-            <!-- CUIL -->
-            <div class="relative">
-                <ion-input
-                    fill="solid"
-                    placeholder="CUIL"
-                    formControlName="cuil"
-                    type="number"
-                    class="w-full text-2xl"
-                    minlength="11"
-                    maxlength="11"
-                ></ion-input>
-                @if(this.cuil && this.cuil.touched &&
-                obtenerMensajeError("cuil") !== null){
-                <ion-note
-                    slot="error"
-                    color="danger"
-                    class="absolute -bottom-6 text-red-500 text-lg"
-                    >{{ obtenerMensajeError("cuil") }}</ion-note
                 >
                 }
             </div>

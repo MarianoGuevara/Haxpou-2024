@@ -10,18 +10,17 @@ export class EmailService {
     // usar asincronico; en .then salió todo bien
     async enviarCorreo(
         destinatarioNombre: string,
-        remitenteNombre: string,
         direccionCorreo: string,
         asunto: string,
-        cuerpo: string,
-        urlLogo: string
+        cuerpo: string
     ): Promise<void> {
         const templateParams = {
             to_name: destinatarioNombre,
-            from_name: remitenteNombre,
+            from_name: 'Haxpou',
             message: cuerpo,
             subject: asunto,
-            logo_url: urlLogo,
+            logo_url:
+                'https://firebasestorage.googleapis.com/v0/b/haxpou-2024.appspot.com/o/logo%2Flogo.png?alt=media&token=5cb2c0b6-6e5f-4bb1-b9ff-5f28632ed207',
             to_email: direccionCorreo,
         };
 

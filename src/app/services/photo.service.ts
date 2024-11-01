@@ -4,7 +4,6 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
-import { AuthService } from './auth.service';
 import { CollectionsNames } from '../utils/firebase-names.enum';
 
 @Injectable({
@@ -12,7 +11,6 @@ import { CollectionsNames } from '../utils/firebase-names.enum';
 })
 export class PhotoService {
     private storage = inject(AngularFireStorage);
-    private authService = inject(AuthService);
 
     constructor() {}
 
@@ -27,10 +25,6 @@ export class PhotoService {
     }
 
     async uploadPhoto(photoData: string): Promise<string | null> {
-        // const user = this.authService.currentUserSig();
-        // if (!user) {
-        //     throw new Error('User not logged in');
-        // }
         try {
             if (photoData !== '/assets/DefaultUser.png') {
                 const fileName = `${new Date().getTime()}_img.jpg`;
