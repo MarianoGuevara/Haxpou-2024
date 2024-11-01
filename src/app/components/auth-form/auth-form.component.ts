@@ -175,10 +175,10 @@ export class AuthFormComponent {
     }
 
     public fillInGuest(guest: PerfilesType) {
-        if (guest === 'dueno') {
+        if (guest === 'clienteRegistrado') {
             this.credentials.setValue({
-                email: 'guest1@guest.com',
-                password: 'guest1',
+                email: 'nagi@gmail.com',
+                password: '123456',
             });
         } else if (guest === 'supervisor') {
             this.credentials.setValue({
