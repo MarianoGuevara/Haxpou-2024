@@ -76,7 +76,6 @@ export class AltaDSPage {
             apellidos: ['', Validators.required],
             nombres: ['', Validators.required],
             dni: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
-            cuil: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
             correo: ['', [Validators.required, Validators.email]],
             clave1: ['', [Validators.required, Validators.minLength(6)]],
         });
@@ -227,10 +226,6 @@ export class AltaDSPage {
 
     get dni() {
         return this.credentials.get('dni');
-    }
-
-    get cuil() {
-        return this.credentials.get('cuil');
     }
 
     get correo() {

@@ -53,4 +53,14 @@ export class DatabaseService {
     }
     //Luego para utilizarlo nos suscribimos al metodo asi mientras esta en ejecucion y se agrega un cliente
     //este se va a actualizar
+
+    async getCliente(correo: string, clave: string) {
+        const clienteQuery = query(
+            collection(this.firestore, CollectionsNames.USUARIOS),
+            where('correo', '==', correo),
+            where('clave', '==', clave)
+        );
+        const clienteDocs = await getDocs(clienteQuery);
+        return clienteDocs;
+    }
 }

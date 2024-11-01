@@ -1,0 +1,29 @@
+{
+    "project_info": {
+        "project_number": "419100857783",
+        "project_id": "haxpou-2024",
+        "storage_bucket": "haxpou-2024.appspot.com"
+    },
+    "client": [
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:419100857783:android:ee054cd3a30b5f2cba8432",
+                "android_client_info": {
+                    "package_name": "io.haxpou.app"
+                }
+            },
+            "oauth_client": [],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyDPEQ7FukTBYaZw1qeUXb7uK3Eu50Soev0"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": []
+                }
+            }
+        }
+    ],
+    "configuration_version": "1"
+}

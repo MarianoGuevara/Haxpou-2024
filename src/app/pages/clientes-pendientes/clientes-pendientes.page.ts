@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
     IonContent,
@@ -26,6 +26,7 @@ import {
 import { DatabaseService } from 'src/app/services/database.service';
 import { Cliente } from 'src/app/interfaces/user-details.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { EmailService } from 'src/app/services/email.service';
 
 @Component({
     selector: 'app-clientes-pendientes',
@@ -51,6 +52,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
     ],
 })
 export class ClientesPendientesPage implements OnInit {
+    private emailService = inject(EmailService);
+
     clientes: Cliente[] = [];
 
     constructor(
@@ -72,6 +75,16 @@ export class ClientesPendientesPage implements OnInit {
     }
 
     actualizarCliente(cliente: Cliente, estado: 'rechazado' | 'aprobado') {
+        this.emailService.enviarCorreo(
+            cliente.nombre,
+            cliente.correo,
+            'Estado de aprobación',
+            `Hola ${cliente.nombre} ${
+                cliente.apellido
+            }, le informamos que luego de una revisión rigurosa por parte de nuestros encargados de administración, llegamos a la conclusión de que su cuenta ha sido ${
+                cliente.aprobado === 'aprobado' ? 'aprobada' : 'rechazada'
+            }.`
+        );
         cliente.aprobado = estado;
         this.db.actualizarCliente(cliente);
     }

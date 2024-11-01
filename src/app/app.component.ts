@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { PushService } from './services/push.service';
 
 @Component({
     selector: 'app-root',
@@ -8,6 +9,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     standalone: true,
     imports: [IonApp, IonRouterOutlet, NgxSpinnerModule],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+    private pushService = inject(PushService);
+
     constructor() {}
+
+    ngOnInit(): void {
+        this.pushService.init();
+    }
 }
