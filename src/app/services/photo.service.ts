@@ -27,6 +27,10 @@ export class PhotoService {
     }
 
     async uploadPhoto(photoData: string): Promise<string | null> {
+        // const user = this.authService.currentUserSig();
+        // if (!user) {
+        //     throw new Error('User not logged in');
+        // }
         try {
             if (photoData !== '/assets/DefaultUser.png') {
                 const fileName = `${new Date().getTime()}_img.jpg`;
