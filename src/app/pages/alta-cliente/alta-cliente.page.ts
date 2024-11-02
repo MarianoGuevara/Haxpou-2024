@@ -150,7 +150,7 @@ export class AltaDSPage {
             dni: this.dni?.value,
             clave: this.clave1?.value,
             aprobado: 'pendiente',
-            tipo: 'clienteRegistrado',
+            role: 'clienteRegistrado',
             foto: url,
 			situacion: 'out'
         };

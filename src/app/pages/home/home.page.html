@@ -1,48 +1,46 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-title>Inicio</ion-title>
-        <ion-button 
-			slot="end" 
-			class="mr-2" 
-			color="danger" 
-			(click)="logout()"
-		>
-		<img src="/assets/LogoutIcon.svg" class="w-6 h-auto" alt="" />
+        <ion-button slot="end" class="mr-2" color="danger" (click)="logout()">
+            <img src="/assets/LogoutIcon.svg" class="w-6 h-auto" alt="" />
         </ion-button>
     </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-	@if (true){
-		<!-- si el usuario es cliente  -->
-		<app-qr-inicio-app></app-qr-inicio-app>
-	} @else if (false) { 
-		<!-- si el usuario es dueño/supervisor  -->
-		<div class="grid grid-cols-1 h-[calc(100vh-56px)]">
-			<ion-button
-				expand="block"
-				class="pages-button text-2xl font-bold"
-				routerLink="/alta-cliente"
-				>Alta cliente</ion-button
-			>
-			<ion-button
-				expand="block"
-				class="pages-button text-2xl font-bold"
-				routerLink="/clientes-pendientes"
-				>Lista de espera</ion-button
-			>
-		</div>
-	}
-    @else {  
-		<!-- si el usuario es maitre  -->
-		<ion-button
-			expand="block"
-			class="pages-button text-2xl font-bold"
-			routerLink="/espera-clientes-maitre"
-			>Lista de espera</ion-button
-		>
-	}
+    <!-- Este if lo que hace es chequear si hay un usuario logueado (xq tarda un poco en cargar), y despues, asigna el usuario a la variable local currentUser -->
+    @if (this.authService.currentUserSig(); as currentUser) {
+    <!-- - -->
+    @if (currentUser.role === this.Perfiles.CLIENTE_REGISTRADO ||
+    currentUser.role === this.Perfiles.CLIENTE_ANONIMO) {
+    <!-- si el usuario es cliente  -->
+    <app-qr-inicio-app></app-qr-inicio-app>
+
+    } @else if (currentUser.role === this.Perfiles.DUENO || currentUser.role ===
+    this.Perfiles.SUPERVISOR) {
+    <!-- si el usuario es dueño/supervisor  -->
+    <div class="grid grid-cols-1 h-[calc(100vh-56px)]">
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            routerLink="/alta-cliente"
+            >Alta cliente</ion-button
+        >
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            routerLink="/clientes-pendientes"
+            >Lista de espera</ion-button
+        >
+    </div>
+	
+    } @else if(currentUser.role === this.Perfiles.MAITRE){
+    <!-- si el usuario es maitre  -->
+    <ion-button
+        expand="block"
+        class="pages-button text-2xl font-bold"
+        routerLink="/espera-clientes-maitre"
+        >Lista de espera</ion-button
+    >
+    } }
 </ion-content>
-
-
-

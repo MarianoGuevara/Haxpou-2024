@@ -6,22 +6,20 @@ export interface UserDetails {
     apellido?: string;
     dni?: number;
     foto: string; // url a storage
+    role: PerfilesType;
 }
 
 export interface Empleado extends UserDetails {
     cuil: number;
-    tipo: EmpleadoType;
 }
 
 export interface Supervisor extends UserDetails {
     cuil: number;
-    perfil: JefeType;
 }
 
 export interface Cliente extends UserDetails {
-    tipo: ClienteType;
     aprobado: EstadoCliente;
-	situacion: SituacionCliente
+    situacion: SituacionCliente;
 }
 
 export interface Producto {
@@ -42,8 +40,8 @@ export type EmpleadoType = 'maitre' | 'mozo' | 'cocinero' | 'bartender';
 
 export type ClienteType = 'clienteRegistrado' | 'clienteAnonimo';
 
-export type SituacionCliente =  'out' | 'enEspera' | 'mesaAsignado' 
-// out estado inicial... cuando scanea qr pasa a enEspera, despues cuando el maitre le asigna una mesa volvería a 
+export type SituacionCliente = 'out' | 'enEspera' | 'mesaAsignado';
+// out estado inicial... cuando scanea qr pasa a enEspera, despues cuando el maitre le asigna una mesa volvería a
 // cambiar y así... que opinan
 
 export type PerfilesType = JefeType | EmpleadoType | ClienteType;

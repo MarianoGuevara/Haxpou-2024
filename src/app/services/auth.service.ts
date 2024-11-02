@@ -31,14 +31,7 @@ export class AuthService {
         this.auth.onAuthStateChanged((authUser) => {
             // si hay un usuarios activo, recupero de firestore el perfil entero
             if (authUser) {
-                this.firestore
-                    .doc<UserDetails>(
-                        `${CollectionsNames.USUARIOS}/` + authUser.uid
-                    )
-                    .get()
-                    .subscribe((user) => {
-                        this.currentUserSig.set(user.data() as UserDetails);
-                    });
+                this.updateUserSignal(authUser);
             } else {
                 this.currentUserSig.set(null);
             }
@@ -60,31 +53,22 @@ export class AuthService {
     }
 
     private castUser(user: UserDetails): Cliente | Empleado | Supervisor {
-        let userCasted: Cliente | Empleado | Supervisor | null = null;
-        if (
-            (user as Empleado).tipo &&
-            ((user as Empleado).tipo === 'bartender' ||
-                (user as Empleado).tipo === 'cocinero' ||
-                (user as Empleado).tipo === 'maitre' ||
-                (user as Empleado).tipo === 'mozo')
-        ) {
-            userCasted = user as Empleado;
-        } else if (
-            (user as Supervisor).perfil &&
-            ((user as Supervisor).perfil === 'dueno' ||
-                (user as Supervisor).perfil === 'supervisor')
-        ) {
-            userCasted = user as Supervisor;
-        } else if (
-            (user as Cliente).tipo &&
-            ((user as Cliente).tipo === 'clienteRegistrado' ||
-                (user as Cliente).tipo === 'clienteAnonimo')
-        ) {
-            userCasted = user as Cliente;
-        }
-
-        return userCasted!;
+    switch (user.role) {
+        case 'mozo':
+        case 'cocinero':
+        case 'maitre':
+        case 'bartender':
+            return user as Empleado;
+        case 'dueno':
+        case 'supervisor':
+            return user as Supervisor;
+        case 'clienteRegistrado':
+        case 'clienteAnonimo':
+            return user as Cliente;
+        default:
+            throw new Error('Unknown role');
     }
+}
 
     // Registro de usuarios, puede ser paciente, especialista o admin
     public async register(newUser: UserDetails) {

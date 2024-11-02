@@ -1,0 +1,74 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button default-href="#"></ion-back-button>
+            <ion-title>Alta de Producto</ion-title>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="productForm" class="ion-padding">
+        <div class="photo-section">
+            <div *ngFor="let image of productImages; let i = index">
+                <img
+                    [src]="image"
+                    alt="Foto {{i + 1}}"
+                    (click)="onTakePhotoClick(i)"
+                />
+                <ion-note>Foto {{i + 1}}</ion-note>
+            </div>
+        </div>
+
+        <ion-input placeholder="Nombre" formControlName="nombre"></ion-input>
+        <ion-note
+            slot="error"
+            *ngIf="productForm.get('nombre')?.hasError('required')"
+        >
+            Nombre requerido
+        </ion-note>
+
+        <ion-input
+            placeholder="Descripción"
+            formControlName="descripcion"
+        ></ion-input>
+        <ion-note
+            slot="error"
+            *ngIf="productForm.get('descripcion')?.hasError('required')"
+        >
+            Descripción requerida
+        </ion-note>
+
+        <ion-input
+            placeholder="Tiempo de Elaboración (minutos)"
+            type="number"
+            formControlName="tiempoElaboracion"
+        ></ion-input>
+        <ion-note
+            slot="error"
+            *ngIf="productForm.get('tiempoElaboracion')?.hasError('min')"
+        >
+            Tiempo inválido
+        </ion-note>
+
+        <ion-input
+            placeholder="Precio"
+            type="number"
+            formControlName="precio"
+        ></ion-input>
+        <ion-note
+            slot="error"
+            *ngIf="productForm.get('precio')?.hasError('min')"
+        >
+            Precio inválido
+        </ion-note>
+
+        <ion-button
+            expand="block"
+            (click)="addProduct()"
+            [disabled]="!productForm.valid"
+        >
+            Añadir Producto
+        </ion-button>
+    </form>
+</ion-content>
