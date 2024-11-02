@@ -28,6 +28,7 @@ export class DatabaseService {
             this.firestore,
             CollectionsNames.USUARIOS
         );
+        doc(clientesCol);
     }
 
     actualizarCliente(cliente: Cliente): void {
@@ -64,7 +65,7 @@ export class DatabaseService {
         return clienteDocs;
     }
 
-	traerClientesEspera(): Observable<Cliente[]> {
+    traerClientesEspera(): Observable<Cliente[]> {
         const col = collection(this.firestore, CollectionsNames.USUARIOS);
 
         const clientes = query(col, where('situacion', '==', 'enEspera'));
@@ -73,5 +74,12 @@ export class DatabaseService {
         return collectionData(clientes, { idField: 'uid' }) as Observable<
             Cliente[]
         >;
+    }
+
+    // Funcion para agregar cualquier falopa harcodeada en firestore mas facil que hacerlo a mano
+    public agregarFalopaaaaaa(data: any, path: string) {
+        const coleccion = collection(this.firestore, path);
+
+        addDoc(coleccion, data);
     }
 }
