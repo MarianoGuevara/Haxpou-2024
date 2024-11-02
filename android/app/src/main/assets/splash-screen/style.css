@@ -69,19 +69,6 @@ body {
     justify-content: center;
 }
 
-/* Light mode styles */
-@media (prefers-color-scheme: light) {
-    .splash-screen {
-        background-color: white;
-    }
-
-    .splash-division {
-        color: #000000; /* Text color for light mode */
-    }
-}
-
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
     .splash-screen {
         background-color: #000000;
     }
@@ -89,7 +76,6 @@ body {
     .splash-division {
         color: white; /* Text color for dark mode */
     }
-}
 
 /* Keyframes for animations */
 @keyframes fadeIn {
