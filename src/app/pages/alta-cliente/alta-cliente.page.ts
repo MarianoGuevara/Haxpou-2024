@@ -152,6 +152,7 @@ export class AltaDSPage {
             aprobado: 'pendiente',
             tipo: 'clienteRegistrado',
             foto: url,
+			situacion: 'out'
         };
 
         console.log(newClient);

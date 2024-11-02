@@ -63,4 +63,15 @@ export class DatabaseService {
         const clienteDocs = await getDocs(clienteQuery);
         return clienteDocs;
     }
+
+	traerClientesEspera(): Observable<Cliente[]> {
+        const col = collection(this.firestore, CollectionsNames.USUARIOS);
+
+        const clientes = query(col, where('situacion', '==', 'enEspera'));
+
+        //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
+        return collectionData(clientes, { idField: 'uid' }) as Observable<
+            Cliente[]
+        >;
+    }
 }

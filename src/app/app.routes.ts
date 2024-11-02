@@ -35,4 +35,14 @@ export const routes: Routes = [
                 (m) => m.ClientesPendientesPage
             ),
     },
+	{
+		path: 'espera-clientes-maitre',
+		loadComponent: () => import('./pages/maitre-lista-espera/maitre-lista-espera.page').then( m => m.MaitreListaEsperaPage)
+	},
+	{
+		path: 'espera-cliente',
+		loadComponent: () => import('./pages/espera-cliente/espera-cliente.page').then( m => m.EsperaClientePage)
+	},
+
+
 ];

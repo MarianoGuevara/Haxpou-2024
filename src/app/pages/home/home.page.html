@@ -1,36 +1,48 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-title>Inicio</ion-title>
-        <ion-button
-            slot="end"
-            class="mr-2"
-            color="danger"
-            (click)="logout()"
-        >
-            <img src="/assets/LogoutIcon.svg" class="w-6 h-auto" alt="" />
+        <ion-button 
+			slot="end" 
+			class="mr-2" 
+			color="danger" 
+			(click)="logout()"
+		>
+		<img src="/assets/LogoutIcon.svg" class="w-6 h-auto" alt="" />
         </ion-button>
     </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <div class="grid grid-cols-1 h-[calc(100vh-56px)]">
-        <ion-button
-            expand="block"
-            class="pages-button text-2xl font-bold"
-            routerLink="/alta-cliente"
-            >Alta cliente</ion-button
-        >
-        <ion-button
-            expand="block"
-            class="pages-button text-2xl font-bold"
-            routerLink="/clientes-pendientes"
-            >Lista de espera</ion-button
-        >
-        <!-- <ion-button
-            expand="block"
-            class="pages-button text-2xl font-bold"
-            routerLink="/login"
-            >Login form</ion-button
-        > -->
-    </div>
+	@if (true){
+		<!-- si el usuario es cliente  -->
+		<app-qr-inicio-app></app-qr-inicio-app>
+	} @else if (false) { 
+		<!-- si el usuario es dueño/supervisor  -->
+		<div class="grid grid-cols-1 h-[calc(100vh-56px)]">
+			<ion-button
+				expand="block"
+				class="pages-button text-2xl font-bold"
+				routerLink="/alta-cliente"
+				>Alta cliente</ion-button
+			>
+			<ion-button
+				expand="block"
+				class="pages-button text-2xl font-bold"
+				routerLink="/clientes-pendientes"
+				>Lista de espera</ion-button
+			>
+		</div>
+	}
+    @else {  
+		<!-- si el usuario es maitre  -->
+		<ion-button
+			expand="block"
+			class="pages-button text-2xl font-bold"
+			routerLink="/espera-clientes-maitre"
+			>Lista de espera</ion-button
+		>
+	}
 </ion-content>
+
+
+

@@ -26,7 +26,7 @@ export class AuthService {
     private spinner = inject(NgxSpinnerService);
     currentUserSig = signal<UserDetails | null | undefined>(undefined);
 
-    constructor() {
+    ngOnInit(): void {
         this.auth.onAuthStateChanged((authUser) => {
             // si hay un usuarios activo, recupero de firestore el perfil entero
             if (authUser) {
@@ -77,7 +77,7 @@ export class AuthService {
         } else if (
             (user as Cliente).tipo &&
             ((user as Cliente).tipo === 'clienteRegistrado' ||
-                (user as Cliente).tipo === 'clienteAnonimo')
+			(user as Cliente).tipo === 'clienteAnonimo')
         ) {
             userCasted = user as Cliente;
         }
