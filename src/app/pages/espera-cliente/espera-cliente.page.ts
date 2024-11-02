@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {
     IonHeader,
@@ -8,7 +8,7 @@ import {
     IonButton,
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
-import { QrInicioAppComponent } from "../../components/qr-inicio-app/qr-inicio-app.component";
+import { QrInicioAppComponent } from '../../components/qr-inicio-app/qr-inicio-app.component';
 import { DatabaseService } from 'src/app/services/database.service';
 import { CommonModule } from '@angular/common';
 import {
@@ -34,42 +34,39 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { EmailService } from 'src/app/services/email.service';
 
 @Component({
-  selector: 'app-espera-cliente',
-  templateUrl: './espera-cliente.page.html',
-  styleUrls: ['./espera-cliente.page.scss'],
-  standalone: true,
-  imports: [
-	IonContent,
-	IonHeader,
-	IonTitle,
-	IonToolbar,
-	CommonModule,
-	FormsModule,
-	IonBackButton,
-	IonButton,
-	IonButtons,
-	IonNote,
-	IonFab,
-	IonFabButton,
-	IonInputPasswordToggle,
-	ReactiveFormsModule,
-	IonInput,
-    RouterLink,
-    QrInicioAppComponent
-  ]
+    selector: 'app-espera-cliente',
+    templateUrl: './espera-cliente.page.html',
+    styleUrls: ['./espera-cliente.page.scss'],
+    standalone: true,
+    imports: [
+        IonContent,
+        IonHeader,
+        IonTitle,
+        IonToolbar,
+        CommonModule,
+        FormsModule,
+        IonBackButton,
+        IonButton,
+        IonButtons,
+        IonNote,
+        IonFab,
+        IonFabButton,
+        IonInputPasswordToggle,
+        ReactiveFormsModule,
+        IonInput,
+        RouterLink,
+        QrInicioAppComponent,
+    ],
 })
-export class EsperaClientePage {
-	db = inject(DatabaseService);
-	authService = inject(AuthService);
+export class EsperaClientePage{
+    db = inject(DatabaseService);
+    authService = inject(AuthService);
 
-	constructor() { }
+    constructor() {}
 
-	ngOnInit() {
+    // ngOnInit() {}
 
-	}
-
-	async entrarEnListaEspera(cliente:any) {
-		// await this.db.actualizarCliente();
-	}
-
+    async entrarEnListaEspera(cliente: any) {
+        // await this.db.actualizarCliente();
+    }
 }

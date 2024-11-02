@@ -1,9 +1,10 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal, OnInit } from '@angular/core';
 import {
     Auth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
+    User,
 } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { CollectionsNames } from '../utils/firebase-names.enum';
@@ -26,7 +27,7 @@ export class AuthService {
     private spinner = inject(NgxSpinnerService);
     currentUserSig = signal<UserDetails | null | undefined>(undefined);
 
-    ngOnInit(): void {
+    constructor() {
         this.auth.onAuthStateChanged((authUser) => {
             // si hay un usuarios activo, recupero de firestore el perfil entero
             if (authUser) {
@@ -77,7 +78,7 @@ export class AuthService {
         } else if (
             (user as Cliente).tipo &&
             ((user as Cliente).tipo === 'clienteRegistrado' ||
-			(user as Cliente).tipo === 'clienteAnonimo')
+                (user as Cliente).tipo === 'clienteAnonimo')
         ) {
             userCasted = user as Cliente;
         }
@@ -110,18 +111,37 @@ export class AuthService {
     public async login(email: string, password: string) {
         this.spinner.show();
         try {
-            const user = await signInWithEmailAndPassword(
+            const userCredentials = await signInWithEmailAndPassword(
                 this.auth,
                 email,
                 password
             );
+
+            this.currentUserSig.set(undefined);
+            await this.updateUserSignal(userCredentials.user);
+
+            console.log(this.currentUserSig());
+
             this.spinner.hide();
-            return user;
+            return userCredentials;
         } catch (error) {
             console.error(error);
             this.spinner.hide();
             return null;
         }
+    }
+
+    private async updateUserSignal(authUser: User) {
+        const user = await this.getUserFromFirestore(authUser).toPromise();
+        const userDetails = user!.data() as UserDetails;
+
+        this.currentUserSig.set(userDetails);
+    }
+
+    private getUserFromFirestore(authUser: User) {
+        return this.firestore
+            .doc<UserDetails>(`${CollectionsNames.USUARIOS}/` + authUser.uid)
+            .get();
     }
 
     // Cierre de sesión
