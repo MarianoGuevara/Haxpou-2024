@@ -21,6 +21,7 @@ export interface Supervisor extends UserDetails {
 export interface Cliente extends UserDetails {
     tipo: ClienteType;
     aprobado: EstadoCliente;
+	situacion: SituacionCliente
 }
 
 export interface Producto {
@@ -40,5 +41,9 @@ export type JefeType = 'dueno' | 'supervisor';
 export type EmpleadoType = 'maitre' | 'mozo' | 'cocinero' | 'bartender';
 
 export type ClienteType = 'clienteRegistrado' | 'clienteAnonimo';
+
+export type SituacionCliente =  'out' | 'enEspera' | 'mesaAsignado' 
+// out estado inicial... cuando scanea qr pasa a enEspera, despues cuando el maitre le asigna una mesa volvería a 
+// cambiar y así... que opinan
 
 export type PerfilesType = JefeType | EmpleadoType | ClienteType;

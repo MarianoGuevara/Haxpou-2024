@@ -97,6 +97,7 @@ export class AuthFormComponent {
 
     public async login() {
         const clientState = await this.checkClienteAprobado();
+		// console.log(clientState);
         switch (clientState) {
             case 'aprobado':
                 break;
@@ -184,6 +185,11 @@ export class AuthFormComponent {
             this.credentials.setValue({
                 email: 'guest2@guest.com',
                 password: 'guest2',
+            });
+        } else if (guest === 'clienteAnonimo') {
+            this.credentials.setValue({
+                email: 'anonimo1@gmail.com',
+                password: '123456',
             });
         }
         // seguir...
