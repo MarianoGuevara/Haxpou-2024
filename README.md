@@ -27,41 +27,43 @@
 | Valentín Gradia, Mariano Guevara   | 28/10  | 31/10 | `guevara` |
 
 
-## Altas
+## Puntos
 
-#### Página previa de altas
-
-| Encargado/s       | Inicio | Final | Rama     |
-| :---------------- | :----- | :---- | :------- |
-| Mariano Guevara   | 30/10  | xx/10 | `guevara` |
-
-#### Alta de dueño / supervisor
+### 1)
+#### Alta cliente
 
 | Encargado/s       | Inicio | Final | Rama     |
 | :---------------- | :----- | :---- | :------- |
-| Valentín Gradia   | 30/10  | xx/10 | `valentin` |
+| Franco Jimenez    | 30/10  | 1/11 | `jimenez` |
 
-#### Alta de empleados
-
-| Encargado/s       | Inicio | Final | Rama     |
-| :---------------- | :----- | :---- | :------- |
-| Valentín Gradia   | 30/10  | xx/10 | `valentin` |
-
-#### Alta de clientes
+### 2)
+#### Listado clientes pendientes de aprobación
 
 | Encargado/s       | Inicio | Final | Rama     |
 | :---------------- | :----- | :---- | :------- |
-| Franco Jimenez    | 30/10  | xx/10 | `jimenez` |
+| Valentín Gradia   | 30/10  | 1/11 | `valentin` |
 
-#### Alta de Mesa
-
-| Encargado/s       | Inicio | Final | Rama     |
-| :---------------- | :----- | :---- | :------- |
-| Mariano Guevara   | 30/10  | xx/10 | `guevara` |
-
-#### Alta de productos
+#### Diseño y lógica de alerts
 
 | Encargado/s       | Inicio | Final | Rama     |
 | :---------------- | :----- | :---- | :------- |
-| Franco Jimenez    | 30/10  | xx/10 | `jimenez` |
+| Mariano Guevara   | 30/10  | 31/10 | `guevara` |
+
+#### Lógica de aprobación o rechazo de cliente
+
+| Encargado/s       | Inicio | Final | Rama     |
+| :---------------- | :----- | :---- | :------- |
+| Franco Jimenez    | 30/10  | 1/11 | `jimenez` |
+
+#### Lógica de mandado de correo electrónico
+
+| Encargado/s       | Inicio | Final | Rama     |
+| :---------------- | :----- | :---- | :------- |
+| Mariano Guevara   | 30/10  | 31/10 | `guevara` |
+
+#### Push notifications
+
+| Encargado/s       | Inicio | Final | Rama     |
+| :---------------- | :----- | :---- | :------- |
+| Valentín Gradia, Franco Jimenez    | 30/10  | 1/11 | `jimenez - valentin`  |
 
