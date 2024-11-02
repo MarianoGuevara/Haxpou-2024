@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
     IonButton,
@@ -17,47 +17,47 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { QrscannerService } from 'src/app/services/qrscanner.service';
 
 @Component({
-  selector: 'app-qr-inicio-app',
-  standalone: true,
-  templateUrl: './qr-inicio-app.component.html',
-  styleUrls: ['./qr-inicio-app.component.scss'],
-  imports: [
-	CommonModule,
-	IonButton,
-	IonInput,
-	IonLabel,
-	IonItem,
-	IonCard,
-	IonContent,
-	IonNote,
-	IonInputPasswordToggle,
-  ]
+    selector: 'app-qr-inicio-app',
+    standalone: true,
+    templateUrl: './qr-inicio-app.component.html',
+    styleUrls: ['./qr-inicio-app.component.scss'],
+    imports: [
+        CommonModule,
+        IonButton,
+        IonInput,
+        IonLabel,
+        IonItem,
+        IonCard,
+        IonContent,
+        IonNote,
+        IonInputPasswordToggle,
+    ],
 })
 export class QrInicioAppComponent {
-	qrScannService = inject(QrscannerService);
+    qrScannService = inject(QrscannerService);
     alertController = inject(AlertController);
-	router = inject(Router);
-	authServie = inject(AuthService);
+    router = inject(Router);
+    authServie = inject(AuthService);
 
-	constructor() { }
+    constructor() {}
 
-	ngOnInit() {}
+    // ngOnInit() {}
 
-	async scanearQrInicioApp(){
-		console.log(this.authServie.currentUserSig());
-		this.router.navigate(["/espera-cliente"]);
-		// const rta = await this.qrScannService.startScan();
+    async scanearQrInicioApp() {
+        console.log(this.authServie.currentUserSig());
+        this.router.navigate(['/espera-cliente']);
+        // const rta = await this.qrScannService.startScan();
 
-		// if (rta == "ClienteListaDeEsperaMaitre") {
-		// 	// this.showAlert("Habilitado", "Usted entró al local. Será redirigido al sector ")
-		// 	this.router.navigate(["/espera-cliente"]);
-		// }
-		// else {
-		// 	this.showAlert("QR inválido", "El QR leido no es el correcto para ingresar al local");
-		// }
-	}
+        // if (rta == "ClienteListaDeEsperaMaitre") {
+        // 	// this.showAlert("Habilitado", "Usted entró al local. Será redirigido al sector ")
+        // 	this.router.navigate(["/espera-cliente"]);
+        // }
+        // else {
+        // 	this.showAlert("QR inválido", "El QR leido no es el correcto para ingresar al local");
+        // }
+    }
 
-	private async showAlert(header: string, message: string) {
+    private async showAlert(header: string, message: string) {
         const alert = await this.alertController.create({
             header,
             message,
