@@ -44,8 +44,9 @@ export class QrInicioAppComponent {
     // ngOnInit() {}
 
     async scanearQrInicioApp() {
-        // console.log(this.authServie.currentUserSig());
         this.router.navigate(['/espera-cliente']);
+
+		
         // const rta = await this.qrScannService.startScan();
 
         // if (rta == "ClienteListaDeEsperaMaitre") {

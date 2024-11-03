@@ -35,6 +35,10 @@ export class HomePage {
 
     constructor() {}
 
+	ngOnInit(): void {
+		console.log("HOME -> ", this.authService.currentUserSig());
+	}
+
     protected logout() {
         this.authService.logout();
         this.router.navigateByUrl('/login');
