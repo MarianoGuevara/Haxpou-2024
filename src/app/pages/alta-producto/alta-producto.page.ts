@@ -23,7 +23,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PhotoService } from 'src/app/services/photo.service';
 import { DatabaseService } from 'src/app/services/database.service';
-import { Producto } from 'src/app/interfaces/user-details.interface';
+import { Producto } from 'src/app/interfaces/app.interface';
 
 @Component({
     selector: 'app-alta-producto',

@@ -13,7 +13,7 @@ import {
     Empleado,
     Supervisor,
     UserDetails,
-} from '../interfaces/user-details.interface';
+} from '../interfaces/app.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { map, Observable } from 'rxjs';
 import { collection, getDocs, query, where } from '@angular/fire/firestore';
@@ -53,22 +53,22 @@ export class AuthService {
     }
 
     private castUser(user: UserDetails): Cliente | Empleado | Supervisor {
-    switch (user.role) {
-        case 'mozo':
-        case 'cocinero':
-        case 'maitre':
-        case 'bartender':
-            return user as Empleado;
-        case 'dueno':
-        case 'supervisor':
-            return user as Supervisor;
-        case 'clienteRegistrado':
-        case 'clienteAnonimo':
-            return user as Cliente;
-        default:
-            throw new Error('Unknown role');
+        switch (user.role) {
+            case 'mozo':
+            case 'cocinero':
+            case 'maitre':
+            case 'bartender':
+                return user as Empleado;
+            case 'dueno':
+            case 'supervisor':
+                return user as Supervisor;
+            case 'clienteRegistrado':
+            case 'clienteAnonimo':
+                return user as Cliente;
+            default:
+                throw new Error('Unknown role');
+        }
     }
-}
 
     // Registro de usuarios, puede ser paciente, especialista o admin
     public async register(newUser: UserDetails) {

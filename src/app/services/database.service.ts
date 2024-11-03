@@ -13,7 +13,7 @@ import {
     where,
     query,
 } from '@angular/fire/firestore';
-import { Cliente } from '../interfaces/user-details.interface';
+import { Cliente } from '../interfaces/app.interface';
 import { Observable } from 'rxjs';
 import { CollectionsNames } from '../utils/firebase-names.enum';
 

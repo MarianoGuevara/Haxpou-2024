@@ -24,10 +24,7 @@ import {
     IonInput,
 } from '@ionic/angular/standalone';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import {
-    Cliente,
-    UserDetails,
-} from 'src/app/interfaces/user-details.interface';
+import { Cliente, UserDetails } from 'src/app/interfaces/app.interface';
 import { QrscannerService } from 'src/app/services/qrscanner.service';
 import { PhotoService } from 'src/app/services/photo.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -152,7 +149,7 @@ export class AltaDSPage {
             aprobado: 'pendiente',
             role: 'clienteRegistrado',
             foto: url,
-			situacion: 'out'
+            situacion: 'out',
         };
 
         console.log(newClient);

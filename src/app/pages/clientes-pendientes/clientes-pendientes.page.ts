@@ -24,7 +24,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { DatabaseService } from 'src/app/services/database.service';
-import { Cliente } from 'src/app/interfaces/user-details.interface';
+import { Cliente } from 'src/app/interfaces/app.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EmailService } from 'src/app/services/email.service';
 

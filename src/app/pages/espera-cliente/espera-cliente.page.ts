@@ -29,7 +29,7 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
-import { Cliente } from 'src/app/interfaces/user-details.interface';
+import { Cliente } from 'src/app/interfaces/app.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EmailService } from 'src/app/services/email.service';
 
@@ -58,7 +58,7 @@ import { EmailService } from 'src/app/services/email.service';
         QrInicioAppComponent,
     ],
 })
-export class EsperaClientePage{
+export class EsperaClientePage {
     db = inject(DatabaseService);
     authService = inject(AuthService);
 

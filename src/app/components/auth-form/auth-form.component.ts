@@ -24,7 +24,7 @@ import {
     Cliente,
     EstadoCliente,
     PerfilesType,
-} from 'src/app/interfaces/user-details.interface';
+} from 'src/app/interfaces/app.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DatabaseService } from 'src/app/services/database.service';
 
@@ -97,7 +97,7 @@ export class AuthFormComponent {
 
     public async login() {
         const clientState = await this.checkClienteAprobado();
-		// console.log(clientState);
+        // console.log(clientState);
         switch (clientState) {
             case 'aprobado':
                 break;
