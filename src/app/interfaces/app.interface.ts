@@ -7,6 +7,7 @@ export interface UserDetails {
     dni?: number;
     foto: string; // url a storage
     role: PerfilesType;
+    token?: string; // para las push notifications (identifica al celular al cual mandarlas)
 }
 
 export interface Empleado extends UserDetails {

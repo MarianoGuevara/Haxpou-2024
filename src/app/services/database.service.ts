@@ -13,7 +13,7 @@ import {
     where,
     query,
 } from '@angular/fire/firestore';
-import { Cliente } from '../interfaces/app.interface';
+import { Cliente, UserDetails } from '../interfaces/app.interface';
 import { Observable } from 'rxjs';
 import { CollectionsNames } from '../utils/firebase-names.enum';
 
@@ -81,5 +81,18 @@ export class DatabaseService {
         const coleccion = collection(this.firestore, path);
 
         addDoc(coleccion, data);
+    }
+
+    updateUserWithTokenForPushNotifications(
+        usuario: UserDetails,
+        token: string
+    ): void {
+        const col = collection(this.firestore, CollectionsNames.USUARIOS);
+
+        //Referencia hacia el documento de firebase
+        const documento = doc(col, usuario.uid);
+
+        // seteo el token para identificar al usuario para mandar push notifications
+        updateDoc(documento, { ...usuario, token });
     }
 }
