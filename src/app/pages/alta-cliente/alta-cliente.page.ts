@@ -24,12 +24,12 @@ import {
     IonInput,
 } from '@ionic/angular/standalone';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { Cliente, UserDetails } from 'src/app/interfaces/app.interface';
+import { Cliente, Supervisor, UserDetails } from 'src/app/interfaces/app.interface';
 import { QrscannerService } from 'src/app/services/qrscanner.service';
 import { PhotoService } from 'src/app/services/photo.service';
-import { DatabaseService } from 'src/app/services/database.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/services/auth.service';
+import { SendPushService } from 'src/app/services/api-push.service';
 
 @Component({
     selector: 'app-alta-cliente',
@@ -61,6 +61,7 @@ export class AltaDSPage {
     private photoService = inject(PhotoService);
     private spinner = inject(NgxSpinnerService);
     private authService = inject(AuthService);
+    private sendPushService = inject(SendPushService);
 
     protected userImage = '/assets/DefaultUser.png';
     private content: string[] = [];
@@ -140,21 +141,28 @@ export class AltaDSPage {
             return;
         }
 
-        const newClient: Cliente = {
+        const newClient: Supervisor = {
             nombre: this.nombres?.value,
             apellido: this.apellidos?.value,
             correo: this.correo?.value,
             dni: this.dni?.value,
             clave: this.clave1?.value,
-            aprobado: 'pendiente',
-            role: 'clienteRegistrado',
+            // aprobado: 'pendiente',
+			cuil: 20222333446,
+            role: 'supervisor',
             foto: url,
-            situacion: 'out',
+            // situacion: 'out',
         };
 
         console.log(newClient);
 
         await this.authService.register(newClient);
+
+        this.sendPushService.sendToRole(
+            'Nuevo cliente',
+            'Un nuevo cliente esta pendiente de aprobación',
+            'supervisor'
+        );
 
         this.spinner.hide();
 

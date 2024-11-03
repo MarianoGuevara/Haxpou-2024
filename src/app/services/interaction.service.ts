@@ -51,7 +51,7 @@ export class InteractionService {
         header: string,
         message: string,
         textCANCEL: string = '',
-        textOK: string = 'OK'
+        textOK: string = 'VALE'
     ): Promise<boolean> {
         return new Promise(async (resolve) => {
             let buttons = [];
