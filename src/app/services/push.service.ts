@@ -8,6 +8,9 @@ import {
 } from '@capacitor/push-notifications';
 import { InteractionService } from './interaction.service';
 import { Router } from '@angular/router';
+import { DatabaseService } from './database.service';
+import { UserDetails } from '../interfaces/app.interface';
+import { AuthService } from './auth.service';
 
 export const FCM_TOKEN = 'push_notification_token';
 
@@ -16,6 +19,8 @@ export const FCM_TOKEN = 'push_notification_token';
 })
 export class PushService {
     private interactionService: InteractionService = inject(InteractionService);
+    private dbService = inject(DatabaseService);
+    private authService = inject(AuthService);
     private enable: boolean = false;
 
     constructor(private route: Router) {}
@@ -59,7 +64,10 @@ export class PushService {
             'pushNotificationReceived',
             (notification: PushNotificationSchema) => {
                 // alert('Push received: ' + JSON.stringify(notification));
-                // this.interactionService.presentAlert('Notificación', `${JSON.stringify(notification)}`)
+                this.interactionService.presentAlert(
+                    'Notificación',
+                    `${JSON.stringify(notification)}`
+                );
             }
         );
 
@@ -79,8 +87,20 @@ export class PushService {
     }
 
     private async saveToken(token: string) {
-        const path = 'Token';
         console.log('saveToken -> ', token);
+
+        const currentUser = this.authService.currentUserSig() as UserDetails;
+        console.log('Usuario -> ', currentUser);
+
+        try {
+            await this.dbService.updateUserWithTokenForPushNotifications(
+                currentUser,
+                token
+            );
+        } catch (error) {
+            this.interactionService.presentAlert('Error', error as string);
+        }
+
         // const data = await this.localStorageService.getData(path);
         // console.log('get token saved -> ', data);
         // if (data) {

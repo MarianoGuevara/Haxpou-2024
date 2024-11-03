@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { PushService } from './services/push.service';
 import { register } from 'swiper/element/bundle';
 
 // para lo de swiper de deslizar las imagenes de los productos
@@ -13,12 +12,6 @@ register();
     standalone: true,
     imports: [IonApp, IonRouterOutlet, NgxSpinnerModule],
 })
-export class AppComponent implements OnInit {
-    private pushService = inject(PushService);
-
+export class AppComponent {
     constructor() {}
-
-    ngOnInit(): void {
-        this.pushService.init();
-    }
 }
