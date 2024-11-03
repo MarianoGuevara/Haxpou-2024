@@ -49,7 +49,7 @@ export const routes: Routes = [
                 (m) => m.EsperaClientePage
             ),
     },
-    {
+    {// solo para tests vvvv
         path: 'alta-producto',
         loadComponent: () =>
             import('./pages/alta-producto/alta-producto.page').then(
