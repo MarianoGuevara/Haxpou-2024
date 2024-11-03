@@ -51,38 +51,55 @@
             Inicio rápido con:
         </p>
         <div class="quick-buttons grid grid-cols-4">
-            <ion-button fill="solid" class="btn" (click)="this.aaaaaaaaaaaaaa()"
+            <ion-button
+                fill="solid"
+                class="btn"
+                (click)="this.fillInGuest('cocinero')"
                 ><img
                     src="assets/inicios_rapidos/cocinero.png"
                     width="40px"
                     height="auto"
             /></ion-button>
-            <ion-button fill="solid" class="btn"
+            <ion-button
+                fill="solid"
+                class="btn"
+                (click)="this.fillInGuest('bartender')"
                 ><img
                     src="assets/inicios_rapidos/barman.png"
                     width="40px"
                     height="auto"
             /></ion-button>
-            <ion-button fill="solid" class="btn"
+            <ion-button
+                fill="solid"
+                class="btn"
+                (click)="this.fillInGuest('mozo')"
                 ><img
                     src="assets/inicios_rapidos/mesero.png"
                     width="40px"
                     height="auto"
             /></ion-button>
-            <ion-button fill="solid" class="btn"
+            <ion-button
+                fill="solid"
+                class="btn"
+                (click)="this.fillInGuest('clienteAnonimo')"
                 ><img
                     src="assets/inicios_rapidos/anonimo.png"
                     width="40px"
                     height="auto"
-					(click)="this.fillInGuest('clienteAnonimo')"
             /></ion-button>
-            <ion-button fill="solid" class="btn"
+            <ion-button
+                fill="solid"
+                class="btn"
+                (click)="this.fillInGuest('dueno')"
                 ><img
                     src="assets/inicios_rapidos/dueño.png"
                     width="40px"
                     height="auto"
             /></ion-button>
-            <ion-button fill="solid" class="btn"
+            <ion-button
+                fill="solid"
+                class="btn"
+                (click)="this.fillInGuest('supervisor')"
                 ><img
                     src="assets/inicios_rapidos/supervisor.png"
                     width="40px"
@@ -97,7 +114,11 @@
                     width="40px"
                     height="auto"
             /></ion-button>
-            <ion-button fill="solid" class="btn" (click)="this.fillInGuest('maitre')"
+
+            <ion-button
+                fill="solid"
+                class="btn"
+                (click)="this.fillInGuest('maitre')"
                 ><img
                     src="assets/inicios_rapidos/jefe_1.png"
                     width="40px"

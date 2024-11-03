@@ -183,8 +183,8 @@ export class AuthFormComponent {
             });
         } else if (guest === 'supervisor') {
             this.credentials.setValue({
-                email: 'guest2@guest.com',
-                password: 'guest2',
+                email: 'supervisor.hx@gmail.com',
+                password: '123456',
             });
         } else if (guest === 'clienteAnonimo') {
             this.credentials.setValue({

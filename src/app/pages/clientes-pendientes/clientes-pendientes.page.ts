@@ -85,6 +85,7 @@ export class ClientesPendientesPage implements OnInit {
                 cliente.aprobado === 'aprobado' ? 'aprobada' : 'rechazada'
             }.`
         );
+
         cliente.aprobado = estado;
         this.db.actualizarCliente(cliente);
     }
