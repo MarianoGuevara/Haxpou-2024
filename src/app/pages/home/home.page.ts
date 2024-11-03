@@ -10,7 +10,7 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { QrInicioAppComponent } from '../../components/qr-inicio-app/qr-inicio-app.component';
 import { Perfiles } from 'src/app/utils/perfiles.enum';
-import { PerfilesType } from 'src/app/interfaces/user-details.interface';
+import { PerfilesType } from 'src/app/interfaces/app.interface';
 
 @Component({
     selector: 'app-home',

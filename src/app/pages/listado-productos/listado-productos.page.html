@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>Listado de productos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div
+        class="grid grid-cols-1 gap-4 p-4"
+    >
+        @for(producto of this.productos;track $index){
+
+        <app-product-card [producto]="producto"></app-product-card>
+
+        }
+    </div>
+</ion-content>

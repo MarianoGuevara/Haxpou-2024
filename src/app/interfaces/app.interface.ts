@@ -22,16 +22,6 @@ export interface Cliente extends UserDetails {
     situacion: SituacionCliente;
 }
 
-export interface Producto {
-    uid?: string;
-    nombre: string;
-    descripcion: string;
-    tiempoElaboracion: number;
-    precio: number;
-    fotos: string[];
-    qr: string;
-}
-
 export type EstadoCliente = 'pendiente' | 'aprobado' | 'rechazado';
 
 export type JefeType = 'dueno' | 'supervisor';
@@ -45,3 +35,13 @@ export type SituacionCliente = 'out' | 'enEspera' | 'mesaAsignado';
 // cambiar y así... que opinan
 
 export type PerfilesType = JefeType | EmpleadoType | ClienteType;
+
+export interface Producto {
+    uid?: string;
+    nombre: string;
+    descripcion: string;
+    tiempoElaboracion: number; // en minutos
+    precio: number;
+    fotos: string[];
+    qr: string;
+}
