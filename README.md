@@ -65,5 +65,25 @@
 
 | Encargado/s       | Inicio | Final | Rama     |
 | :---------------- | :----- | :---- | :------- |
-| Valentín Gradia, Franco Jimenez    | 30/10  | 1/11 | `jimenez - valentin`  |
+| Valentín Gradia, Franco Jimenez    | 30/10  | 3/11 | `jimenez - valentin`  |
 
+### 4)
+#### Funcionalidad completa punto 4
+
+| Encargado/s       | Inicio | Final | Rama     |
+| :---------------- | :----- | :---- | :------- |
+| Mariano Guevara   | 1/11  | 4/11 | `guevara` |
+
+### 5)
+#### Funcionalidad completa punto 5
+
+| Encargado/s       | Inicio | Final | Rama     |
+| :---------------- | :----- | :---- | :------- |
+| Valentín Gradia   | 1/11  | 4/11 | `valentin` |
+
+### 6)
+#### Funcionalidad completa punto 6
+
+| Encargado/s       | Inicio | Final | Rama     |
+| :---------------- | :----- | :---- | :------- |
+| Franco Jimenez    | 1/11  | 4/11 | `jimenez` |
