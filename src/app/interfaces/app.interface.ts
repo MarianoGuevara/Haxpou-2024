@@ -46,3 +46,11 @@ export interface Producto {
     fotos: string[];
     qr: string;
 }
+
+export interface Mesa{
+    uid?: string;
+    numero: number;
+    qr: string;
+    disponible: boolean;
+    idCliente?: string;
+}
