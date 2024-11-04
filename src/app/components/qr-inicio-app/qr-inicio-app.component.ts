@@ -15,6 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { QrscannerService } from 'src/app/services/qrscanner.service';
+import { SendPushService } from 'src/app/services/api-push.service';
 
 @Component({
     selector: 'app-qr-inicio-app',
@@ -36,6 +37,7 @@ import { QrscannerService } from 'src/app/services/qrscanner.service';
 export class QrInicioAppComponent {
     qrScannService = inject(QrscannerService);
     alertController = inject(AlertController);
+    sendPush = inject(SendPushService);
     router = inject(Router);
     authServie = inject(AuthService);
 
@@ -44,17 +46,23 @@ export class QrInicioAppComponent {
     // ngOnInit() {}
 
     async scanearQrInicioApp() {
-        this.router.navigate(['/espera-cliente']); // <-
-
-        // const rta = await this.qrScannService.startScan();
-
-        // if (rta == "ClienteListaDeEsperaMaitre") {
-        // 	// this.showAlert("Habilitado", "Usted entró al local. Será redirigido al sector ")
-        // 	this.router.navigate(["/espera-cliente"]);
-        // }
-        // else {
-        // 	this.showAlert("QR inválido", "El QR leido no es el correcto para ingresar al local");
-        // }
+        // this.router.navigate(['/espera-cliente']); // <-
+        const rta = await this.qrScannService.startScan();
+        if (rta == 'ClienteListaDeEsperaMaitre') {
+            this.router.navigate(['/espera-cliente']);
+            this.sendPush.sendToRole(
+                'Cliente en lista de espera',
+                'El cliente "' +
+                    this.authServie.currentUserSig()?.nombre +
+                    '" ingresó en la lista de espera.',
+                'maitre'
+            );
+        } else {
+            this.showAlert(
+                'QR inválido',
+                'El QR leido no es el correcto para ingresar al local'
+            );
+        }
     }
 
     private async showAlert(header: string, message: string) {
