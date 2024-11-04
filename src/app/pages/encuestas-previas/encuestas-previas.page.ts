@@ -8,7 +8,7 @@ import {
     IonButton,
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
-import { QrInicioAppComponent } from '../../components/qr-inicio-app/qr-inicio-app.component';
+import { QrInicioAppComponent } from '../../components/homes/qr-inicio-app/qr-inicio-app.component';
 import { DatabaseService } from 'src/app/services/database.service';
 import { CommonModule } from '@angular/common';
 import {

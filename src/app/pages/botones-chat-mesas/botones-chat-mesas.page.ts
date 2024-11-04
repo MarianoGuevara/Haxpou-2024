@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -6,17 +6,16 @@ import {
     IonHeader,
     IonTitle,
     IonToolbar,
-    IonButton,
     IonButtons,
+    IonButton,
     IonBackButton,
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-    selector: 'app-realizar-pedido',
-    templateUrl: './realizar-pedido.page.html',
-    styleUrls: ['./realizar-pedido.page.scss'],
+    selector: 'app-botones-chat-mesas',
+    templateUrl: './botones-chat-mesas.page.html',
+    styleUrls: ['./botones-chat-mesas.page.scss'],
     standalone: true,
     imports: [
         IonContent,
@@ -25,13 +24,12 @@ import { AuthService } from 'src/app/services/auth.service';
         IonToolbar,
         CommonModule,
         FormsModule,
-        IonButton,
         IonButtons,
+        IonButton,
         IonBackButton,
 		RouterLink
     ],
 })
-export class RealizarPedidoPage {
-	protected authService = inject(AuthService)
+export class BotonesChatMesasPage {
     constructor() {}
 }

@@ -192,14 +192,16 @@ export class AuthFormComponent {
                 email: 'anonimo1@gmail.com',
                 password: '123456',
             });
-        }
-        else if(guest === 'maitre')
-        {
+        } else if (guest === 'maitre') {
             this.credentials.setValue({
                 email: 'maitre@gmail.com',
-                password: '888888'
-            })
-
+                password: '888888',
+            });
+        } else if (guest === 'mozo') {
+            this.credentials.setValue({
+                email: 'mozot.hx@gmail.com',
+                password: '123456',
+            });
         }
         // seguir...
     }

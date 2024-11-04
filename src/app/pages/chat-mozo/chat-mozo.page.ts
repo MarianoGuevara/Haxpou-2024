@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -6,17 +6,23 @@ import {
     IonHeader,
     IonTitle,
     IonToolbar,
+    IonButtons,
+    IonBackButton,
 } from '@ionic/angular/standalone';
 import { DatabaseService } from 'src/app/services/database.service';
 import { AuthService } from 'src/app/services/auth.service';
 import {
     Cliente,
+    Empleado,
     MesaMessage,
     MesaMessageFromFirestore,
     MozoMessage,
+    MozoMessageFromFirestore,
 } from 'src/app/interfaces/app.interface';
 import { Timestamp } from '@angular/fire/firestore';
 import { MessageService } from 'src/app/services/message.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-chat-mozo',
@@ -30,14 +36,19 @@ import { MessageService } from 'src/app/services/message.service';
         IonToolbar,
         CommonModule,
         FormsModule,
+        IonButtons,
+        IonBackButton,
     ],
 })
-export class ChatMozoPage implements OnInit {
+export class ChatMozoPage {
     protected messageService = inject(MessageService);
     authService = inject(AuthService);
+    private spinner = inject(NgxSpinnerService);
+    private activatedRoute = inject(ActivatedRoute);
 
     protected numeroMesaActual!: number;
-    messages: MesaMessage[] | MozoMessage[] = [];
+    protected isUserMozo!: boolean;
+
     groupedMessages: {
         date: string;
         messages: MesaMessage[] | MozoMessage[];
@@ -45,39 +56,75 @@ export class ChatMozoPage implements OnInit {
 
     messageContentToSend: string = '';
 
-    ngOnInit(): void {
-        this.numeroMesaActual = (
-            this.authService.currentUserSig() as Cliente
-        ).mesaAsignada;
+    constructor() {
+        this.spinner.show();
+        this.activatedRoute.paramMap.subscribe((params) => {
+            this.numeroMesaActual = parseInt(params.get('numeroMesa')!);
+        });
 
-        this.getMessagesFromDB();
+        effect(() => {
+            if (this.authService.currentUserSig()) {
+                this.isUserMozo =
+                    this.authService.currentUserSig()?.role === 'mozo';
+
+                this.getMessagesFromDB();
+            }
+        });
     }
 
-    async sendMessageToDB() {
+    async sendMessageFromClientToDB() {
         const messageToSend: MesaMessageFromFirestore = {
+            userId: this.authService.currentUserSig()?.uid!,
             content: this.messageContentToSend,
             createdAt: Timestamp.now(),
             numeroMesa: this.numeroMesaActual,
         };
+        console.log(messageToSend);
+        this.messageContentToSend = '';
 
         await this.messageService.sendMessage(messageToSend);
 
         // update the chat with the new message
-        // this.getMessagesFromDB();
+        this.getMessagesFromDB();
     }
 
-    getMessagesFromDB() {
+    async sendMessageFromMozoToDB() {
+        if (this.isUserMozo) {
+            const messageToSend: MozoMessageFromFirestore = {
+                userId: this.authService.currentUserSig()?.uid!,
+                content: this.messageContentToSend,
+                createdAt: Timestamp.now(),
+                numeroMesa: this.numeroMesaActual,
+                nombreMozo: (this.authService.currentUserSig() as Empleado)
+                    .nombre,
+            };
+            this.messageContentToSend = '';
+
+            await this.messageService.sendMessage(messageToSend);
+        }
+
+        // update the chat with the new message
+        this.getMessagesFromDB();
+    }
+
+    castMessageToMozoMessage(message: MesaMessage | MozoMessage) {
+        return message as MozoMessage;
+    }
+
+    private getMessagesFromDB() {
         this.messageService
             .getMensajesMesa(this.numeroMesaActual)
             .subscribe((messages) => {
                 this.groupMessagesByDate(messages);
+
+                this.spinner.hide();
             });
     }
 
-    groupMessagesByDate(messages: (MesaMessage| MozoMessage)[]) {
+    private groupMessagesByDate(messages: (MesaMessage | MozoMessage)[]) {
         const grouped: {
             date: string;
-            messages: (MesaMessage| MozoMessage)[];
+            messages: (MesaMessage | MozoMessage)[];
         }[] = [];
 
         messages.forEach((message: MesaMessage | MozoMessage) => {
@@ -96,7 +143,7 @@ export class ChatMozoPage implements OnInit {
         this.groupedMessages = grouped;
     }
 
-    getFormattedDate(date: Date): string {
+    private getFormattedDate(date: Date): string {
         const today = new Date();
         const yesterday = new Date();
         const twoDaysAgo = new Date();
@@ -118,7 +165,7 @@ export class ChatMozoPage implements OnInit {
         }
     }
 
-    isSameDay(date1: Date, date2: Date): boolean {
+    private isSameDay(date1: Date, date2: Date): boolean {
         return (
             date1.getDate() === date2.getDate() &&
             date1.getMonth() === date2.getMonth() &&
@@ -126,7 +173,7 @@ export class ChatMozoPage implements OnInit {
         );
     }
 
-    formatDateWithoutYear(date: Date): string {
+    private formatDateWithoutYear(date: Date): string {
         const months = [
             'Enero',
             'Febrero',
@@ -144,7 +191,7 @@ export class ChatMozoPage implements OnInit {
         return `${date.getDate()} de ${months[date.getMonth()]}`;
     }
 
-    formatDateWithYear(date: Date): string {
+    private formatDateWithYear(date: Date): string {
         const months = [
             'Enero',
             'Febrero',
