@@ -154,7 +154,7 @@ export class EsperaClientePage {
 		}
 		else
 		{
-			
+			this.router.navigateByUrl('/listado-productos')
 		}
 	}
 

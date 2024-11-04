@@ -21,6 +21,7 @@ export interface Supervisor extends UserDetails {
 export interface Cliente extends UserDetails {
     aprobado: EstadoCliente;
     situacion: SituacionCliente;
+    mesaAsignada : number;
 }
 
 export type EstadoCliente = 'pendiente' | 'aprobado' | 'rechazado';
