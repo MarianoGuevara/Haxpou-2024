@@ -1,0 +1,44 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="estilo">
+      <ion-buttons slot="start">
+          <ion-back-button
+              default-href="#"
+              class="text-cyan-50"
+          ></ion-back-button>
+          <h2 class="font-bold text-cyan-50 ml-8 text-xl">
+              Mesas
+          </h2>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="h-screen p-5" style="max-height: 650px; overflow-y: scroll">
+    <table class="styled-table">
+        <tbody>
+                @for (mesa of mesas; track $index) {
+                    <tr class="grid grid-cols-2">
+                        <td class="flex justify-center items-center">
+                            <p class="w-5/6 font-bold text-sm">
+                                Mesa número {{mesa.numero}}
+                            </p>
+                        </td>
+                        <td style="padding-top: 2px" class="">
+                            <button
+                                (click)="mostrarQr(mesa)"
+                                type="button"
+                                class="btn-asignar w-full my-2"
+                            >
+                                Escanear Qr 
+                            </button>
+                          
+                        </td>
+                    </tr>
+                  }
+  
+        </tbody>
+    </table>
+</div>
+
+
+</ion-content>

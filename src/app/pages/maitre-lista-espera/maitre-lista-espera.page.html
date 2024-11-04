@@ -1,3 +1,5 @@
+
+
 <ion-header class="ion-no-border">
     <ion-toolbar class="estilo">
         <ion-buttons slot="start">
@@ -14,35 +16,69 @@
     <div class="h-screen p-5" style="max-height: 650px; overflow-y: scroll">
         <table class="styled-table">
             <tbody>
-                @for (cliente of clientesLista; track $index) {
-                <tr class="grid grid-cols-2">
-                    <td class="flex justify-center items-center">
-                        <p class="w-5/6 font-bold">
-                            {{cliente.nombre}} {{cliente.apellido}}
-                        </p>
-                        <img
-                            style="height: 50px; width: 50px"
-                            class="ml-4 mr-2 text-center mb-2"
-                            [src]="cliente.foto"
-                        />
-                    </td>
-                    <td style="padding-top: 2px" class="">
-                        <button
-                            (click)="actualizarCliente(cliente, 'mesaAsignado')"
-                            type="button"
-                            class="btn-aprobar w-full my-2"
-                        >
-                            Asignar mesa
-                        </button>
-                        <button
-                            (click)="actualizarCliente(cliente, 'out')"
-                            type="button"
-                            class="btn-rechazar w-full my-2"
-                        >
-                            Rebotar
-                        </button>
-                    </td>
-                </tr>
+                @if (!procesoAsignarMesa) {
+
+                    @for (cliente of clientesLista; track $index) {
+                    <tr class="grid grid-cols-2">
+                        <td class="flex flex-col justify-center items-center">
+                            <p class="w-5/6 font-bold text-center">
+                                {{cliente.nombre}} {{cliente.apellido}}
+                            </p>
+                            <img
+                                style="height: 50px; width: 50px"
+                                class="ml-2 mt-2 mr-2 text-center mb-2"
+                                [src]="cliente.foto"
+                            />
+                        </td>
+                        <td style="padding-top: 2px" class="">
+                            <button
+                                (click)="actualizarCliente(cliente, 'mesaAsignado')"
+                                type="button"
+                                class="btn-aprobar w-full my-2"
+                            >
+                                Dar mesa
+                            </button>
+                            <button
+                                (click)="actualizarCliente(cliente, 'out')"
+                                type="button"
+                                class="btn-rechazar w-full my-2"
+                            >
+                                Rebotar
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                }
+                @else {
+                    @for (mesa of mesas; track $index) {
+                        <tr class="grid grid-cols-2">
+                            <td class="flex justify-center items-center">
+                                <p class="w-5/6 font-bold text-sm">
+                                    Mesa número {{mesa.numero}}
+                                </p>
+                            </td>
+                            <td style="padding-top: 2px" class="">
+            
+                              @if (mesa.disponible) {
+                                <button
+                                    (click)="asignarMesa(mesa)"
+                                    type="button"
+                                    class="btn-asignar w-full my-2"
+                                >
+                                    Asignar
+                                </button>
+                              }
+                              @else {
+                                <button
+                                type="button"
+                                class="btn-rechazar w-full my-2"
+                            >
+                                Ocupada
+                            </button>
+                              }
+                            </td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>

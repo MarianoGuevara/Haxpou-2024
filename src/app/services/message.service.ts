@@ -67,6 +67,6 @@ export class MessageService {
     }
 
     isMozoMessage(message: MesaMessage | MozoMessage): boolean {
-        return (message as MozoMessage).mozoId !== undefined;
+        return (message as MozoMessage).nombreMozo !== undefined;
     }
 }
