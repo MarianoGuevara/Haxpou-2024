@@ -24,9 +24,10 @@ import {
     Validators,
 } from '@angular/forms';
 import { DatabaseService } from 'src/app/services/database.service';
-import { Cliente, SituacionCliente } from 'src/app/interfaces/app.interface';
+import { Cliente, Mesa, SituacionCliente } from 'src/app/interfaces/app.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EmailService } from 'src/app/services/email.service';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-maitre-lista-espera',
@@ -49,6 +50,7 @@ import { EmailService } from 'src/app/services/email.service';
         IonInputPasswordToggle,
         ReactiveFormsModule,
         IonInput,
+        RouterModule,
     ],
 })
 export class MaitreListaEsperaPage implements OnInit {
@@ -56,15 +58,22 @@ export class MaitreListaEsperaPage implements OnInit {
     spinner = inject(NgxSpinnerService);
     db = inject(DatabaseService);
     clientesLista: Cliente[] = [];
-    constructor() {}
+    mesas : Mesa[] = [];
+
+    procesoAsignarMesa : boolean = false;//Si es true cargamos el componente de las mesas para asignar
+    constructor(private router: Router) {}
 
     ngOnInit() {
         this.spinner.show();
         try {
             this.db.traerClientesEspera().subscribe((data) => {
                 this.clientesLista = data;
-                this.spinner.hide();
             });
+
+            this.db.traerMesas().subscribe((data) => {
+                this.mesas = data;
+                this.spinner.hide();
+              })
         } catch (error) {
             console.error(error);
             this.spinner.hide();
@@ -72,8 +81,12 @@ export class MaitreListaEsperaPage implements OnInit {
     }
 
     actualizarCliente(cliente: Cliente, situacion: SituacionCliente) {
-        cliente.situacion = situacion; // aca deberia asignarle la mesa tambien... capaz atributo mesa en cliente
-        // y en entidad mesa hardcodeada tendria que ir "clienteActual" creo tmb no se
-        this.db.actualizarCliente(cliente);
+        cliente.situacion = situacion;
+        this.procesoAsignarMesa = true;
+    }
+
+    asignarMesa(mesa : Mesa)
+    {
+  
     }
 }

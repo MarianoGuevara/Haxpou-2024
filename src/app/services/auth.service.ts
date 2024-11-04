@@ -100,12 +100,12 @@ export class AuthService {
                 email,
                 password
             );
-
+            
             this.currentUserSig.set(undefined);
             await this.updateUserSignal(userCredentials.user);
 
             console.log(this.currentUserSig());
-
+            
             this.spinner.hide();
             return userCredentials;
         } catch (error) {

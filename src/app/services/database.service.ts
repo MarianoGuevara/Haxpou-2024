@@ -13,7 +13,7 @@ import {
     where,
     query,
 } from '@angular/fire/firestore';
-import { Cliente, UserDetails } from '../interfaces/app.interface';
+import { Cliente, Mesa, UserDetails } from '../interfaces/app.interface';
 import { Observable } from 'rxjs';
 import { CollectionsNames } from '../utils/firebase-names.enum';
 
@@ -73,6 +73,17 @@ export class DatabaseService {
         //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
         return collectionData(clientes, { idField: 'uid' }) as Observable<
             Cliente[]
+        >;
+    }
+
+    traerMesas(): Observable<Mesa[]> {
+        const col = collection(this.firestore, CollectionsNames.MESAS);
+
+        const mesas = query(col);
+
+        //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
+        return collectionData(mesas, { idField: 'uid' }) as Observable<
+            Mesa[]
         >;
     }
 

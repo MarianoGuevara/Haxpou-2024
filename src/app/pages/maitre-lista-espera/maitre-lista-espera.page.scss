@@ -37,7 +37,7 @@
     background-color: #4e4e4e;
 }
 
-.btn-aprobar {
+.btn-aprobar, .btn-asignar{
     background: #06b604;
     color: #000;
     font-size: 17px;
@@ -63,7 +63,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.btn-aprobar:hover {
+.btn-aprobar:hover, .btn-asignar:hover{
     background: #025801;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
@@ -84,3 +84,5 @@
     transform: translateY(1px);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
+
+
