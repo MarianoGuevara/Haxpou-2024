@@ -1,4 +1,3 @@
-
 <ion-header class="ion-no-border">
     <ion-toolbar class="estilo">
         <ion-buttons slot="start">
@@ -6,40 +5,32 @@
                 default-href="#"
                 class="text-cyan-50"
             ></ion-back-button>
-            <h2 class="font-bold text-cyan-50 ml-8 text-xl">
-                Clientes menu 
-            </h2>
+            <h2 class="font-bold text-cyan-50 text-xl">Clientes menu</h2>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-	@if (false){
-		
-	} @else { 
-		<div class="grid grid-cols-1 h-[calc(100vh-56px)]">
-			<ion-button
-				expand="block"
-				class="pages-button text-2xl font-bold"
-				(click)="entrarEnListaEspera()"
-				>Acceder a lista de espera</ion-button
-			>
-			<ion-button
-				expand="block"
-				class="pages-button text-2xl font-bold"
-				(click)="tomarMesa()"
-				>Escanear Mesa</ion-button
-			>
-			<ion-button
-				expand="block"
-				class="pages-button text-2xl font-bold"
-				(click)="entrarEncuestasPrevias()"
-				>Encuestas previas</ion-button
-			>
-		</div>
-	}
-    
+    @if (false){ } @else {
+    <div class="grid grid-cols-1 h-[calc(100vh-56px)]">
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            (click)="entrarEnListaEspera()"
+            >Acceder a lista de espera</ion-button
+        >
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            (click)="tomarMesa()"
+            >Escanear Mesa</ion-button
+        >
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            (click)="entrarEncuestasPrevias()"
+            >Encuestas previas</ion-button
+        >
+    </div>
+    }
 </ion-content>
-
-
-

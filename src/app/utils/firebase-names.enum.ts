@@ -2,5 +2,6 @@ export enum CollectionsNames {
     USUARIOS = 'Usuarios',
     IMAGENES_PERFIL = 'imagenesPerfil',
     PRODUCTOS = 'Productos',
-    MESAS = 'Mesas'
+    MESA_MESSAGES = 'MensajesMesa',
+    MESAS = 'Mesas',
 }

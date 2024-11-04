@@ -1,13 +1,17 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
-        <ion-title>Listado de productos</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button
+                default-href="#"
+                class="text-cyan-50"
+            ></ion-back-button>
+            <h2 class="font-bold text-cyan-50 text-xl">Listado de productos</h2>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <div
-        class="grid grid-cols-1 gap-4 p-4"
-    >
+    <div class="grid grid-cols-1 gap-4 p-4">
         @for(producto of this.productos;track $index){
 
         <app-product-card [producto]="producto"></app-product-card>

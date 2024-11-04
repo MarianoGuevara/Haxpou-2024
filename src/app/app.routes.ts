@@ -49,7 +49,8 @@ export const routes: Routes = [
                 (m) => m.EsperaClientePage
             ),
     },
-    {// solo para tests vvvv
+    {
+        // solo para tests vvvv
         path: 'alta-producto',
         loadComponent: () =>
             import('./pages/alta-producto/alta-producto.page').then(
@@ -63,8 +64,25 @@ export const routes: Routes = [
                 (m) => m.ListadoProductosPage
             ),
     },
-	{
-		path: 'encuestas-previas',
-		loadComponent: () => import('./pages/encuestas-previas/encuestas-previas.page').then( m => m.EncuestasPreviasPage)
-	},
+    {
+        path: 'encuestas-previas',
+        loadComponent: () =>
+            import('./pages/encuestas-previas/encuestas-previas.page').then(
+                (m) => m.EncuestasPreviasPage
+            ),
+    },
+    {
+        path: 'realizar-pedido',
+        loadComponent: () =>
+            import('./pages/realizar-pedido/realizar-pedido.page').then(
+                (m) => m.RealizarPedidoPage
+            ),
+    },
+    {
+        path: 'chat-mozo',
+        loadComponent: () =>
+            import('./pages/chat-mozo/chat-mozo.page').then(
+                (m) => m.ChatMozoPage
+            ),
+    },
 ];
