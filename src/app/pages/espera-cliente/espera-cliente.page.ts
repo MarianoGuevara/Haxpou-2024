@@ -29,9 +29,10 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
-import { Cliente } from 'src/app/interfaces/app.interface';
+import { Cliente, Mesa, UserDetails } from 'src/app/interfaces/app.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EmailService } from 'src/app/services/email.service';
+import { QrscannerService } from 'src/app/services/qrscanner.service';
 
 @Component({
     selector: 'app-espera-cliente',
@@ -62,15 +63,24 @@ export class EsperaClientePage {
     db = inject(DatabaseService);
     authService = inject(AuthService);
 	alertController = inject(AlertController);
+	qr = inject(QrscannerService);
+	spinner = inject(NgxSpinnerService);
 	router = inject(Router);
 
-    constructor() {}
+	cliente : UserDetails | null | undefined;
+
+	qrMesaSeleccionada : string | null = null;
+
+	mesas : Mesa[] = [];
+
+    constructor() {
+		this.cliente = this.authService.currentUserSig()
+	}
 
     // ngOnInit() {}
 
     async entrarEnListaEspera() {
 		const cliente: Cliente = this.authService.currentUserSig() as Cliente;
-		console.log(cliente);
 
 		if (cliente.role == "clienteAnonimo" || cliente.role == 'clienteRegistrado')
 		{
@@ -112,15 +122,14 @@ export class EsperaClientePage {
 
 	async tomarMesa() {
 		const cliente: Cliente = this.authService.currentUserSig() as Cliente;
-		console.log(cliente);
 
 		if (cliente.role == "clienteAnonimo" || cliente.role == 'clienteRegistrado')
 		{
 			switch (cliente.situacion)	
 			{
-				// case 'mesaAsignado':
-				// 	this.showAlert("Fracaso",  cliente.nombre + ", debe ingresar a la lista de espera antes de asignarte una mesa");
-				// 	break;
+				case 'mesaAsignado':
+					await this.escanearMesa();
+					break;
 				case "out":
 					this.showAlert("Fracaso",  cliente.nombre + ", debe ingresar a la lista de espera antes de asignarte una mesa");
 					break;
@@ -128,6 +137,24 @@ export class EsperaClientePage {
 					this.showAlert("Fracaso",  cliente.nombre + ", un 'maitre' debe asignarte una mesa antes de que puedas asignarla a tu usuario");
 					break;
 			}
+		}
+	}
+
+	async escanearMesa() : Promise<void>
+	{
+		var numeroMesa = await this.qr.startScan();
+		
+		var resp = await this.db.traerMesa(numeroMesa!.charAt(4));
+
+		const mesa = resp.docs[0].data() as Mesa;
+
+		if(mesa.idCliente !== this.cliente?.uid)
+		{
+			this.showAlert('Mesa no correspondiente',`Tu mesa asignada es la numero ${mesa.numero}`);
+		}
+		else
+		{
+			
 		}
 	}
 

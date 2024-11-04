@@ -14,7 +14,6 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class LoginPage {
 
-    constructor(private s : StorageService) {
-        console.log(this.s.obtenerQrMesa('1'));
+    constructor() {
     }
 }
