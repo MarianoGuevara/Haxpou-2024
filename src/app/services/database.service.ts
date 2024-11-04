@@ -12,8 +12,9 @@ import {
     deleteDoc,
     where,
     query,
+    QuerySnapshot,
 } from '@angular/fire/firestore';
-import { Cliente, UserDetails } from '../interfaces/app.interface';
+import { Cliente, Mesa, UserDetails } from '../interfaces/app.interface';
 import { Observable } from 'rxjs';
 import { CollectionsNames } from '../utils/firebase-names.enum';
 
@@ -38,6 +39,15 @@ export class DatabaseService {
         const documento = doc(col, cliente.uid);
 
         updateDoc(documento, { ...cliente });
+    }
+
+    actualizarMesa(mesa: Mesa): void {
+        const col = collection(this.firestore, CollectionsNames.MESAS);
+
+        //Referencia hacia el documento de firebase
+        const documento = doc(col, mesa.uid);
+
+        updateDoc(documento, { ...mesa });
     }
 
     //Devolvemos un observable para que "escuche" los cambios
@@ -65,6 +75,24 @@ export class DatabaseService {
         return clienteDocs;
     }
 
+    async traerUsuario(uid: string) {
+        const usuarioQuery = query(
+            collection(this.firestore, CollectionsNames.USUARIOS),
+            where('uid', '==', uid),
+        );
+        const usuario = await getDocs(usuarioQuery);
+        return usuario;
+    }
+
+    async traerClienteDeUnaMesa(uid: string) {
+        const usuarioQuery = query(
+            collection(this.firestore, CollectionsNames.MESAS),
+            where('idCliente', '==', uid),
+        );
+        const usuario = await getDocs(usuarioQuery);
+        return usuario;
+    }
+
     traerClientesEspera(): Observable<Cliente[]> {
         const col = collection(this.firestore, CollectionsNames.USUARIOS);
 
@@ -73,6 +101,28 @@ export class DatabaseService {
         //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
         return collectionData(clientes, { idField: 'uid' }) as Observable<
             Cliente[]
+        >;
+    }
+
+    async traerMesa(numero : string): Promise<QuerySnapshot> {
+        const col = collection(this.firestore, CollectionsNames.MESAS);
+
+        const mesasQuery = query(col, where('numero', '==', numero));
+
+        const mesaDocs = await getDocs(mesasQuery);
+
+        return mesaDocs
+
+    }
+
+    traerMesas(): Observable<Mesa[]> {
+        const col = collection(this.firestore, CollectionsNames.MESAS);
+
+        const mesas = query(col);
+
+        //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
+        return collectionData(mesas, { idField: 'uid' }) as Observable<
+            Mesa[]
         >;
     }
 

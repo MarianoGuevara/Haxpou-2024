@@ -67,5 +67,4 @@ export const routes: Routes = [
 		path: 'encuestas-previas',
 		loadComponent: () => import('./pages/encuestas-previas/encuestas-previas.page').then( m => m.EncuestasPreviasPage)
 	},
-
 ];
