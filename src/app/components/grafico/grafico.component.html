@@ -1,0 +1,45 @@
+<div
+    class="bg-slate-700 rounded-lg shadow-lg overflow-hidden p-4"
+    style="
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 300px;
+        word-wrap: break-word;
+    "
+>
+    <h3 class="text-center" style="margin-bottom: 10px">
+        <strong>{{ tituloGrafico }}</strong>
+    </h3>
+    @if(this.graficoPie != null) {
+    <apx-chart
+        [series]="graficoPie!.series"
+        [chart]="graficoPie!.chart"
+        [labels]="graficoPie!.labels"
+        [responsive]="graficoPie!.responsive"
+        style="height: 100%; width: 100%"
+    >
+    </apx-chart>
+    } @else if ( this.graficoBarras != null) {
+    <apx-chart
+        [series]="graficoBarras!.series"
+        [chart]="graficoBarras!.chart"
+        [dataLabels]="graficoBarras!.dataLabels"
+        [plotOptions]="graficoBarras!.plotOptions"
+        [yaxis]="graficoBarras!.yaxis"
+        [xaxis]="graficoBarras!.xaxis"
+        [fill]="graficoBarras!.fill"
+        style="height: 100%; width: 100%"
+    >
+    </apx-chart>
+    } @else if ( this.graficoLineas != null) {
+    <apx-chart
+        [series]="graficoLineas!.series"
+        [chart]="graficoLineas!.chart"
+        [dataLabels]="graficoLineas!.dataLabels"
+        [xaxis]="graficoLineas!.xaxis"
+        [yaxis]="graficoLineas!.yaxis"
+        style="height: 100%; width: 100%"
+    >
+    </apx-chart>
+    }
+</div>

@@ -83,3 +83,17 @@ export interface MozoMessageFromFirestore extends MessageFromFirestore {
 export interface MozoMessage extends Message {
     nombreMozo: string;
 }
+
+export interface Encuesta {
+    uid?: string;
+    foto1: string;
+    foto2: string;
+    foto3: string;
+    fecha: Date;
+    atencion_cliente: number;
+    comida: number;
+    como_conocio?: number;
+    opinion_general: string;
+    limpieza: number;
+    encuestado: string;
+}
