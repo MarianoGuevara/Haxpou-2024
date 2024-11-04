@@ -74,13 +74,13 @@ export class ChatMozoPage implements OnInit {
             });
     }
 
-    groupMessagesByDate(messages: MesaMessage[] | MozoMessage[]) {
+    groupMessagesByDate(messages: (MesaMessage| MozoMessage)[]) {
         const grouped: {
             date: string;
-            messages: MesaMessage[] | MozoMessage[];
+            messages: (MesaMessage| MozoMessage)[];
         }[] = [];
 
-        messages.forEach((message) => {
+        messages.forEach((message: MesaMessage | MozoMessage) => {
             const messageDate = message.createdAt;
             const formattedDate = this.getFormattedDate(messageDate);
 
