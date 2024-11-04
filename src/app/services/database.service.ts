@@ -14,7 +14,12 @@ import {
     query,
     QuerySnapshot,
 } from '@angular/fire/firestore';
-import { Cliente, Mesa, UserDetails } from '../interfaces/app.interface';
+import {
+    Cliente,
+    Mesa,
+    UserDetails,
+    Encuesta,
+} from '../interfaces/app.interface';
 import { Observable } from 'rxjs';
 import { CollectionsNames } from '../utils/firebase-names.enum';
 
@@ -78,7 +83,7 @@ export class DatabaseService {
     async traerUsuario(uid: string) {
         const usuarioQuery = query(
             collection(this.firestore, CollectionsNames.USUARIOS),
-            where('uid', '==', uid),
+            where('uid', '==', uid)
         );
         const usuario = await getDocs(usuarioQuery);
         return usuario;
@@ -87,7 +92,7 @@ export class DatabaseService {
     async traerClienteDeUnaMesa(uid: string) {
         const usuarioQuery = query(
             collection(this.firestore, CollectionsNames.MESAS),
-            where('idCliente', '==', uid),
+            where('idCliente', '==', uid)
         );
         const usuario = await getDocs(usuarioQuery);
         return usuario;
@@ -104,15 +109,14 @@ export class DatabaseService {
         >;
     }
 
-    async traerMesa(numero : string): Promise<QuerySnapshot> {
+    async traerMesa(numero: string): Promise<QuerySnapshot> {
         const col = collection(this.firestore, CollectionsNames.MESAS);
 
         const mesasQuery = query(col, where('numero', '==', numero));
 
         const mesaDocs = await getDocs(mesasQuery);
 
-        return mesaDocs
-
+        return mesaDocs;
     }
 
     traerMesas(): Observable<Mesa[]> {
@@ -121,9 +125,7 @@ export class DatabaseService {
         const mesas = query(col);
 
         //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
-        return collectionData(mesas, { idField: 'uid' }) as Observable<
-            Mesa[]
-        >;
+        return collectionData(mesas, { idField: 'uid' }) as Observable<Mesa[]>;
     }
 
     // Funcion para agregar cualquier falopa harcodeada en firestore mas facil que hacerlo a mano
@@ -144,5 +146,14 @@ export class DatabaseService {
 
         // seteo el token para identificar al usuario para mandar push notifications
         updateDoc(documento, { ...usuario, token });
+    }
+
+    traerEncuestas(): Observable<Encuesta[]> {
+        const col = collection(this.firestore, CollectionsNames.ENCUESTAS);
+        const encuestas = query(col);
+        console.log(encuestas);
+        return collectionData(encuestas, { idField: 'uid' }) as Observable<
+            Encuesta[]
+        >;
     }
 }

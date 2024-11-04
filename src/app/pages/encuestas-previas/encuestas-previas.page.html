@@ -11,9 +11,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-header collapse="condense">
-        <ion-toolbar>
-            <ion-title size="large">encuestas-previas</ion-title>
-        </ion-toolbar>
-    </ion-header>
+    <div id="graficos" class="contenedor">
+        <app-grafico
+            tipoGrafico="pie"
+            [labels]="labelsComida"
+            [series]="seriesComida"
+            tituloGrafico="¿Como definiría la comida del lugar?"
+        ></app-grafico>
+        <app-grafico
+            tipoGrafico="barras"
+            [labels]="labelsComoConocio"
+            [series]="seriesComoConocio"
+            tituloGrafico="¿Cómo nos conociste?"
+        ></app-grafico>
+        <app-grafico
+            tipoGrafico="barras"
+            [labels]="labelsLimpieza"
+            [series]="seriesLimpieza"
+            tituloGrafico="¿Como definiría la comida del lugar?"
+        ></app-grafico>
+        <app-grafico
+            tipoGrafico="lineas"
+            [labels]="labelsAtencion"
+            [series]="seriesAtencion"
+            tituloGrafico="¿Que tan satisfecho se encuentra con la atención al cliente?"
+        ></app-grafico>
+    </div>
 </ion-content>
