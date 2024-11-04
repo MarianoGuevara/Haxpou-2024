@@ -6,6 +6,8 @@ import {
     IonHeader,
     IonTitle,
     IonToolbar,
+    IonBackButton,
+    IonButtons,
 } from '@ionic/angular/standalone';
 import { Producto } from 'src/app/interfaces/app.interface';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -24,7 +26,9 @@ import { ProductCardComponent } from 'src/app/components/product-card/product-ca
         IonToolbar,
         CommonModule,
         FormsModule,
-		ProductCardComponent
+        ProductCardComponent,
+        IonBackButton,
+        IonButtons,
     ],
 })
 export class ListadoProductosPage implements OnInit {

@@ -21,6 +21,7 @@ export interface Supervisor extends UserDetails {
 export interface Cliente extends UserDetails {
     aprobado: EstadoCliente;
     situacion: SituacionCliente;
+	mesaAsignada: number;
 }
 
 export type EstadoCliente = 'pendiente' | 'aprobado' | 'rechazado';
@@ -47,10 +48,38 @@ export interface Producto {
     qr: string;
 }
 
-export interface Mesa{
+export interface Mesa {
     uid?: string;
     numero: number;
     qr: string;
     disponible: boolean;
     idCliente?: string;
+}
+
+import { Timestamp } from '@angular/fire/firestore';
+
+export interface MesaMessageFromFirestore {
+    content: string;
+    createdAt: Timestamp;
+    numeroMesa: number;
+}
+
+export interface MesaMessage {
+    content: string;
+    createdAt: Date;
+    numeroMesa: number;
+}
+
+export interface MozoMessageFromFirestore {
+    content: string;
+    createdAt: Timestamp;
+    nombreMozo: string;
+    numeroMesa: number;
+}
+
+export interface MozoMessage {
+    content: string;
+    createdAt: Date;
+    nombreMozo: string;
+    numeroMesa: number;
 }

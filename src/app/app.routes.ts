@@ -66,6 +66,14 @@ export const routes: Routes = [
 	{
 		path: 'encuestas-previas',
 		loadComponent: () => import('./pages/encuestas-previas/encuestas-previas.page').then( m => m.EncuestasPreviasPage)
-	},
+	},  {
+    path: 'realizar-pedido',
+    loadComponent: () => import('./pages/realizar-pedido/realizar-pedido.page').then( m => m.RealizarPedidoPage)
+  },
+  {
+    path: 'chat-mozo',
+    loadComponent: () => import('./pages/chat-mozo/chat-mozo.page').then( m => m.ChatMozoPage)
+  },
+
 
 ];
