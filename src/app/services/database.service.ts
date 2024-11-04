@@ -40,6 +40,15 @@ export class DatabaseService {
         updateDoc(documento, { ...cliente });
     }
 
+    actualizarMesa(mesa: Mesa): void {
+        const col = collection(this.firestore, CollectionsNames.MESAS);
+
+        //Referencia hacia el documento de firebase
+        const documento = doc(col, mesa.uid);
+
+        updateDoc(documento, { ...mesa });
+    }
+
     //Devolvemos un observable para que "escuche" los cambios
     //Observable -> tipo de dato que puede variar
     traerClientesPendientes(): Observable<Cliente[]> {
