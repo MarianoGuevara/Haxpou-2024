@@ -12,14 +12,21 @@
 
 <ion-content [fullscreen]="true">
     <div class="grid grid-cols-1 h-[calc(100vh-56px)]">
+        @if(this.authService.currentUserSig()){
+
         <ion-button
             expand="block"
             class="pages-button text-2xl font-bold"
             routerLink="/listado-productos"
             >Menú de productos</ion-button
         >
-        <ion-button expand="block" class="pages-button text-2xl font-bold"
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            routerLink="/chat-mozo"
             >Consulta al mozo</ion-button
         >
+		
+        }
     </div>
 </ion-content>

@@ -100,12 +100,10 @@ export class AuthService {
                 email,
                 password
             );
-            
+
             this.currentUserSig.set(undefined);
             await this.updateUserSignal(userCredentials.user);
 
-            console.log(this.currentUserSig());
-            
             this.spinner.hide();
             return userCredentials;
         } catch (error) {
@@ -118,6 +116,7 @@ export class AuthService {
     private async updateUserSignal(authUser: User) {
         const user = await this.getUserFromFirestore(authUser).toPromise();
         const userDetails = user!.data() as UserDetails;
+        console.log('updated user signal');
 
         this.currentUserSig.set(userDetails);
     }

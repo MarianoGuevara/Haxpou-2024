@@ -24,7 +24,11 @@ import {
     IonInput,
 } from '@ionic/angular/standalone';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { Cliente, Supervisor, UserDetails } from 'src/app/interfaces/app.interface';
+import {
+    Cliente,
+    Supervisor,
+    UserDetails,
+} from 'src/app/interfaces/app.interface';
 import { QrscannerService } from 'src/app/services/qrscanner.service';
 import { PhotoService } from 'src/app/services/photo.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -141,17 +145,18 @@ export class AltaDSPage {
             return;
         }
 
-        const newClient: Supervisor = {
+        const newClient: Cliente = {
             nombre: this.nombres?.value,
             apellido: this.apellidos?.value,
             correo: this.correo?.value,
             dni: this.dni?.value,
             clave: this.clave1?.value,
-            // aprobado: 'pendiente',
-			cuil: 20222333446,
-            role: 'supervisor',
+            aprobado: 'pendiente',
+            // cuil: 20225733446,
+            role: 'clienteRegistrado',
             foto: url,
-            // situacion: 'out',
+            situacion: 'out',
+            mesaAsignada: -1,
         };
 
         console.log(newClient);

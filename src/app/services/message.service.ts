@@ -1,19 +1,4 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
-// import {
-//     Firestore,
-//     collection,
-//     addDoc,
-//     getDoc,
-//     getDocs,
-//     updateDoc,
-//     collectionData,
-//     doc,
-//     deleteDoc,
-//     where,
-//     query,
-//     setDoc,
-// } from '@angular/fire/firestore';
 import {
     UserDetails,
     Mesa,

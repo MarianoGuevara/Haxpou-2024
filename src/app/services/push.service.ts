@@ -64,10 +64,10 @@ export class PushService {
             'pushNotificationReceived',
             (notification: PushNotificationSchema) => {
                 // alert('Push received: ' + JSON.stringify(notification));
-                this.interactionService.presentAlert(
-                    'Notificación',
-                    `${JSON.stringify(notification)}`
-                );
+                // this.interactionService.presentAlert(
+                //     'Notificación',
+                //     `${JSON.stringify(notification)}`
+                // );
             }
         );
 

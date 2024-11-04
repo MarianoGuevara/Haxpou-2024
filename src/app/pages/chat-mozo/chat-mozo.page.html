@@ -1,13 +1,118 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>chatMozo</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        @if(this.isUserMozo !== undefined){
+
+        <ion-title
+            >{{this.isUserMozo ? 'Chat con mesa '+this.numeroMesaActual :
+            'Consulta al mozo' }}</ion-title
+        >
+        }
+    </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">chatMozo</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="flex flex-col h-screen">
+    <div
+        class="flex-1 flex flex-col mx-auto w-full h-[calc(100vh-56px)] px-4 py-6"
+    >
+        <div class="flex flex-col bg-slate-800 h-full rounded-lg p-4">
+            @if (this.authService.currentUserSig(); as currentUser) {
+
+            <!-- Chat Messages -->
+            <div
+                class="flex-1 overflow-y-auto my-4 pr-3 h-full max-h-[calc(100vh-100px)]"
+            >
+                @for (group of groupedMessages; track $index) {
+
+                <div class="flex justify-center">
+                    <div
+                        class="text-center text-gray-300 bg-slate-900 p-2 rounded mb-4 w-fit text-lg"
+                    >
+                        {{ group.date }}
+                    </div>
+                </div>
+
+                @for (message of group.messages; track $index) {
+
+                <div
+                    class="flex mb-4 {{
+                        message.userId === currentUser.uid
+                            ? 'justify-end'
+                            : 'justify-start'
+                    }}"
+                >
+                    <div
+                        class="flex text-white p-3 rounded-lg max-w-[calc(100vw-100px)] {{
+                            message.userId === currentUser.uid
+                                ? 'bg-[#005c4b]'
+                                : 'bg-gray-700'
+                        }}"
+                    >
+                        <div>
+                            <span
+                                class="font-medium text-lg {{
+                                    message.userId === currentUser.uid
+                                        ? 'text-cyan-300'
+                                        : 'text-blue-300'
+                                }}"
+                            >
+                                @if(message.userId !== currentUser.uid){
+                                <!-- - -->
+                                @if(this.messageService.isMozoMessage(message)){
+                                <!-- - -->
+                                {{this.castMessageToMozoMessage(message).nombreMozo
+                                + ': '}}
+                                <!-- - -->
+                                } @else{ {{'Mesa '+message.numeroMesa+': '}} }
+                                <!-- - -->
+                                }
+                            </span>
+                            <span class="font-medium text-lg">
+                                {{ message.content }}
+                            </span>
+                        </div>
+                        <span
+                            class="font-thin text-slate-300 ml-2 text-sm flex items-end"
+                        >
+                            {{ message.createdAt.getHours() }}:{{
+                            message.createdAt.getMinutes() < 10 ? "0" +
+                            message.createdAt.getMinutes() :
+                            message.createdAt.getMinutes() }}
+                        </span>
+                    </div>
+                </div>
+                } }
+            </div>
+
+            <!-- Message Input -->
+            <div class="border-t-2 border-gray-700 pt-4">
+                <div class="flex space-x-3">
+                    <input
+                        type="text"
+                        name="message"
+                        class="flex-1 p-2 bg-gray-800 text-white text-lg rounded-lg focus:outline-none"
+                        [placeholder]="this.groupedMessages.length === 0 ? 'Esperando a consulta...':'Escribe un mensaje...'"
+                        maxlength="50"
+                        [(ngModel)]="messageContentToSend"
+                        [disabled]="this.groupedMessages.length === 0"
+                    />
+                    <button
+                        (click)="this.isUserMozo ? this.sendMessageFromMozoToDB() : this.sendMessageFromClientToDB()"
+                        class="rounded-lg p-2"
+                        [ngClass]="
+                            this.messageContentToSend
+                                ? 'bg-green-500 hover:bg-green-500/70'
+                                : 'bg-slate-600'
+                        "
+                        [disabled]="this.messageContentToSend === '' || this.groupedMessages.length === 0"
+                    >
+                        <img class="w-7" src="assets/send.svg" alt="send" />
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
 </ion-content>

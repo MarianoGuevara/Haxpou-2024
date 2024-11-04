@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Consultas de mesas</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div class="grid grid-cols-1 p-2 h-[calc(100vh-56px)]">
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            routerLink="/chat-mozo/1"
+            >Mesa 1</ion-button
+        >
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            routerLink="/chat-mozo/2"
+            >Mesa 2</ion-button
+        >
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            routerLink="/chat-mozo/3"
+            >Mesa 3</ion-button
+        >
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            routerLink="/chat-mozo/4"
+            >Mesa 4</ion-button
+        >
+    </div>
+</ion-content>

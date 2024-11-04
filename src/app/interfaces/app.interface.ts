@@ -58,28 +58,28 @@ export interface Mesa {
 
 import { Timestamp } from '@angular/fire/firestore';
 
-export interface MesaMessageFromFirestore {
+interface MessageFromFirestore {
+	userId: string
     content: string;
     createdAt: Timestamp;
     numeroMesa: number;
 }
 
-export interface MesaMessage {
+interface Message {
+	userId: string
     content: string;
     createdAt: Date;
     numeroMesa: number;
 }
 
-export interface MozoMessageFromFirestore {
-    content: string;
-    createdAt: Timestamp;
+export interface MesaMessageFromFirestore extends MessageFromFirestore {}
+
+export interface MesaMessage extends Message {}
+
+export interface MozoMessageFromFirestore extends MessageFromFirestore {
     nombreMozo: string;
-    numeroMesa: number;
 }
 
-export interface MozoMessage {
-    content: string;
-    createdAt: Date;
+export interface MozoMessage extends Message {
     nombreMozo: string;
-    numeroMesa: number;
 }

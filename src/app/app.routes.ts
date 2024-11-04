@@ -79,10 +79,14 @@ export const routes: Routes = [
             ),
     },
     {
-        path: 'chat-mozo',
+        path: 'chat-mozo/:numeroMesa',
         loadComponent: () =>
             import('./pages/chat-mozo/chat-mozo.page').then(
                 (m) => m.ChatMozoPage
             ),
     },
+  {
+    path: 'botones-chat-mesas',
+    loadComponent: () => import('./pages/botones-chat-mesas/botones-chat-mesas.page').then( m => m.BotonesChatMesasPage)
+  },
 ];
