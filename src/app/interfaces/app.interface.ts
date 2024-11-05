@@ -97,3 +97,18 @@ export interface Encuesta {
     limpieza: number;
     encuestado: string;
 }
+
+export interface Pedido {
+    uid?: string;
+	id_cliente: string;
+	id_mesa: string;
+	precio_total: number;
+	item_menu: string[]; // serán array paralelos... X ej: ["hamburguesa", "coca cola", fideos] la pesona tiene 1 pedido de 4 hamburguesas, 8 coca colas, 3 fideos...
+	cantidad_item_menu: string[];						// [4, 8, 3] 
+														// ["en preparacion", "listo", "listo"]
+	estado_detalle: EstadoPedido[]; // este es 3er array paralelo del par... cuando las 4 hamburguesas esten listas, cambiara ese indice a listo. Cuando todos los indices sean listos recien ahi el pedido entero va a ser listo
+	estado: EstadoPedido;
+	tiempo_estimado: number // minutos
+}
+									// cuando confirma el mozo, cuando confirman TODAS las partes individuales del pedido
+export type EstadoPedido = 'pendiente' | 'en preparecion' | 'listo para entregar' | 'entregado' | 'cuenta pagada';

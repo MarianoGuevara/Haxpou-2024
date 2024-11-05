@@ -90,6 +90,7 @@ export class MaitreListaEsperaPage implements OnInit {
     asignarMesa(mesa : Mesa)
     {
         this.clienteSeleccionado!.mesaAsignada = mesa.numero;
+		this.clienteSeleccionado!.situacion = "mesaAsignado";
         mesa.idCliente = this.clienteSeleccionado?.uid;
         mesa.disponible = false;
         
