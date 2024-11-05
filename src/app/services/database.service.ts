@@ -19,6 +19,7 @@ import {
     Mesa,
     UserDetails,
     Encuesta,
+    Pedido,
 } from '../interfaces/app.interface';
 import { Observable } from 'rxjs';
 import { CollectionsNames } from '../utils/firebase-names.enum';
@@ -155,5 +156,24 @@ export class DatabaseService {
         return collectionData(encuestas, { idField: 'uid' }) as Observable<
             Encuesta[]
         >;
+    }
+
+    traerPedidos(): Observable<Pedido[]> {
+        const col = collection(this.firestore, CollectionsNames.PEDIDOS);
+
+        const pedidos = query(col);
+
+        //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
+        return collectionData(pedidos, { idField: 'uid' }) as Observable<
+            Pedido[]
+        >;
+    }
+
+    actualizarPedido(pedido: Pedido): void {
+        const col = collection(this.firestore, CollectionsNames.PEDIDOS);
+
+        const documento = doc(col, pedido.uid);
+
+        updateDoc(documento, { ...pedido });
     }
 }

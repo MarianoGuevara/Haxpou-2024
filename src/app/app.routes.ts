@@ -85,8 +85,18 @@ export const routes: Routes = [
                 (m) => m.ChatMozoPage
             ),
     },
-  {
-    path: 'botones-chat-mesas',
-    loadComponent: () => import('./pages/botones-chat-mesas/botones-chat-mesas.page').then( m => m.BotonesChatMesasPage)
-  },
+    {
+        path: 'botones-chat-mesas',
+        loadComponent: () =>
+            import('./pages/botones-chat-mesas/botones-chat-mesas.page').then(
+                (m) => m.BotonesChatMesasPage
+            ),
+    },
+    {
+        path: 'listado-pedidos',
+        loadComponent: () =>
+            import('./pages/listado-pedidos/listado-pedidos.page').then(
+                (m) => m.ListadoPedidosPage
+            ),
+    },
 ];
