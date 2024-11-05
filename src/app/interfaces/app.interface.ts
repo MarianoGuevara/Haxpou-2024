@@ -32,7 +32,11 @@ export type EmpleadoType = 'maitre' | 'mozo' | 'cocinero' | 'bartender';
 
 export type ClienteType = 'clienteRegistrado' | 'clienteAnonimo';
 
-export type SituacionCliente = 'out' | 'enEspera' | 'mesaAsignado';
+export type SituacionCliente =
+    | 'out'
+    | 'enEspera'
+    | 'mesaAsignado'
+    | 'pedidoEnCurso';
 // out estado inicial... cuando scanea qr pasa a enEspera, despues cuando el maitre le asigna una mesa volvería a
 // cambiar y así... que opinan
 
@@ -59,14 +63,14 @@ export interface Mesa {
 import { Timestamp } from '@angular/fire/firestore';
 
 interface MessageFromFirestore {
-	userId: string
+    userId: string;
     content: string;
     createdAt: Timestamp;
     numeroMesa: number;
 }
 
 interface Message {
-	userId: string
+    userId: string;
     content: string;
     createdAt: Date;
     numeroMesa: number;
@@ -97,3 +101,26 @@ export interface Encuesta {
     limpieza: number;
     encuestado: string;
 }
+
+export interface Pedido {
+    uid?: string;
+    id_cliente: string;
+    id_mesa: string;
+    precio_total: number;
+    item_menu: string[]; // serán array paralelos... X ej: ["hamburguesa", "coca cola", fideos] la pesona tiene 1 pedido de 4 hamburguesas, 8 coca colas, 3 fideos...
+    cantidad_item_menu: string[]; // [4, 8, 3]
+    // ["en preparacion", "listo", "listo"]
+    estado_detalle: EstadoDetallePedido[]; // este es 3er array paralelo del par... cuando las 4 hamburguesas esten listas, cambiara ese indice a listo. Cuando todos los indices sean listos recien ahi el pedido entero va a ser listo
+    estado: EstadoPedido;
+    tiempo_estimado: number; // minutos
+}
+// cuando confirma el mozo, cuando confirman TODAS las partes individuales del pedido
+
+export type EstadoDetallePedido = 'pendiente' | 'en preparacion' | 'listo';
+
+export type EstadoPedido =
+    | 'pendiente'
+    | 'en preparecion'
+    | 'listo para entregar'
+    | 'entregado'
+    | 'cuenta pagada';

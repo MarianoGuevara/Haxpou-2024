@@ -51,13 +51,6 @@ export class QrInicioAppComponent {
         const rta = await this.qrScannService.startScan();
         if (rta == 'ClienteListaDeEsperaMaitre') {
             this.router.navigate(['/espera-cliente']);
-            this.sendPush.sendToRole(
-                'Cliente en lista de espera',
-                'El cliente "' +
-                    this.authServie.currentUserSig()?.nombre +
-                    '" ingresó en la lista de espera.',
-                'maitre'
-            );
         } else {
             this.showAlert(
                 'QR inválido',

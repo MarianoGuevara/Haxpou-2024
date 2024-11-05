@@ -5,4 +5,5 @@ export enum CollectionsNames {
     MESA_MESSAGES = 'MensajesMesa',
     MESAS = 'Mesas',
     ENCUESTAS = 'Encuestas',
+    PEDIDOS = 'Pedidos',
 }
