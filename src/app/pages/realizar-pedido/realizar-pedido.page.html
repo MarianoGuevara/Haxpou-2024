@@ -12,7 +12,7 @@
 
 <ion-content [fullscreen]="true">
     <div class="grid grid-cols-1 h-[calc(100vh-56px)]">
-        @if(this.authService.currentUserSig()){
+        @if(this.authService.currentUserSig(); as currentUser){
 
         <ion-button
             expand="block"
@@ -23,10 +23,10 @@
         <ion-button
             expand="block"
             class="pages-button text-2xl font-bold"
-            routerLink="/chat-mozo"
+            [routerLink]="'/chat-mozo/'+this.castUserToClient(currentUser).mesaAsignada"
             >Consulta al mozo</ion-button
         >
-		
+
         }
     </div>
 </ion-content>

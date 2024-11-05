@@ -12,6 +12,7 @@ import {
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { Cliente, UserDetails } from 'src/app/interfaces/app.interface';
 
 @Component({
     selector: 'app-realizar-pedido',
@@ -28,10 +29,14 @@ import { AuthService } from 'src/app/services/auth.service';
         IonButton,
         IonButtons,
         IonBackButton,
-		RouterLink
+        RouterLink,
     ],
 })
 export class RealizarPedidoPage {
-	protected authService = inject(AuthService)
+    protected authService = inject(AuthService);
     constructor() {}
+
+    protected castUserToClient(user: UserDetails) {
+        return user as Cliente;
+    }
 }

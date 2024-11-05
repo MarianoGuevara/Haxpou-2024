@@ -177,7 +177,9 @@ export class EsperaClientePage {
         if (mesa.idCliente !== this.cliente?.uid) {
             this.showAlert(
                 'Mesa no correspondiente',
-                `Tu mesa asignada es la numero ${mesa.numero}`
+                `Tu mesa asignada es la numero ${
+                    (this.cliente as Cliente).mesaAsignada
+                }`
             );
         } else {
             this.router.navigateByUrl('/realizar-pedido');
