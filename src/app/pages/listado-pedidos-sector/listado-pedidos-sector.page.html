@@ -1,0 +1,40 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar class="estilo">
+        <ion-buttons slot="start">
+            <ion-back-button
+                routerlink="/home"
+                class="text-cyan-50"
+            ></ion-back-button>
+            <h2 class="font-bold text-cyan-50 text-xl">Detalle pedidos</h2>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div class="h-screen p-5" style="max-height: 650px; overflow-y: scroll">
+        @for (pedidoDetalle of detallesActuales; track pedidoDetalle) { @if
+        (pedidoDetalle.estado != "listo") {
+        <div
+            class="bg-slate-700 rounded-lg shadow-lg overflow-hidden p-4"
+            style="margin-bottom: 15px; margin-top: 10px"
+        >
+            <div
+                class="p-4 flex flex-col justify-center items-center space-y-3"
+            >
+                <p class="text-lg text-gray-200">
+                    {{ pedidoDetalle.item }}, cantidad: {{
+                    pedidoDetalle.cantidad }}
+                </p>
+
+                <button
+                    (click)="actualizarDetallePedido(pedidoDetalle)"
+                    type="button"
+                    class="btn-aprobar w-full my-2"
+                >
+                    Marcar como completado
+                </button>
+            </div>
+        </div>
+        } }
+    </div>
+</ion-content>

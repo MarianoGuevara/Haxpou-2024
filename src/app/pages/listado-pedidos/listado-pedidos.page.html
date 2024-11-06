@@ -12,38 +12,51 @@
 
 <ion-content [fullscreen]="true">
     <div class="h-screen p-5" style="max-height: 650px; overflow-y: scroll">
-        <table class="styled-table">
-            <tbody>
-                @for (pedido of pedidos; track pedido) {
-                <tr class="grid grid-cols-2">
-                    <td class="flex justify-center items-center">
-                        <p class="w-5/6 font-bold">{{pedido.uid}}</p>
-                        <!-- <img
-                            style="height: 50px; width: 50px"
-                            class="ml-4 mr-2 text-center mb-2"
-                            [src]="cliente.foto"
-                        /> -->
-                    </td>
-                    <td style="padding-top: 2px" class="">
-                        <button
-                            (click)="actualizarPedido(pedido)"
-                            type="button"
-                            class="btn-aprobar w-full my-2"
-                        >
-                            Confirmar
-                        </button>
-                        verDetallePedido
-                        <button
-                            (click)="verDetallePedido(pedido)"
-                            type="button"
-                            class="btn-rechazar w-full my-2"
-                        >
-                            Ver detalle
-                        </button>
-                    </td>
-                </tr>
+        @for (pedido of pedidos; track $index) {
+
+        <div
+            class="bg-slate-700 rounded-lg shadow-lg overflow-hidden p-4"
+            style="margin-bottom: 15px; margin-top: 10px"
+        >
+            <div
+                class="p-4 flex flex-col justify-center items-center space-y-3"
+            >
+                <h1 class="text-2xl font-bold mb-1">
+                    {{this.arrayNombresPedidos[$index]}}
+                </h1>
+                <h5 class="text-2xl mb-1">
+                    Precio total: {{ this.pedidos[$index].precio_total }}
+                </h5>
+
+                <p class="text-lg text-gray-200">
+                    <strong>Detalle del Pedido:</strong>
+                </p>
+                @for (item of this.pedidos[$index].item_menu; track $index) {
+                <p class="text-lg text-gray-200">
+                    {{ pedido.item_menu[$index] }} - Cantidad: {{
+                    pedido.cantidad_item_menu[$index] }}
+                </p>
                 }
-            </tbody>
-        </table>
+
+                <p class="text-lg text-gray-200">
+                    <strong>Tiempo de elaboración:</strong>
+                    {{ this.pedidos[$index].tiempo_estimado }} min
+                </p>
+                <!-- 
+                <p class="text-lg text-gray-200">
+                    <strong>Id del cliente que pidió:</strong>
+                    {{ this.pedidos[$index].id_cliente }} min
+                </p> -->
+
+                <button
+                    (click)="actualizarPedido(this.pedidos[$index])"
+                    type="button"
+                    class="btn-aprobar w-full my-2"
+                >
+                    Confirmar
+                </button>
+            </div>
+        </div>
+        }
     </div>
 </ion-content>

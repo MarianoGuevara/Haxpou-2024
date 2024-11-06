@@ -107,20 +107,21 @@ export interface Pedido {
     id_cliente: string;
     id_mesa: string;
     precio_total: number;
+    item_menu_sector: PedidoSector[]; // paralelo segun sea barra o cocina
     item_menu: string[]; // serán array paralelos... X ej: ["hamburguesa", "coca cola", fideos] la pesona tiene 1 pedido de 4 hamburguesas, 8 coca colas, 3 fideos...
     cantidad_item_menu: string[]; // [4, 8, 3]
     // ["en preparacion", "listo", "listo"]
-    estado_detalle: EstadoDetallePedido[]; // este es 3er array paralelo del par... cuando las 4 hamburguesas esten listas, cambiara ese indice a listo. Cuando todos los indices sean listos recien ahi el pedido entero va a ser listo
+    estado_detalle: EstadoDetallePedido[]; // otro array paralelo... cuando las 4 hamburguesas esten listas, cambiara ese indice a listo. Cuando todos los indices sean listos recien ahi el pedido entero va a ser listo
     estado: EstadoPedido;
     tiempo_estimado: number; // minutos
 }
 // cuando confirma el mozo, cuando confirman TODAS las partes individuales del pedido
 
+export type PedidoSector = 'barra' | 'cocina';
 export type EstadoDetallePedido = 'pendiente' | 'en preparacion' | 'listo';
-
 export type EstadoPedido =
-    | 'pendiente'
-    | 'en preparecion'
-    | 'listo para entregar'
-    | 'entregado'
+    | 'pendiente' // cuando arranca
+    | 'en preparecion' // cuando el mozo lo confirma
+    | 'listo para entregar' // cuando los de la barra y cocina le ponen 'listo' a TODOS los componentes del pedido
+    | 'entregado' //
     | 'cuenta pagada';

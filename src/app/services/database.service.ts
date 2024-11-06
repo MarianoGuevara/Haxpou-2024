@@ -176,4 +176,27 @@ export class DatabaseService {
 
         updateDoc(documento, { ...pedido });
     }
+
+    async traerMesaPedido(idMesa: string) {
+        const usuarioQuery = query(
+            collection(this.firestore, CollectionsNames.MESAS),
+            where('uid', '==', idMesa)
+        );
+        const usuario = await getDocs(usuarioQuery);
+        return usuario;
+    }
+
+    async traerPedidoUsuario(idUsuario: string) {
+        const usuarioQuery = query(
+            collection(this.firestore, CollectionsNames.MESAS),
+            where('id_cliente', '==', idUsuario),
+            where('estado', '!=', 'cuenta pagada')
+            // cuenta pagada -> el ultimo estado del pedido.
+            // como puede haber 1 pedido x estadia del usuario, cuando este finalize x mas q tenga el
+            // id del usuario como esta en estado totalmente finalizado no me lo va a traer,
+            // solo me va a traer el pedido no terminado
+        );
+        const usuario = await getDocs(usuarioQuery);
+        return usuario;
+    }
 }
