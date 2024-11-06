@@ -99,4 +99,26 @@ export const routes: Routes = [
                 (m) => m.ListadoPedidosPage
             ),
     },
+    {
+        path: 'listado-pedidos-sector',
+        loadComponent: () =>
+            import(
+                './pages/listado-pedidos-sector/listado-pedidos-sector.page'
+            ).then((m) => m.ListadoPedidosSectorPage),
+    },
+
+    {
+        path: 'cliente-estado-pedido-encuesta',
+        loadComponent: () =>
+            import(
+                './pages/cliente-estado-pedido-encuesta/cliente-estado-pedido-encuesta.page'
+            ).then((m) => m.ClienteEstadoPedidoEncuestaPage),
+    },
+    {
+        path: 'encuesta-alta',
+        loadComponent: () =>
+            import('./pages/encuesta-alta/encuesta-alta.page').then(
+                (m) => m.EncuestaAltaPage
+            ),
+    },
 ];

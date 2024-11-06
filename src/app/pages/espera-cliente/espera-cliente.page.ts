@@ -67,7 +67,7 @@ export class EsperaClientePage {
     qr = inject(QrscannerService);
     spinner = inject(NgxSpinnerService);
     router = inject(Router);
-	sendPush = inject(SendPushService);
+    sendPush = inject(SendPushService);
 
     cliente: UserDetails | null | undefined;
 
@@ -91,13 +91,13 @@ export class EsperaClientePage {
             switch (cliente.situacion) {
                 case 'out':
                     cliente.situacion = 'enEspera';
-					this.sendPush.sendToRole(
-						'Cliente en lista de espera',
-						'El cliente "' +
-							cliente.nombre +
-							'" ingresó en la lista de espera.',
-						'maitre'
-					);
+                    this.sendPush.sendToRole(
+                        'Cliente en lista de espera',
+                        'El cliente "' +
+                            cliente.nombre +
+                            '" ingresó en la lista de espera.',
+                        'maitre'
+                    );
                     await this.db.actualizarCliente(cliente);
                     this.showAlert(
                         'Exito',
@@ -191,7 +191,12 @@ export class EsperaClientePage {
                 }`
             );
         } else {
-            this.router.navigateByUrl('/realizar-pedido');
+            // PONER IF PARA VERIFICAR SI: NO realizó pedido o SI lo hizo
+            if (true) {
+                this.router.navigateByUrl('/realizar-pedido');
+            } else {
+                this.router.navigateByUrl('/cliente-estado-pedido-encuesta');
+            }
         }
     }
 

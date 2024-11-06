@@ -202,6 +202,11 @@ export class AuthFormComponent {
                 email: 'mozot.hx@gmail.com',
                 password: '123456',
             });
+        } else if (guest === 'cocinero') {
+            this.credentials.setValue({
+                email: 'cocinero@gmail.com',
+                password: '123456',
+            });
         }
         // seguir...
     }
