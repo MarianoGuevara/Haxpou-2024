@@ -146,19 +146,19 @@ export class AltaDSPage {
             return;
         }
 
-        const newClient: Empleado = {
+        const newClient: Cliente = {
             nombre: this.nombres?.value,
             apellido: this.apellidos?.value,
             correo: this.correo?.value,
             dni: this.dni?.value,
             clave: this.clave1?.value,
-            // aprobado: 'pendiente',
-            cuil: 20225733446,
-            // role: 'clienteRegistrado',
-            role: 'dueno',
+            aprobado: 'pendiente',
+            // cuil: 20225733446,
+            role: 'clienteRegistrado',
+            // role: 'dueno',
             foto: url,
-            // situacion: 'out',
-            // mesaAsignada: -1,
+            situacion: 'out',
+            mesaAsignada: -1,
         };
 
         console.log(newClient);
