@@ -82,7 +82,7 @@ export class ClientesPendientesPage implements OnInit {
             `Hola ${cliente.nombre} ${
                 cliente.apellido
             }, le informamos que luego de una revisión rigurosa por parte de nuestros encargados de administración, llegamos a la conclusión de que su cuenta ha sido ${
-                cliente.aprobado === 'aprobado' ? 'aprobada' : 'rechazada'
+                estado === 'aprobado' ? 'aprobada' : 'rechazada'
             }.`
         );
 
