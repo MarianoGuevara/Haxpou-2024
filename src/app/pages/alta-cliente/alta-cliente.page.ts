@@ -26,6 +26,7 @@ import {
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import {
     Cliente,
+    Empleado,
     Supervisor,
     UserDetails,
 } from 'src/app/interfaces/app.interface';
@@ -145,18 +146,19 @@ export class AltaDSPage {
             return;
         }
 
-        const newClient: Cliente = {
+        const newClient: Empleado = {
             nombre: this.nombres?.value,
             apellido: this.apellidos?.value,
             correo: this.correo?.value,
             dni: this.dni?.value,
             clave: this.clave1?.value,
-            aprobado: 'pendiente',
-            // cuil: 20225733446,
-            role: 'clienteRegistrado',
+            // aprobado: 'pendiente',
+            cuil: 20225733446,
+            // role: 'clienteRegistrado',
+            role: 'dueno',
             foto: url,
-            situacion: 'out',
-            mesaAsignada: -1,
+            // situacion: 'out',
+            // mesaAsignada: -1,
         };
 
         console.log(newClient);
