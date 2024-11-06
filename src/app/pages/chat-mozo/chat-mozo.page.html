@@ -96,7 +96,7 @@
                         [placeholder]="this.groupedMessages.length === 0 ? 'Esperando a consulta...':'Escribe un mensaje...'"
                         maxlength="50"
                         [(ngModel)]="messageContentToSend"
-                        [disabled]="this.groupedMessages.length === 0"
+                        [disabled]="this.groupedMessages.length === 0 && this.isUserMozo"
                     />
                     <button
                         (click)="this.isUserMozo ? this.sendMessageFromMozoToDB() : this.sendMessageFromClientToDB()"
@@ -106,7 +106,7 @@
                                 ? 'bg-green-500 hover:bg-green-500/70'
                                 : 'bg-slate-600'
                         "
-                        [disabled]="this.messageContentToSend === '' || this.groupedMessages.length === 0"
+                        [disabled]="this.messageContentToSend === '' || (this.groupedMessages.length === 0 && this.isUserMozo)"
                     >
                         <img class="w-7" src="assets/send.svg" alt="send" />
                     </button>
