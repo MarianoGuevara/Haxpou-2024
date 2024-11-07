@@ -155,6 +155,8 @@ export class EsperaClientePage {
             cliente.role == 'clienteRegistrado'
         ) {
             switch (cliente.situacion) {
+				case 'pedidoEnCurso':
+				case 'pedidoPendienteAprobacion':
                 case 'mesaAsignado':
                     await this.escanearMesa();
                     break;
@@ -180,7 +182,6 @@ export class EsperaClientePage {
         var numeroMesa = await this.qr.startScan();
 
         var resp = await this.db.traerMesa(numeroMesa!.charAt(4));
-
         const mesa = resp.docs[0].data() as Mesa;
 
         if (mesa.idCliente !== this.cliente?.uid) {
@@ -195,7 +196,7 @@ export class EsperaClientePage {
             const cliente = this.authService.currentUserSig() as Cliente;
 
             if (cliente.situacion == 'mesaAsignado') {
-                this.router.navigateByUrl('/'); // donde te aparece la opcion de dar de alta pedido
+                this.router.navigateByUrl('/realizar-pedido'); // donde te aparece la opcion de dar de alta pedido
             } else if (
                 cliente.situacion == 'pedidoPendienteAprobacion' ||
                 cliente.situacion == 'pedidoEnCurso' // a ambos los lleva a la misma pag donde ven: encuesta (solo si es pedido en curso) y estado de su pedido
