@@ -57,13 +57,13 @@ export class ListadoPedidosSectorPage implements OnInit {
     ngOnInit() {
         this.spinner.show();
         try {
-            this.suscripcion = this.db.traerPedidos().subscribe((data) => {
+            this.suscripcion = this.db.traerPedidosConfirmados().subscribe((data) => {
                 this.pedidos = data;
                 console.log(this.pedidos);
                 for (let i = 0; i < this.pedidos.length; i++) {
                     for (let j = 0; j < this.pedidos[i].item_menu.length; j++) {
                         if (
-                            this.pedidos[i].item_menu_sector[i] == 'cocina' &&
+                            this.pedidos[i].item_menu_sector[j] == 'cocina' &&
                             this.auth.currentUserSig()?.role == 'cocinero'
                         ) {
                             this.detallesActuales.push({
@@ -74,7 +74,7 @@ export class ListadoPedidosSectorPage implements OnInit {
                                 index_real_pedido: i,
                             });
                         } else if (
-                            this.pedidos[i].item_menu_sector[i] == 'barra' &&
+                            this.pedidos[i].item_menu_sector[j] == 'barra' &&
                             this.auth.currentUserSig()?.role == 'bartender'
                         ) {
                             this.detallesActuales.push({

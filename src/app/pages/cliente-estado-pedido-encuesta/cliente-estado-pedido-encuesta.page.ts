@@ -46,7 +46,9 @@ export class ClienteEstadoPedidoEncuestaPage {
     ngOnInit(): void {
         this.clienteActual = this.authService.currentUserSig() as Cliente;
     }
-    constructor() {}
+    constructor() {
+        this.clienteActual = this.authService.currentUserSig() as Cliente;
+    }
 
     protected castUserToClient(user: UserDetails) {
         return user as Cliente;
@@ -56,7 +58,7 @@ export class ClienteEstadoPedidoEncuestaPage {
         this.spinner.show();
 
         const pedidoUser = await this.db.traerPedidoUsuario(
-            this.authService.currentUserSig()?.uid!
+            this.clienteActual?.uid!
         );
 
         const pedidoReal = pedidoUser.docs[0].data() as Pedido;

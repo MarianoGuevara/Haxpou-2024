@@ -164,9 +164,19 @@ export class DatabaseService {
 
         const pedidos = query(
             col,
-            where('estado', '==', 'pendiente'),
-            where('estado', '==', 'listo para entregar')
+            where('estado', 'in', ['pendiente', 'listo para entregar'])
         );
+
+        //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
+        return collectionData(pedidos, { idField: 'uid' }) as Observable<
+            Pedido[]
+        >;
+    }
+
+    traerPedidosConfirmados(): Observable<Pedido[]> {
+        const col = collection(this.firestore, CollectionsNames.PEDIDOS);
+
+        const pedidos = query(col, where('estado', '==', 'en preparecion'));
 
         //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
         return collectionData(pedidos, { idField: 'uid' }) as Observable<
@@ -193,9 +203,9 @@ export class DatabaseService {
 
     async traerPedidoUsuario(idUsuario: string) {
         const usuarioQuery = query(
-            collection(this.firestore, CollectionsNames.MESAS),
-            where('id_cliente', '==', idUsuario),
-            where('estado', '!=', 'cuenta pagada')
+            collection(this.firestore, CollectionsNames.PEDIDOS),
+            where('id_cliente', '==', idUsuario)
+
             // cuenta pagada -> el ultimo estado del pedido.
             // como puede haber 1 pedido x estadia del usuario, cuando este finalize x mas q tenga el
             // id del usuario como esta en estado totalmente finalizado no me lo va a traer,

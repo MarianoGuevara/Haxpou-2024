@@ -70,13 +70,14 @@ export class EsperaClientePage {
     sendPush = inject(SendPushService);
 
     cliente: UserDetails | null | undefined;
-
+    clienteReal: Cliente | null;
     qrMesaSeleccionada: string | null = null;
 
     mesas: Mesa[] = [];
 
     constructor() {
         this.cliente = this.authService.currentUserSig();
+        this.clienteReal = this.cliente as Cliente;
     }
 
     // ngOnInit() {}
@@ -155,8 +156,8 @@ export class EsperaClientePage {
             cliente.role == 'clienteRegistrado'
         ) {
             switch (cliente.situacion) {
-				case 'pedidoEnCurso':
-				case 'pedidoPendienteAprobacion':
+                case 'pedidoEnCurso':
+                case 'pedidoPendienteAprobacion':
                 case 'mesaAsignado':
                     await this.escanearMesa();
                     break;
