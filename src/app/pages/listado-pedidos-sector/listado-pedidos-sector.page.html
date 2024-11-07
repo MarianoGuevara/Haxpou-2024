@@ -2,7 +2,7 @@
     <ion-toolbar class="estilo">
         <ion-buttons slot="start">
             <ion-back-button
-                routerlink="/home"
+                default-href="/home"
                 class="text-cyan-50"
             ></ion-back-button>
             <h2 class="font-bold text-cyan-50 text-xl">Detalle pedidos</h2>
@@ -13,7 +13,7 @@
 <ion-content [fullscreen]="true">
     <div class="h-screen p-5" style="max-height: 650px; overflow-y: scroll">
         @for (pedidoDetalle of detallesActuales; track pedidoDetalle) { @if
-        (pedidoDetalle.estado != "listo") {
+        (pedidoDetalle.estado !== "listo") {
         <div
             class="bg-slate-700 rounded-lg shadow-lg overflow-hidden p-4"
             style="margin-bottom: 15px; margin-top: 10px"

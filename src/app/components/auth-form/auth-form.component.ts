@@ -120,7 +120,6 @@ export class AuthFormComponent {
             this.password?.value
         );
 
-        console.log(user);
         if (user) {
             console.log('¡Inicio de sesión exitoso!');
             this.router.navigateByUrl('/home', { replaceUrl: true });

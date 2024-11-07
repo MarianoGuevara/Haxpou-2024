@@ -41,23 +41,28 @@
             routerLink="/espera-clientes-maitre"
             >Lista de espera</ion-button
         >
+
         } @else if(currentUser.role === this.Perfiles.MOZO){
         <app-mozo-home></app-mozo-home>
 
         } @else if(currentUser.role === this.Perfiles.BARTENDER ||
         currentUser.role === this.Perfiles.COCINERO){
+
         <ion-button
             expand="block"
             class="pages-button text-2xl font-bold"
             routerLink="/listado-pedidos-sector"
             >Pedidos del sector</ion-button
         >
+
         } @else {
+
         <p style="color: white">
             {{this.authService.currentUserSig()}} || NINGUNA DE TODAS
         </p>
-        } } @else {
-        <p style="color: white">{{this.authService.currentUserSig()}}</p>
+
+        }
+        <!-- - -->
         }
     </div>
 </ion-content>
