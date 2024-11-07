@@ -13,9 +13,10 @@ import {
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { Cliente, UserDetails } from 'src/app/interfaces/app.interface';
+import { Cliente, Pedido, UserDetails } from 'src/app/interfaces/app.interface';
 import { DatabaseService } from 'src/app/services/database.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import _default from 'emailjs-com';
 
 @Component({
     selector: 'app-cliente-estado-pedido-encuesta',
@@ -40,23 +41,38 @@ export class ClienteEstadoPedidoEncuestaPage {
     private alertController = inject(AlertController);
     db = inject(DatabaseService);
     spinner = inject(NgxSpinnerService);
+    clienteActual: Cliente | null = null;
 
+    ngOnInit(): void {
+        this.clienteActual = this.authService.currentUserSig() as Cliente;
+    }
     constructor() {}
 
     protected castUserToClient(user: UserDetails) {
         return user as Cliente;
     }
 
-    verEstadoPedido() {
+    async verEstadoPedido() {
         this.spinner.show();
 
-        const pedidoUser = this.db.traerPedidoUsuario(
+        const pedidoUser = await this.db.traerPedidoUsuario(
             this.authService.currentUserSig()?.uid!
         );
-        console.log(pedidoUser);
-        // aca una vez q rutee todo ok testear mejor
-        this.showAlert('El estado de su pedido es: ', '');
-        this.spinner.hide();
+
+        const pedidoReal = pedidoUser.docs[0].data() as Pedido;
+
+        let estadoCasted = '';
+        switch (pedidoReal.estado) {
+            case 'pendiente':
+                estadoCasted = 'pendiente de aprobación por parte de un mozo';
+                break;
+            default:
+                estadoCasted = pedidoReal.estado;
+                break;
+        }
+        this.showAlert('El estado de su pedido es: ', estadoCasted).then(() => {
+            this.spinner.hide();
+        });
     }
 
     private async showAlert(header: string, message: string) {

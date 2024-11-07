@@ -13,6 +13,7 @@ import {
     where,
     query,
     QuerySnapshot,
+    setDoc,
 } from '@angular/fire/firestore';
 import {
     Cliente,
@@ -161,7 +162,11 @@ export class DatabaseService {
     traerPedidos(): Observable<Pedido[]> {
         const col = collection(this.firestore, CollectionsNames.PEDIDOS);
 
-        const pedidos = query(col);
+        const pedidos = query(
+            col,
+            where('estado', '==', 'pendiente'),
+            where('estado', '==', 'listo para entregar')
+        );
 
         //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
         return collectionData(pedidos, { idField: 'uid' }) as Observable<
@@ -198,5 +203,15 @@ export class DatabaseService {
         );
         const usuario = await getDocs(usuarioQuery);
         return usuario;
+    }
+
+    async AltaPedido(pedido: Pedido) {
+        const col = collection(this.firestore, CollectionsNames.PEDIDOS);
+        const documentoNuevo = doc(col);
+        const id = documentoNuevo.id;
+
+        pedido.uid = id;
+
+        setDoc(documentoNuevo, pedido);
     }
 }

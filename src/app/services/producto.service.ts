@@ -57,4 +57,13 @@ export class ProductoService {
         const productoDocs = await getDocs(productoQuery);
         return productoDocs;
     }
+
+    async getProductoNombre(name: string) {
+        const productoQuery = query(
+            collection(this.firestore, CollectionsNames.PRODUCTOS),
+            where('nombre', '==', name)
+        );
+        const productoDocs = await getDocs(productoQuery);
+        return productoDocs;
+    }
 }

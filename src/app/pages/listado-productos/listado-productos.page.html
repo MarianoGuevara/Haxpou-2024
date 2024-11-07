@@ -1,12 +1,38 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-back-button
-                default-href="#"
-                class="text-cyan-50"
-            ></ion-back-button>
-            <h2 class="font-bold text-cyan-50 text-xl">Listado de productos</h2>
-        </ion-buttons>
+        <div
+            style="margin-bottom: 20px; margin-top: 20px"
+            class="text-center w-full relative flex items-center justify-center"
+        >
+            <ion-buttons slot="start" class="mr-2">
+                <ion-back-button
+                    default-href="/home"
+                    class="text-cyan-50"
+                ></ion-back-button>
+            </ion-buttons>
+            <h4 class="font-bold text-cyan-50 text-2xl">Realizar pedido</h4>
+        </div>
+        <div style="margin-bottom: 20px" class="text-center w-full mt-4">
+            @if (calculando) {
+            <h4 class="font-bold text-[#06b6d4] text-2xl">CALCULANDO...</h4>
+            } @else {
+            <h4 class="font-bold text-[#06b6d4] text-2xl">
+                PRECIO TOTAL: ${{ precioTotal }}
+            </h4>
+            <h4 class="font-bold text-[#06b6d4] text-xl mt-2">
+                TIEMPO ESTIMADO: {{ tiempoEstimado }} minutos
+            </h4>
+            }
+        </div>
+        <div class="text-center w-full mt-4" style="margin-bottom: 20px">
+            <ion-button
+                expand="block"
+                class="btnOrdenar"
+                (click)="AltaPedido()"
+            >
+                Ordenar
+            </ion-button>
+        </div>
     </ion-toolbar>
 </ion-header>
 
@@ -14,7 +40,58 @@
     <div class="grid grid-cols-1 gap-4 p-4">
         @for(producto of this.productos;track $index){
 
-        <app-product-card [producto]="producto"></app-product-card>
+        <div class="bg-slate-700 rounded-lg shadow-lg overflow-hidden p-4">
+            <swiper-container class="h-48" pager="true">
+                @for(foto of producto.fotos; track $index) {
+                <swiper-slide>
+                    <img
+                        [src]="foto"
+                        alt="Product Image"
+                        class="w-full h-full object-cover"
+                    />
+                </swiper-slide>
+                }
+            </swiper-container>
+
+            <div
+                class="p-4 flex flex-col justify-center items-center space-y-3"
+            >
+                <h3 class="text-2xl font-bold mb-1">{{ producto.nombre }}</h3>
+                <p class="text-lg text-gray-200 mb-2 text-center">
+                    {{ producto.descripcion }}
+                </p>
+                <p class="text-lg text-gray-200">
+                    <strong>Tiempo de elaboración:</strong>
+                    {{ producto.tiempoElaboracion }} minutos
+                </p>
+                <p class="text-2xl font-semibold text-blue-400">
+                    <strong>Precio:</strong> ${{ producto.precio | number :
+                    "1.2-2" }}
+                </p>
+
+                <div class="flex items-center space-x-3 mt-3">
+                    <button
+                        (click)="EliminarCantidad(producto, $index)"
+                        ion-button
+                        class="bg-blue-500 text-white font-bold px-4 py-1 rounded-full"
+                    >
+                        -
+                    </button>
+                    <button
+                        (click)="AgregarCantidad(producto, $index)"
+                        ion-button
+                        class="bg-blue-500 text-white font-bold px-4 py-1 rounded-full"
+                    >
+                        +
+                    </button>
+                    <p class="text-xl text-white font-semibold">
+                        {{ productosCantidad[$index] }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- <app-product-card [producto]="producto"></app-product-card> -->
 
         }
     </div>

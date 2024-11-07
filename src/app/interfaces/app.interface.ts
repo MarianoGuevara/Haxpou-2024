@@ -36,6 +36,7 @@ export type SituacionCliente =
     | 'out'
     | 'enEspera'
     | 'mesaAsignado'
+    | 'pedidoPendienteAprobacion'
     | 'pedidoEnCurso';
 // out estado inicial... cuando scanea qr pasa a enEspera, despues cuando el maitre le asigna una mesa volvería a
 // cambiar y así... que opinan
@@ -50,6 +51,7 @@ export interface Producto {
     precio: number;
     fotos: string[];
     qr: string;
+    sector: PedidoSector;
 }
 
 export interface Mesa {
@@ -109,7 +111,7 @@ export interface Pedido {
     precio_total: number;
     item_menu_sector: PedidoSector[]; // paralelo segun sea barra o cocina
     item_menu: string[]; // serán array paralelos... X ej: ["hamburguesa", "coca cola", fideos] la pesona tiene 1 pedido de 4 hamburguesas, 8 coca colas, 3 fideos...
-    cantidad_item_menu: string[]; // [4, 8, 3]
+    cantidad_item_menu: number[]; // [4, 8, 3]
     // ["en preparacion", "listo", "listo"]
     estado_detalle: EstadoDetallePedido[]; // otro array paralelo... cuando las 4 hamburguesas esten listas, cambiara ese indice a listo. Cuando todos los indices sean listos recien ahi el pedido entero va a ser listo
     estado: EstadoPedido;
@@ -124,4 +126,6 @@ export type EstadoPedido =
     | 'en preparecion' // cuando el mozo lo confirma
     | 'listo para entregar' // cuando los de la barra y cocina le ponen 'listo' a TODOS los componentes del pedido
     | 'entregado' //
+    | 'cuenta solicitada'
+    | 'cuenta pagada a revision'
     | 'cuenta pagada';

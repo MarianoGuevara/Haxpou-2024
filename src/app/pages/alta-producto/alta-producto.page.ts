@@ -64,6 +64,7 @@ export class AltaProductoPage {
             descripcion: ['', Validators.required],
             tiempoElaboracion: ['', [Validators.required, Validators.min(1)]],
             precio: ['', [Validators.required, Validators.min(0.01)]],
+            sector: ['', [Validators.required]],
         });
     }
 
@@ -103,6 +104,7 @@ export class AltaProductoPage {
             precio: this.productForm.get('precio')?.value,
             fotos: validImageUrls,
             qr: 'poner qr link aca',
+            sector: this.productForm.get('sector')?.value,
         };
 
         await this.databaseService.agregarFalopaaaaaa(newProduct, 'Productos');
