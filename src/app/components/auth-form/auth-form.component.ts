@@ -212,6 +212,11 @@ export class AuthFormComponent {
                 email: 'cocinero@gmail.com',
                 password: '123456',
             });
+        } else if (guest === 'bartender') {
+            this.credentials.setValue({
+                email: 'bartender@gmail.com',
+                password: '123456',
+            });
         }
         // seguir...
     }
