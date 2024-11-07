@@ -155,7 +155,7 @@ export class AltaDSPage {
             aprobado: 'pendiente',
             // cuil: 20225733446,
             role: 'clienteRegistrado',
-            // role: 'dueno',
+            // role: 'bartender',
             foto: url,
             situacion: 'out',
             mesaAsignada: -1,

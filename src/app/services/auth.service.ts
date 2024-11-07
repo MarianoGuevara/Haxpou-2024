@@ -116,6 +116,7 @@ export class AuthService {
     private async updateUserSignal(authUser: User) {
         const user = await this.getUserFromFirestore(authUser).toPromise();
         const userDetails = user!.data() as UserDetails;
+
         console.log('updated user signal');
 
         this.currentUserSig.set(userDetails);

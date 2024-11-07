@@ -38,6 +38,8 @@ interface Detalle {
         IonToolbar,
         CommonModule,
         FormsModule,
+        IonButtons,
+        IonBackButton,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
