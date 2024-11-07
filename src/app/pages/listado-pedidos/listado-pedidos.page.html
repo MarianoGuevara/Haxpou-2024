@@ -48,6 +48,7 @@
                     {{ this.pedidos[$index].id_cliente }} min
                 </p> -->
 
+                @if (this.pedidos[$index].estado == 'pendiente') {
                 <button
                     (click)="actualizarPedido(this.pedidos[$index])"
                     type="button"
@@ -55,6 +56,15 @@
                 >
                     Confirmar
                 </button>
+                } @else {
+                <button
+                    (click)="entregarPedido(this.pedidos[$index])"
+                    type="button"
+                    class="btn-rechazar w-full my-2"
+                >
+                    Entregar
+                </button>
+                }
             </div>
         </div>
         }

@@ -12,12 +12,16 @@
 
 <ion-content [fullscreen]="true">
     <div class="grid grid-cols-1 h-[calc(100vh-56px)]">
+        <!-- solo muestra encuesta si el mozo le aprobó el pedido  -->
+        @if (clienteActual?.situacion == 'pedidoEnCurso') {
         <ion-button
             expand="block"
             class="pages-button text-2xl font-bold"
             routerLink="/encuesta-alta"
             >Encuesta</ion-button
         >
+        }
+
         <ion-button
             expand="block"
             class="pages-button text-2xl font-bold"

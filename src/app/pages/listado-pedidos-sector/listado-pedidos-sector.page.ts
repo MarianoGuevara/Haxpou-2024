@@ -16,10 +16,11 @@ import { DatabaseService } from 'src/app/services/database.service';
 import { Subscription } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { SendPushService } from 'src/app/services/api-push.service';
 
 interface Detalle {
     item: string;
-    cantidad: string;
+    cantidad: number;
     index_real: number; // index array paralelo
     index_real_pedido: number; // index array local de todos los pedidos
     estado: string;
@@ -47,6 +48,7 @@ export class ListadoPedidosSectorPage implements OnInit {
     suscripcion: Subscription | null = null;
     detallesActuales: Detalle[] = [];
     auth = inject(AuthService);
+    sendPush = inject(SendPushService);
 
     constructor() {}
 
@@ -55,7 +57,7 @@ export class ListadoPedidosSectorPage implements OnInit {
         try {
             this.suscripcion = this.db.traerPedidos().subscribe((data) => {
                 this.pedidos = data;
-
+                console.log(this.pedidos);
                 for (let i = 0; i < this.pedidos.length; i++) {
                     for (let j = 0; j < this.pedidos[i].item_menu.length; j++) {
                         if (
@@ -113,6 +115,11 @@ export class ListadoPedidosSectorPage implements OnInit {
         }
 
         if (listoTodo) {
+            this.sendPush.sendToRole(
+                'Tienes un nuevo pedido listo para entregar',
+                'Un nuevo pedido está listo completamente para su entrega.',
+                'mozo'
+            );
             pedidoSeleccionado.estado = 'listo para entregar'; // si todos los indices son listos, lo pongo para listo para entregar... el cliente tendra q confirmar recepcion para q se ponga como entregado
         }
 

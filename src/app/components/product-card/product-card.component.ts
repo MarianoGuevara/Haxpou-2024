@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Producto } from 'src/app/interfaces/app.interface';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'app-product-card',
     standalone: true,
-	imports:[CommonModule],
+    imports: [CommonModule],
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss'],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class ProductCardComponent {
     @Input() producto: Producto | null = null;
 
-    constructor() {}
+    // product card se convierte en el pedido actual.
 
-    // ngOnInit() {}
+    constructor() {}
 }

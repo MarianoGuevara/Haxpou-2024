@@ -192,9 +192,14 @@ export class EsperaClientePage {
             );
         } else {
             // PONER IF PARA VERIFICAR SI: NO realizó pedido o SI lo hizo
-            if (true) {
-                this.router.navigateByUrl('/realizar-pedido');
-            } else {
+            const cliente = this.authService.currentUserSig() as Cliente;
+
+            if (cliente.situacion == 'mesaAsignado') {
+                this.router.navigateByUrl('/'); // donde te aparece la opcion de dar de alta pedido
+            } else if (
+                cliente.situacion == 'pedidoPendienteAprobacion' ||
+                cliente.situacion == 'pedidoEnCurso' // a ambos los lleva a la misma pag donde ven: encuesta (solo si es pedido en curso) y estado de su pedido
+            ) {
                 this.router.navigateByUrl('/cliente-estado-pedido-encuesta');
             }
         }

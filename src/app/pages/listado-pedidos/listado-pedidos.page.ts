@@ -10,11 +10,12 @@ import {
     IonBackButton,
     AlertController,
 } from '@ionic/angular/standalone';
-import { Mesa, Pedido } from 'src/app/interfaces/app.interface';
+import { Cliente, Mesa, Pedido } from 'src/app/interfaces/app.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Subscription } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { SendPushService } from 'src/app/services/api-push.service';
 
 @Component({
     selector: 'app-listado-pedidos',
@@ -40,7 +41,7 @@ export class ListadoPedidosPage implements OnInit {
     suscripcion: Subscription | null = null;
     alertController = inject(AlertController);
     arrayNombresPedidos: string[] = []; // para mostrar nombre de pedido "personalizado"
-
+    sendPush = inject(SendPushService);
     constructor() {
         // const pedidoEjemplo: Pedido = {
         //     uid: '123456',
@@ -60,6 +61,7 @@ export class ListadoPedidosPage implements OnInit {
         this.spinner.show();
         try {
             this.suscripcion = this.db.traerPedidos().subscribe((data) => {
+                // me trae los pendientes y listos para entregar
                 this.pedidos = data;
                 this.pedidos.forEach(async (pedido) => {
                     const mesa: Mesa = await this.traerMesaDeUnPedido(pedido);
@@ -85,13 +87,34 @@ export class ListadoPedidosPage implements OnInit {
     async actualizarPedido(pedido: Pedido) {
         this.spinner.show();
 
+        const clientePedidoDb = await this.db.traerPedidoUsuario(
+            pedido.id_cliente
+        );
+        const clientePedido = clientePedidoDb.docs[0].data() as Cliente;
+
+        clientePedido.situacion = 'pedidoEnCurso'; // actualizo situacion de cliente
         pedido.estado = 'en preparecion';
         pedido.estado_detalle.forEach((elemento) => {
             elemento = 'en preparacion';
         });
 
+        // PUSH
+        this.sendPush.sendToRole(
+            'Tienes bebidas nuevos pendientes para preparar',
+            'Un mozo confirmó un nuevo pedido. Ve a tu lista de pendientes para ver qué puedes hacer',
+            'bartender'
+        );
+        this.sendPush.sendToRole(
+            'Tienes alimentos nuevos pendientes para preparar',
+            'Un mozo confirmó un nuevo pedido. Ve a tu lista de pendientes para ver qué puedes hacer',
+            'cocinero'
+        );
+
+        await this.db.actualizarCliente(clientePedido);
         this.db.actualizarPedido(pedido);
 
         this.spinner.hide();
     }
+
+    async entregarPedido(p: Pedido) {}
 }
