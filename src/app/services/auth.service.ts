@@ -17,6 +17,7 @@ import {
 import { NgxSpinnerService } from 'ngx-spinner';
 import { map, Observable } from 'rxjs';
 import { collection, getDocs, query, where } from '@angular/fire/firestore';
+import { PushService } from 'src/app/services/push.service';
 
 @Injectable({
     providedIn: 'root',
@@ -103,6 +104,7 @@ export class AuthService {
 
             this.currentUserSig.set(undefined);
             await this.updateUserSignal(userCredentials.user);
+
 
             this.spinner.hide();
             return userCredentials;
