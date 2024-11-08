@@ -54,7 +54,7 @@
 
                 @if (this.pedidos[$index].estado == 'pendiente') {
                 <button
-                    (click)="actualizarPedido(this.pedidos[$index])"
+                    (click)="actualizarPedido(this.pedidos[$index], $index)"
                     type="button"
                     class="btn-aprobar w-full my-2"
                 >
@@ -62,7 +62,7 @@
                 </button>
                 } @else {
                 <button
-                    (click)="entregarPedido(this.pedidos[$index])"
+                    (click)="entregarPedido(this.pedidos[$index], $index)"
                     type="button"
                     class="btn-rechazar w-full my-2"
                 >

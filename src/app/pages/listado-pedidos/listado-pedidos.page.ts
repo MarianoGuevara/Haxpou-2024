@@ -99,9 +99,11 @@ export class ListadoPedidosPage implements OnInit {
         return mesaReal;
     }
 
-    async actualizarPedido(pedido: Pedido) {
+    async actualizarPedido(pedido: Pedido, index:number) {
         console.log(pedido);
         this.spinner.show();
+
+		this.pedidos.splice(index, 1);
 
         const clientePedidoDb = await this.db.traerUsuario(pedido.id_cliente);
         const clientePedido = clientePedidoDb.docs[0].data() as Cliente;
@@ -131,5 +133,5 @@ export class ListadoPedidosPage implements OnInit {
         this.spinner.hide();
     }
 
-    async entregarPedido(p: Pedido) {}
+    async entregarPedido(p: Pedido, index:number) {}
 }
