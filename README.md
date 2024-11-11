@@ -32,13 +32,29 @@
 [![francojimenezcopati](https://img.shields.io/badge/francojimenezcopati-707070?style=for-the-badge&logo=github&logoColor=black)](https://github.com/francojimenezcopati)
 </div>
 
+<br/>
+<div align="center">
+    <h2 align="center">Splash-screen y login</h1>
+</div>
+
+<table align="center">
+    <tr>
+        <td align="center">
+            <h3>Splash-screen</h3>
+            <img src="./src/assets/splash.jpg" alt="Mesa 1" width="250" style="margin: 15px;">
+        </td>
+        <td align="center">
+            <h3>Login</h3>
+            <img src="./src/assets/login.jpg" alt="Mesa 2" width="250" style="margin: 15px;">
+        </td>
+    </tr>
+</table>
+
 
 <br/>
 <div align="center">
     <h2 align="center">Códigos QRs</h1>
 </div>
-<br/>
-
 
 ## Entrada
 
