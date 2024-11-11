@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content class="custom" [fullscreen]="true">
-    <div class="h-[calc(100vh-56px)] p-4">
+    <div class="h-[calc(100vh-56px)] p-4 pt-1">
         <ion-fab class="mt-16" slot="fixed" horizontal="end" vertical="top">
             <ion-fab-button (click)="onScanClick()">
                 <img class="w-9" src="/assets/scanner.svg" alt="" />
@@ -27,7 +27,7 @@
                     (click)="onTakePhotoClick()"
                 >
                     <img
-                        class="w-28 h-28 image"
+                        class="w-20 h-20 image"
                         [src]="this.userImage"
                         alt=""
                     />
@@ -142,6 +142,30 @@
                     color="danger"
                     class="absolute -bottom-6 text-red-500 text-lg"
                     >{{ obtenerMensajeError("clave1") }}</ion-note
+                >
+                }
+            </div>
+
+            <!-- Repetir Clave -->
+            <div class="relative">
+                <ion-input
+                    fill="solid"
+                    placeholder="Repetir contraseña"
+                    type="password"
+                    formControlName="clave2"
+                    class="w-full text-2xl"
+                >
+                    <ion-input-password-toggle
+                        slot="end"
+                    ></ion-input-password-toggle>
+                </ion-input>
+                @if(this.clave2 && this.clave2.touched &&
+                obtenerMensajeError("clave2") !== null){
+                <ion-note
+                    slot="error"
+                    color="danger"
+                    class="absolute -bottom-6 text-red-500 text-lg"
+                    >{{ obtenerMensajeError("clave2") }}</ion-note
                 >
                 }
             </div>
