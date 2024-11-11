@@ -28,6 +28,10 @@
                     Precio total: {{ this.pedidos[$index].precio_total }}
                 </h5>
 
+				<p class="text-lg text-gray-200">
+                    <strong>Estado: </strong> {{this.pedidos[$index].estado}}
+                </p>
+
                 <p class="text-lg text-gray-200">
                     <strong>Detalle del Pedido:</strong>
                 </p>
@@ -50,7 +54,7 @@
 
                 @if (this.pedidos[$index].estado == 'pendiente') {
                 <button
-                    (click)="actualizarPedido(this.pedidos[$index])"
+                    (click)="actualizarPedido(this.pedidos[$index], $index)"
                     type="button"
                     class="btn-aprobar w-full my-2"
                 >
@@ -58,7 +62,7 @@
                 </button>
                 } @else {
                 <button
-                    (click)="entregarPedido(this.pedidos[$index])"
+                    (click)="entregarPedido(this.pedidos[$index], $index)"
                     type="button"
                     class="btn-rechazar w-full my-2"
                 >

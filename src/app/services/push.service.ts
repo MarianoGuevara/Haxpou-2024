@@ -86,7 +86,7 @@ export class PushService {
         );
     }
 
-    private async saveToken(token: string) {
+    public async saveToken(token: string) {
         console.log('saveToken -> ', token);
 
         const currentUser = this.authService.currentUserSig() as UserDetails;

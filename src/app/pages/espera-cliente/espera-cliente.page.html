@@ -13,12 +13,15 @@
 <ion-content [fullscreen]="true">
     @if (false){ } @else {
     <div class="grid grid-cols-1 h-[calc(100vh-56px)]">
+        @if (this.clienteReal?.situacion == 'out') {
         <ion-button
             expand="block"
             class="pages-button text-2xl font-bold"
             (click)="entrarEnListaEspera()"
             >Acceder a lista de espera</ion-button
         >
+        }
+
         <ion-button
             expand="block"
             class="pages-button text-2xl font-bold"

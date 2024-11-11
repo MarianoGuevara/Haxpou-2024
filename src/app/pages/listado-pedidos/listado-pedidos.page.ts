@@ -27,7 +27,7 @@ import { SendPushService } from 'src/app/services/api-push.service';
         IonButtons,
         IonContent,
         IonHeader,
-        IonTitle,
+
         IonToolbar,
         CommonModule,
         FormsModule,
@@ -60,18 +60,33 @@ export class ListadoPedidosPage implements OnInit {
     ngOnInit() {
         this.spinner.show();
         try {
-            this.suscripcion = this.db.traerPedidos().subscribe((data) => {
-                // me trae los pendientes y listos para entregar
-                this.pedidos = data;
-                this.pedidos.forEach(async (pedido) => {
-                    const mesa: Mesa = await this.traerMesaDeUnPedido(pedido);
-                    this.arrayNombresPedidos.push(
-                        "Pedido mesa '" + mesa.numero! + "'"
-                    );
+            this.suscripcion = this.db
+                .traerPedidos()
+                .subscribe(async (data) => {
+                    // me trae los pendientes y listos para entregar
+                    console.log(data);
+                    this.pedidos = data;
+                    for (let i = 0; i < this.pedidos.length; i++) {
+                        console.log('PEDIDO -> ', this.pedidos[i]);
+
+                        const mesa = await this.db.traerMesaPedido(
+                            this.pedidos[i].id_mesa
+                        );
+                        const mesaReal = mesa.docs[0].data() as Mesa;
+
+                        // const mesa: Mesa = await this.traerMesaDeUnPedido(
+                        //     this.pedidos[i].
+                        // );
+                        console.log('MESA -> ', mesaReal);
+
+                        this.arrayNombresPedidos.push(
+                            "Pedido mesa '" + mesaReal.numero! + "'"
+                        );
+                    }
+
+                    this.spinner.hide();
+                    this.suscripcion?.unsubscribe();
                 });
-                this.spinner.hide();
-                this.suscripcion?.unsubscribe();
-            });
         } catch (error) {
             console.error(error);
             this.spinner.hide();
@@ -84,19 +99,21 @@ export class ListadoPedidosPage implements OnInit {
         return mesaReal;
     }
 
-    async actualizarPedido(pedido: Pedido) {
+    async actualizarPedido(pedido: Pedido, index:number) {
+        console.log(pedido);
         this.spinner.show();
 
-        const clientePedidoDb = await this.db.traerPedidoUsuario(
-            pedido.id_cliente
-        );
+		this.pedidos.splice(index, 1);
+
+        const clientePedidoDb = await this.db.traerUsuario(pedido.id_cliente);
         const clientePedido = clientePedidoDb.docs[0].data() as Cliente;
+        console.log(clientePedido);
 
         clientePedido.situacion = 'pedidoEnCurso'; // actualizo situacion de cliente
         pedido.estado = 'en preparecion';
-        pedido.estado_detalle.forEach((elemento) => {
-            elemento = 'en preparacion';
-        });
+        for (let i = 0; i < pedido.estado_detalle.length; i++) {
+            pedido.estado_detalle[i] = 'en preparacion';
+        }
 
         // PUSH
         this.sendPush.sendToRole(
@@ -110,11 +127,11 @@ export class ListadoPedidosPage implements OnInit {
             'cocinero'
         );
 
-        await this.db.actualizarCliente(clientePedido);
+        this.db.actualizarCliente(clientePedido);
         this.db.actualizarPedido(pedido);
 
         this.spinner.hide();
     }
 
-    async entregarPedido(p: Pedido) {}
+    async entregarPedido(p: Pedido, index:number) {}
 }
