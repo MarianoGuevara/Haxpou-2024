@@ -12,28 +12,81 @@
 
 <ion-content [fullscreen]="true">
     @if (false){ } @else {
-    <div class="grid grid-cols-1 h-[calc(100vh-56px)]">
-        @if (this.clienteReal?.situacion == 'out') {
+    <div class="flex flex-col justify-center h-[calc(100vh-56px)] p-2">
+        @if (this.clienteReal?.situacion === 'out') {
+        <!-- @if(true){ -->
         <ion-button
             expand="block"
             class="pages-button text-2xl font-bold"
             (click)="entrarEnListaEspera()"
-            >Acceder a lista de espera</ion-button
         >
-        }
+            <div
+                class="flex flex-col justify-center items-center gap-4 h-full py-6"
+            >
+                <img class="w-32 -my-7" src="/assets/queue.svg" alt="" />
+                <span class="text-3xl">Acceder a lista de espera</span>
+            </div>
+        </ion-button>
 
         <ion-button
             expand="block"
             class="pages-button text-2xl font-bold"
             (click)="tomarMesa()"
-            >Escanear Mesa</ion-button
         >
+            <div
+                class="flex flex-col justify-center items-center gap-4 h-full p-6"
+            >
+                <img class="w-32" src="/assets/escanear_mesa.png" alt="" />
+                <span class="text-3xl"> Escanear mesa</span>
+            </div>
+        </ion-button>
         <ion-button
             expand="block"
             class="pages-button text-2xl font-bold"
             (click)="entrarEncuestasPrevias()"
-            >Encuestas previas</ion-button
         >
+            <div
+                class="flex flex-col justify-center items-center gap-4 h-full p-6"
+            >
+                <img
+                    class="w-32 -my-5"
+                    src="/assets/encuestas-previas.png"
+                    alt=""
+                />
+                <span class="text-3xl"> Encuestas previas</span>
+            </div>
+        </ion-button>
+        }@else{
+
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            (click)="tomarMesa()"
+        >
+            <div
+                class="flex flex-col justify-center items-center gap-4 h-full p-6"
+            >
+                <img class="w-64" src="/assets/escanear_mesa.png" alt="" />
+                <span class="text-4xl"> Escanear mesa</span>
+            </div>
+        </ion-button>
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold"
+            (click)="entrarEncuestasPrevias()"
+        >
+            <div
+                class="flex flex-col justify-center items-center gap-4 h-full p-6"
+            >
+                <img
+                    class="w-64 -my-5"
+                    src="/assets/encuestas-previas.png"
+                    alt=""
+                />
+                <span class="text-4xl"> Encuestas previas</span>
+            </div>
+        </ion-button>
+        }
     </div>
     }
 </ion-content>

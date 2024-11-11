@@ -2,7 +2,7 @@
     <ion-toolbar class="estilo">
         <ion-buttons slot="start">
             <ion-back-button
-                routerlink="/home"
+                default-href="/home"
                 class="text-cyan-50"
             ></ion-back-button>
             <h2 class="font-bold text-cyan-50 text-xl">Espera pedido</h2>
@@ -11,22 +11,42 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <div class="grid grid-cols-1 h-[calc(100vh-56px)]">
+    <div class="flex flex-col p-2 h-[calc(100vh-56px)]">
         <!-- solo muestra encuesta si el mozo le aprobó el pedido  -->
-        @if (clienteActual?.situacion == 'pedidoEnCurso') {
+        <!-- @if (clienteActual?.situacion === 'pedidoEnCurso') { -->
+        <!-- } -->
         <ion-button
             expand="block"
-            class="pages-button text-2xl font-bold"
+        class="pages-button text-2xl font-bold h-full"
             routerLink="/encuesta-alta"
-            >Encuesta</ion-button
         >
-        }
+            <div
+                class="flex flex-col justify-center items-center gap-4 h-full py-6"
+            >
+                <img
+                    class="w-64 -my-5"
+                    src="/assets/encuestas-previas.png"
+                    alt=""
+                />
+                <span class="text-3xl">Encuesta</span>
+            </div>
+        </ion-button>
 
         <ion-button
             expand="block"
-            class="pages-button text-2xl font-bold"
+        class="pages-button text-2xl font-bold h-full"
             (click)="verEstadoPedido()"
-            >Consultar estado del pedido</ion-button
         >
+            <div
+                class="flex flex-col justify-center items-center gap-4 h-full py-6"
+            >
+                <img
+                    class="w-44 m-3"
+                    src="/assets/alta_pedido.png"
+                    alt=""
+                />
+                <span class="text-3xl">Estado del pedido</span>
+            </div>
+        </ion-button>
     </div>
 </ion-content>

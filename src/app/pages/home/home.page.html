@@ -18,42 +18,72 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <div class="grid grid-cols-1 h-[calc(100vh-56px)] p-2">
+    <div class="flex flex-col h-[calc(100vh-56px)] justify-center p-2">
         <!-- Este if lo que hace es chequear si hay un usuario logueado (xq tarda un poco en cargar), y despues, asigna el usuario a la variable local currentUser -->
         @if (this.authService.currentUserSig(); as currentUser) {
         <!-- - -->
         @if (currentUser.role === this.Perfiles.CLIENTE_REGISTRADO ||
         currentUser.role === this.Perfiles.CLIENTE_ANONIMO) {
         <!-- si el usuario es cliente  -->
-        <app-qr-inicio-app></app-qr-inicio-app>
+        <app-qr-inicio-app class="h-full"></app-qr-inicio-app>
         <!-- <button routerLink="/listado-pedidos">listado-pedidos</button> -->
 
         } @else if (currentUser.role === this.Perfiles.DUENO || currentUser.role
         === this.Perfiles.SUPERVISOR) {
         <!-- si el usuario es dueño/supervisor  -->
-        <app-supervisor-home></app-supervisor-home>
+        <app-supervisor-home class="h-full"></app-supervisor-home>
 
         } @else if(currentUser.role === this.Perfiles.MAITRE){
         <!-- si el usuario es maitre  -->
-        <ion-button
-            expand="block"
-            class="pages-button text-2xl font-bold"
-            routerLink="/espera-clientes-maitre"
-            >Lista de espera</ion-button
-        >
+        <div class="h-full flex flex-col">
+            <ion-button
+                expand="block"
+                class="pages-button text-2xl font-bold h-full"
+                routerLink="/espera-clientes-maitre"
+            >
+                <div class="flex flex-col justify-center items-center h-full">
+                    <img
+                        class="w-full -mx-10"
+                        src="/assets/queue.svg"
+                        alt=""
+                    />
+                    <span class="text-4xl"> Lista de espera</span>
+                </div>
+            </ion-button>
+        </div>
 
         } @else if(currentUser.role === this.Perfiles.MOZO){
-        <app-mozo-home></app-mozo-home>
+        <app-mozo-home class="h-full"></app-mozo-home>
 
         } @else if(currentUser.role === this.Perfiles.BARTENDER ||
         currentUser.role === this.Perfiles.COCINERO){
 
-        <ion-button
-            expand="block"
-            class="pages-button text-2xl font-bold"
-            routerLink="/listado-pedidos-sector"
-            >Pedidos del sector</ion-button
-        >
+        <div class="h-full flex flex-col">
+            <ion-button
+                expand="block"
+                class="pages-button text-2xl font-bold h-full"
+                routerLink="/listado-pedidos-sector"
+            >
+                <div
+                    class="flex flex-col justify-center items-center h-full gap-5"
+                >
+                    @if(currentUser.role === this.Perfiles.BARTENDER){
+                    <img
+                        class="w-52"
+                        src="/assets/inicios_rapidos/barman.png"
+                        alt=""
+                    />
+                    }@else{
+                    <img
+                        class="w-52"
+                        src="/assets/inicios_rapidos/cocinero.png"
+                        alt=""
+                    />
+                    }
+                    <span class="text-4xl"> Pedidos del sector </span>
+                </div>
+            </ion-button>
+        </div>
 
         } @else {
 
