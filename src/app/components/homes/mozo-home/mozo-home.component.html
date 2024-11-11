@@ -1,14 +1,22 @@
-<div class="h-full grid grid-cols-1">
+<div class="h-full flex flex-col">
     <ion-button
         expand="block"
-        class="pages-button text-2xl font-bold"
+        class="pages-button text-2xl font-bold h-full"
         routerLink="/botones-chat-mesas"
-        >Consultas mesas</ion-button
     >
+        <div class="flex flex-col justify-center items-center gap-2 h-full">
+            <img class="w-52 -mb-4" src="/assets/consultas_mesa.png" alt="" />
+            <span class="text-4xl"> Consultas mesas</span>
+        </div>
+    </ion-button>
     <ion-button
         expand="block"
-        class="pages-button text-2xl font-bold"
+        class="pages-button text-2xl font-bold h-full"
         routerLink="/listado-pedidos"
-        >Pedidos</ion-button
     >
+        <div class="flex flex-col justify-center items-center gap-6 h-full">
+            <img class="w-40" src="/assets/inicios_rapidos/mesero.png" alt="" />
+            <span class="text-4xl"> Pedidos </span>
+        </div>
+    </ion-button>
 </div>
