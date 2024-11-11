@@ -25,7 +25,7 @@ export const routes: Routes = [
         path: 'alta-cliente',
         loadComponent: () =>
             import('./pages/alta-cliente/alta-cliente.page').then(
-                (m) => m.AltaDSPage
+                (m) => m.AltaClientePage
             ),
     },
     {

@@ -59,7 +59,7 @@ import { SendPushService } from 'src/app/services/api-push.service';
         IonInput,
     ],
 })
-export class AltaDSPage {
+export class AltaClientePage {
     private fb = inject(FormBuilder);
     private qrscannerService = inject(QrscannerService);
     private alertController = inject(AlertController);
@@ -75,13 +75,17 @@ export class AltaDSPage {
     protected credentials: FormGroup;
 
     constructor() {
-        this.credentials = this.fb.group({
-            apellidos: ['', Validators.required],
-            nombres: ['', Validators.required],
-            dni: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
-            correo: ['', [Validators.required, Validators.email]],
-            clave1: ['', [Validators.required, Validators.minLength(6)]],
-        });
+        this.credentials = this.fb.group(
+            {
+                apellidos: ['', Validators.required],
+                nombres: ['', Validators.required],
+                dni: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
+                correo: ['', [Validators.required, Validators.email]],
+                clave1: ['', [Validators.required, Validators.minLength(6)]],
+                clave2: ['', Validators.required],
+            },
+            { validator: this.passwordMatchValidator }
+        );
     }
 
     async onScanClick() {
@@ -224,6 +228,8 @@ export class AltaDSPage {
                 return `El valor máximo es ${control.errors['max'].max}`;
             } else if (control.errors['email']) {
                 return 'El correo no es válido';
+            } else if (control.errors['mismatch']) {
+                return 'Las claves no coinciden';
             }
         }
         return null;
@@ -247,5 +253,20 @@ export class AltaDSPage {
 
     get clave1() {
         return this.credentials.get('clave1');
+    }
+
+    get clave2() {
+        return this.credentials.get('clave2');
+    }
+
+    passwordMatchValidator(group: AbstractControl) {
+        const clave1 = group.get('clave1')?.value;
+        const clave2 = group.get('clave2')?.value;
+
+        if (clave1 !== clave2 || clave2 === '') {
+            group.get('clave2')?.setErrors({ mismatch: true });
+        } else {
+            group.get('clave2')?.setErrors(null); // Elimina el error si coinciden
+        }
     }
 }
