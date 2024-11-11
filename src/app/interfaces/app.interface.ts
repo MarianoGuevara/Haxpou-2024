@@ -37,7 +37,8 @@ export type SituacionCliente =
     | 'enEspera'
     | 'mesaAsignado'
     | 'pedidoPendienteAprobacion'
-    | 'pedidoEnCurso';
+    | 'pedidoEnCurso'
+    | 'pedidoEntregado';
 // out estado inicial... cuando scanea qr pasa a enEspera, despues cuando el maitre le asigna una mesa volvería a
 // cambiar y así... que opinan
 
@@ -116,6 +117,7 @@ export interface Pedido {
     estado_detalle: EstadoDetallePedido[]; // otro array paralelo... cuando las 4 hamburguesas esten listas, cambiara ese indice a listo. Cuando todos los indices sean listos recien ahi el pedido entero va a ser listo
     estado: EstadoPedido;
     tiempo_estimado: number; // minutos
+    entregado: boolean; //verificamos si fue entregado o no
 }
 // cuando confirma el mozo, cuando confirman TODAS las partes individuales del pedido
 
@@ -125,7 +127,7 @@ export type EstadoPedido =
     | 'pendiente' // cuando arranca
     | 'en preparecion' // cuando el mozo lo confirma
     | 'listo para entregar' // cuando los de la barra y cocina le ponen 'listo' a TODOS los componentes del pedido
-    | 'entregado' //
+    | 'entregado' //una vez que el pedido es entregado se abre la opcion de pedir la cuenta
     | 'cuenta solicitada'
     | 'cuenta pagada a revision'
     | 'cuenta pagada';

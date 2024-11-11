@@ -133,7 +133,6 @@ export class EsperaClientePage {
             cliente.role == 'clienteRegistrado'
         ) {
             switch (cliente.situacion) {
-                case 'mesaAsignado':
                 case 'out':
                     this.showAlert(
                         'Fracaso',
@@ -141,7 +140,7 @@ export class EsperaClientePage {
                             ', debe ingresar a la lista de espera antes de acceder a las encuestas'
                     );
                     break;
-                case 'enEspera':
+                default:
                     this.router.navigate(['/encuestas-previas']);
                     break;
             }
@@ -150,7 +149,7 @@ export class EsperaClientePage {
 
     async tomarMesa() {
         const cliente: Cliente = this.authService.currentUserSig() as Cliente;
-
+        console.log(cliente);
         if (
             cliente.role == 'clienteAnonimo' ||
             cliente.role == 'clienteRegistrado'
@@ -159,6 +158,7 @@ export class EsperaClientePage {
                 case 'pedidoEnCurso':
                 case 'pedidoPendienteAprobacion':
                 case 'mesaAsignado':
+                case 'pedidoEntregado':
                     await this.escanearMesa();
                     break;
                 case 'out':
@@ -200,7 +200,8 @@ export class EsperaClientePage {
                 this.router.navigateByUrl('/realizar-pedido'); // donde te aparece la opcion de dar de alta pedido
             } else if (
                 cliente.situacion == 'pedidoPendienteAprobacion' ||
-                cliente.situacion == 'pedidoEnCurso' // a ambos los lleva a la misma pag donde ven: encuesta (solo si es pedido en curso) y estado de su pedido
+                cliente.situacion == 'pedidoEnCurso' ||
+                cliente.situacion =='pedidoEntregado' // a ambos los lleva a la misma pag donde ven: encuesta (solo si es pedido en curso) y estado de su pedido
             ) {
                 this.router.navigateByUrl('/cliente-estado-pedido-encuesta');
             }

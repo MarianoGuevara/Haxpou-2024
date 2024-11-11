@@ -16,6 +16,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 import { Subscription } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SendPushService } from 'src/app/services/api-push.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-listado-pedidos',
@@ -27,9 +28,9 @@ import { SendPushService } from 'src/app/services/api-push.service';
         IonButtons,
         IonContent,
         IonHeader,
-
         IonToolbar,
         CommonModule,
+        RouterModule,
         FormsModule,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -65,9 +66,9 @@ export class ListadoPedidosPage implements OnInit {
                 .subscribe(async (data) => {
                     // me trae los pendientes y listos para entregar
                     console.log(data);
-                    this.pedidos = data;
+                    this.pedidos = data.filter(p => p.entregado == false)// si el pedido ya esta entregado no lo traemos
                     for (let i = 0; i < this.pedidos.length; i++) {
-                        console.log('PEDIDO -> ', this.pedidos[i]);
+                        //console.log('PEDIDO -> ', this.pedidos[i]);
 
                         const mesa = await this.db.traerMesaPedido(
                             this.pedidos[i].id_mesa
@@ -77,7 +78,7 @@ export class ListadoPedidosPage implements OnInit {
                         // const mesa: Mesa = await this.traerMesaDeUnPedido(
                         //     this.pedidos[i].
                         // );
-                        console.log('MESA -> ', mesaReal);
+                        //console.log('MESA -> ', mesaReal);
 
                         this.arrayNombresPedidos.push(
                             "Pedido mesa '" + mesaReal.numero! + "'"
@@ -133,5 +134,21 @@ export class ListadoPedidosPage implements OnInit {
         this.spinner.hide();
     }
 
-    async entregarPedido(p: Pedido, index:number) {}
+    async entregarPedido(p: Pedido, index:number) 
+    {
+        this.spinner.show();
+        this.pedidos.splice(index, 1);
+
+        const clientePedidoDb = await this.db.traerUsuario(p.id_cliente);
+        const clientePedido = clientePedidoDb.docs[0].data() as Cliente;
+
+        clientePedido.situacion = 'pedidoEntregado';
+        p.entregado = true;
+        p.estado = 'entregado';
+
+        this.db.actualizarCliente(clientePedido);
+        this.db.actualizarPedido(p);
+
+        this.spinner.hide();
+    }
 }

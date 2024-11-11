@@ -2,7 +2,7 @@
     <ion-toolbar class="estilo">
         <ion-buttons slot="start">
             <ion-back-button
-                routerlink="/home"
+                default-href="/home"
                 class="text-cyan-50"
             ></ion-back-button>
             <h2 class="font-bold text-cyan-50 text-xl">Estado de pedidos</h2>
@@ -60,7 +60,7 @@
                 >
                     Confirmar
                 </button>
-                } @else {
+                } @else if(this.pedidos[$index].estado == 'listo para entregar') {
                 <button
                     (click)="entregarPedido(this.pedidos[$index], $index)"
                     type="button"

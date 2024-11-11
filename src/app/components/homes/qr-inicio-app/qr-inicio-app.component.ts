@@ -46,17 +46,17 @@ export class QrInicioAppComponent {
     // ngOnInit() {}
 
     async scanearQrInicioApp() {
-        // this.router.navigate(['/espera-cliente']);
+        this.router.navigate(['/espera-cliente']);
 
-        const rta = await this.qrScannService.startScan();
-        if (rta == 'ClienteListaDeEsperaMaitre') {
-            this.router.navigate(['/espera-cliente']);
-        } else {
-            this.showAlert(
-                'QR inválido',
-                'El QR leido no es el correcto para ingresar al local'
-            );
-        }
+        // const rta = await this.qrScannService.startScan();
+        // if (rta == 'ClienteListaDeEsperaMaitre') {
+        //     this.router.navigate(['/espera-cliente']);
+        // } else {
+        //     this.showAlert(
+        //         'QR inválido',
+        //         'El QR leido no es el correcto para ingresar al local'
+        //     );
+        // }
     }
 
     private async showAlert(header: string, message: string) {

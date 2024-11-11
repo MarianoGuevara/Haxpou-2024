@@ -86,4 +86,12 @@ export class ClienteEstadoPedidoEncuestaPage {
         });
         await alert.present();
     }
+
+    async pedirCuenta() : Promise<void>
+    {
+        const pedidoDoc = await this.db.traerPedidoUsuario(this.clienteActual?.uid!);
+        const pedido = pedidoDoc.docs[0].data() as Pedido;
+    
+        //a continuacion chadcopati procede a cambiar el estado del pedido
+    }
 }
