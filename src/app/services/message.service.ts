@@ -20,7 +20,7 @@ export class MessageService {
     constructor() {}
 
     sendMessage(message: MesaMessageFromFirestore | MozoMessageFromFirestore) {
-        this.firestore
+        return this.firestore
             .collection(CollectionsNames.MESA_MESSAGES + message.numeroMesa)
             .add(message);
     }

@@ -23,6 +23,7 @@ import { Timestamp } from '@angular/fire/firestore';
 import { MessageService } from 'src/app/services/message.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
+import { SendPushService } from 'src/app/services/api-push.service';
 
 @Component({
     selector: 'app-chat-mozo',
@@ -45,6 +46,7 @@ export class ChatMozoPage {
     authService = inject(AuthService);
     private spinner = inject(NgxSpinnerService);
     private activatedRoute = inject(ActivatedRoute);
+    private sendPushService = inject(SendPushService);
 
     protected numeroMesaActual!: number;
     protected isUserMozo!: boolean;
@@ -83,6 +85,12 @@ export class ChatMozoPage {
         this.messageContentToSend = '';
 
         await this.messageService.sendMessage(messageToSend);
+
+        this.sendPushService.sendToRole(
+            'Consulta de cliente',
+            `En la mesa ${this.numeroMesaActual} el cliente tiene una constulta`,
+            'mozo'
+        );
 
         // update the chat with the new message
         this.getMessagesFromDB();
