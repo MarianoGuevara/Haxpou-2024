@@ -1,0 +1,16 @@
+ion-select {
+	transform: translateZ(0);
+	font-smoothing: antialiased;  
+	transition: none;
+  }
+
+
+  .checkbox-container {
+	display: flex;
+	flex-direction: column;  
+	width: 100%; 
+  }
+  
+  ion-checkbox {
+	margin-bottom: 10px; 
+  }

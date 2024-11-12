@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     IonContent,
     IonHeader,
@@ -11,7 +11,7 @@ import {
     IonBackButton,
     AlertController,
 } from '@ionic/angular/standalone';
-import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Cliente, Pedido, UserDetails } from 'src/app/interfaces/app.interface';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -33,7 +33,8 @@ import _default from 'emailjs-com';
         IonButton,
         IonButtons,
         IonBackButton,
-        RouterLink,
+        RouterModule,
+        ReactiveFormsModule
     ],
 })
 export class ClienteEstadoPedidoEncuestaPage {

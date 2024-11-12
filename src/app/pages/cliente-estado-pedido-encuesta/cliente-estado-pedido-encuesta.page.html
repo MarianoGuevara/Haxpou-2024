@@ -13,9 +13,30 @@
 <ion-content [fullscreen]="true">
     <div class="flex flex-col p-2 h-[calc(100vh-56px)]">
         <!-- solo muestra encuesta si el mozo le aprobó el pedido  -->
+
+        @if(this.clienteActual?.completoEncuesta)
+        {
             <ion-button
                 expand="block"
-            class="pages-button text-2xl font-bold h-full"
+                class="pages-button text-2xl font-bold h-full"
+                routerLink="/encuestas-previas"
+            >
+                <div
+                    class="flex flex-col justify-center items-center gap-4 h-full py-6"
+                >
+                    <img
+                        class="w-40 -my-5"
+                        src="/assets/encuestas-previas.png"
+                        alt=""
+                    />
+                    <span class="text-3xl">Ver encuestas</span>
+                </div>
+            </ion-button>
+        }
+        @else {
+            <ion-button
+                expand="block"
+                class="pages-button text-2xl font-bold h-full"
                 routerLink="/encuesta-alta"
             >
                 <div
@@ -26,9 +47,10 @@
                         src="/assets/encuestas-previas.png"
                         alt=""
                     />
-                    <span class="text-3xl">Encuesta</span>
+                    <span class="text-3xl">Completar encuesta</span>
                 </div>
             </ion-button>
+        }
         
 
         <ion-button

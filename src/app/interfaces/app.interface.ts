@@ -22,6 +22,7 @@ export interface Cliente extends UserDetails {
     aprobado: EstadoCliente;
     situacion: SituacionCliente;
     mesaAsignada: number;
+    completoEncuesta ?: boolean;
 }
 
 export type EstadoCliente = 'pendiente' | 'aprobado' | 'rechazado';
@@ -93,13 +94,13 @@ export interface MozoMessage extends Message {
 
 export interface Encuesta {
     uid?: string;
-    foto1: string;
-    foto2: string;
-    foto3: string;
-    fecha: Date;
+    foto1?: string;
+    foto2?: string;
+    foto3?: string;
+    fecha?: Date;
     atencion_cliente: number;
     comida: number;
-    como_conocio?: number;
+    como_conocio: number[];
     opinion_general: string;
     limpieza: number;
     encuestado: string;
