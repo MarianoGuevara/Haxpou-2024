@@ -62,8 +62,10 @@ export class ListadoProductosPage implements OnInit {
         estado_detalle: [], // ["en preparacion", "listo", "listo"]
         estado: 'pendiente',
         tiempo_estimado: 0, // minutos
+        entregado : false
     };
     calculando: boolean = false;
+    
 
     constructor() {}
 

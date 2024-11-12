@@ -224,4 +224,15 @@ export class DatabaseService {
 
         setDoc(documentoNuevo, pedido);
     }
+
+    agregarEncuesta(encuesta: Encuesta)
+    {
+        const col = collection(this.firestore, CollectionsNames.ENCUESTAS);
+        const documentoNuevo = doc(col);
+        const id = documentoNuevo.id;
+
+        encuesta.uid = id;
+
+        setDoc(documentoNuevo, encuesta);
+    }
 }

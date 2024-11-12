@@ -133,20 +133,22 @@ export class EncuestasPreviasPage implements OnInit {
         let conocio: number[] = [0, 0, 0, 0];
 
         this.encuestas.forEach((encuesta) => {
-            switch (encuesta.como_conocio) {
-                case 0:
-                    conocio[0]++;
-                    break;
-                case 1:
-                    conocio[1]++;
-                    break;
-                case 2:
-                    conocio[2]++;
-                    break;
-                case 3:
-                    conocio[3]++;
-                    break;
-            }
+            encuesta.como_conocio.forEach(valor => {   
+                switch (valor) {
+                    case 0:
+                        conocio[0]++;
+                        break;
+                    case 1:
+                        conocio[1]++;
+                        break;
+                    case 2:
+                        conocio[2]++;
+                        break;
+                    case 3:
+                        conocio[3]++;
+                        break;
+                }
+            });
         });
         this.seriesComoConocio = [{ name: '', data: conocio }];
         this.labelsComoConocio = labels_conocio;

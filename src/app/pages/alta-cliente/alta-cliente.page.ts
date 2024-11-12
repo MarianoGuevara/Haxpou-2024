@@ -163,6 +163,7 @@ export class AltaClientePage {
             foto: url,
             situacion: 'out',
             mesaAsignada: -1,
+            completoEncuesta: false
         };
 
         console.log(newClient);
