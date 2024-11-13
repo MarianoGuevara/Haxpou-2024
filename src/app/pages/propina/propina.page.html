@@ -1,0 +1,63 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar class="estilo">
+        <ion-buttons slot="start">
+            <ion-back-button
+                default-href="/cuenta-pedida"
+                class="text-cyan-50"
+            ></ion-back-button>
+            <h2 class="font-bold text-cyan-50 text-xl">Propina</h2>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div class="flex flex-col p-2 h-[calc(100vh-56px)]">
+        @if(this.pedido){
+
+        <div
+            class="bg-slate-700 rounded-lg shadow-lg h-full m-3 overflow-hidden p-4"
+        >
+            <div
+                class="flex flex-col justify-between items-center space-y-3 h-full"
+            >
+                <h3
+                    class="text-3xl rounded-lg p-5 mt-3 bg-slate-500 font-bold mb-1"
+                >
+                    Propina
+                </h3>
+
+                <div class="w-full flex justify-center items-center">
+                    <img class="w-64" src="/assets/propina.svg" alt="" />
+                </div>
+
+                <div class="w-full flex flex-col items-center">
+                    <span class="font-bold text-2xl mb-3"
+                        >Propina (0% - 20%)</span
+                    >
+                    <ion-range
+                        min="0"
+                        max="20"
+                        [(ngModel)]="porcentajePropina"
+                        class="w-full accent-cyan-500 .custom-range"
+                    />
+                    <span class="text-2xl font-bold text-cyan-50 mt-4"
+                        >{{ porcentajePropina }}%</span
+                    >
+                    <span class="text-2xl font-bold text-cyan-50 mt-2"
+                        >{{ this.pedido.precio_total * (porcentajePropina/100) |
+                        currency}}</span
+                    >
+                </div>
+
+                <ion-button
+                    expand="block"
+                    class="pages-button text-2xl font-bold"
+                    (click)="this.onConfirmClick()"
+                >
+                    <span class="text-xl py-1">Confirmar</span>
+                </ion-button>
+            </div>
+        </div>
+        }
+    </div>
+</ion-content>

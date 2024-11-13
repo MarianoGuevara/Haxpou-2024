@@ -63,6 +63,19 @@
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.btn-pago {
+    background: #00cedd;
+    color: #000;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
 .btn-aprobar:hover {
     background: #025801;
     transform: translateY(-2px);
@@ -70,6 +83,17 @@
 }
 
 .btn-aprobar:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-pago:hover {
+    background: #007cf0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-pago:active {
     transform: translateY(1px);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }

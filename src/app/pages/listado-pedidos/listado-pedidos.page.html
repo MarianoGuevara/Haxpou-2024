@@ -52,7 +52,7 @@
                     {{ this.pedidos[$index].id_cliente }} min
                 </p> -->
 
-                @if (this.pedidos[$index].estado == 'pendiente') {
+                @if (this.pedidos[$index].estado === 'pendiente') {
                 <button
                     (click)="actualizarPedido(this.pedidos[$index], $index)"
                     type="button"
@@ -60,13 +60,23 @@
                 >
                     Confirmar
                 </button>
-                } @else if(this.pedidos[$index].estado == 'listo para entregar') {
+                } @else if(this.pedidos[$index].estado === 'listo para entregar') {
                 <button
                     (click)="entregarPedido(this.pedidos[$index], $index)"
                     type="button"
                     class="btn-rechazar w-full my-2"
                 >
                     Entregar
+                </button>
+                } @else if(
+					this.pedidos[$index].estado === 'cuenta pagada a revision'
+				) {
+                <button
+                    (click)="confirmarPago(this.pedidos[$index], $index)"
+                    type="button"
+                    class="btn-pago w-full my-2"
+                >
+				Confirmar pago
                 </button>
                 }
             </div>

@@ -1,0 +1,40 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar class="estilo">
+        <ion-buttons slot="start">
+            <ion-back-button
+                default-href="/cliente-estado-pedido-encuesta"
+                class="text-cyan-50"
+            ></ion-back-button>
+            <h2 class="font-bold text-cyan-50 text-xl">Cuenta</h2>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div class="h-full flex flex-col p-2">
+        @if(this.pedido){
+
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold h-full"
+			(click)="scanearQrPropina()"
+        >
+            <div class="flex flex-col justify-center items-center h-full gap-5">
+                <img class="w-52" src="/assets/escanear_qr.png" alt="" />
+                <span class="text-4xl"> Propina </span>
+            </div>
+        </ion-button>
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold h-full"
+            routerLink="/detale-cuenta"
+			[disabled]="!this.pedido.propina || !this.pedido.cuentaEntregada"
+        >
+            <div class="flex flex-col justify-center items-center h-full gap-5">
+                <img class="w-40" src="/assets/detalleCuenta.svg" alt="" />
+                <span class="text-4xl"> Detalle cuenta </span>
+            </div>
+        </ion-button>
+        }
+    </div>
+</ion-content>

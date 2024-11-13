@@ -1,0 +1,70 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar class="estilo">
+        <ion-buttons slot="start">
+            <ion-back-button
+                default-href="/cuenta-pedida"
+                class="text-cyan-50"
+            ></ion-back-button>
+            <h2 class="font-bold text-cyan-50 text-xl">Detalle cuenta</h2>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div class="flex flex-col p-2 h-[calc(100vh-56px)]">
+        @if(this.pedido){
+
+        <div
+            class="bg-slate-700 rounded-lg shadow-lg h-full m-3 overflow-hidden p-4"
+        >
+            <div
+                class="flex flex-col justify-between items-center space-y-3 h-full"
+            >
+                <h3
+                    class="text-3xl rounded-lg p-5 mt-3  bg-slate-500 font-bold mb-1"
+                >
+                    Detalle cuenta
+                </h3>
+                <ul class="w-full space-y-5 flex flex-col">
+                    @for(producto of this.pedido.item_menu; track $index){
+                    <li class="flex justify-between rounded items-center w-full bg-slate-600 py-2 px-1">
+                        <span class="text-2xl"
+                            >{{producto.nombre}} x
+                            {{this.pedido.cantidad_item_menu[$index]}}</span
+                        >
+                        <span class="text-2xl"
+                            >{{producto.precio*this.pedido.cantidad_item_menu[$index]
+                            | currency}}</span
+                        >
+                    </li>
+                    }
+                </ul>
+
+                <div class="w-full flex justify-between">
+                    <span class="text-3xl">Propina:</span>
+                    <span class="text-3xl">{{this.pedido.propina | currency}}</span>
+                </div>
+
+                <div class="w-full flex flex-col gap-7">
+                    <div class="w-full flex justify-between">
+                        <span class="text-4xl font-bold text-cyan-500"
+                            >Total:</span
+                        >
+                        <span class="text-4xl font-bold text-cyan-500"
+                            >{{this.pedido.precio_total + this.pedido.propina! | currency}}</span
+                        >
+                    </div>
+
+                    <ion-button
+                        expand="block"
+                        class="pages-button text-2xl font-bold"
+						(click)="onPagarClick()"
+                    >
+                        <span class="text-xl py-1">Pagar cuenta</span>
+                    </ion-button>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</ion-content>
