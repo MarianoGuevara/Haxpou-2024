@@ -63,10 +63,12 @@
             </div>
         </ion-button>
 
+        @if(this.clienteActual?.situacion === 'pedidoEntregado'){
+
         <ion-button
             expand="block"
             class="pages-button text-2xl font-bold h-full"
-			(click)="this.pedirCuenta()"
+            (click)="this.pedirCuenta()"
         >
             <div
                 class="flex flex-col justify-center items-center gap-4 h-full py-6"
@@ -75,5 +77,6 @@
                 <span class="text-3xl">Pedir la cuenta</span>
             </div>
         </ion-button>
+        }
     </div>
 </ion-content>

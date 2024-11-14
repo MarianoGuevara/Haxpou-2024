@@ -78,48 +78,48 @@ export class PushService {
                 // alert('Push action performed: ' + JSON.stringify(notification));
                 // this.interactionService.presentAlert('Notificación en segundo plano', `${JSON.stringify(notification)}`)
 
-                // if (notification?.notification?.data?.enlace) {
-                //     this.route.navigateByUrl(
-                //         notification.notification.data.enlace
-                //     );
-                // }
-
-                if (this.authService.currentUserSig()?.role === 'mozo') {
-                    this.interactionService
-                        .presentAlert(
-                            notification.notification.title!,
-                            notification.notification.body!,
-                            '',
-                            'Entregar cuenta'
-                        )
-                        .then(async () => {
-                            // hacer el qr valido
-                            const tituloNotificacion =
-                                notification.notification.title!;
-                            const numeroMesa =
-                                tituloNotificacion[
-                                    tituloNotificacion.length - 1
-                                ];
-                            console.log(numeroMesa);
-
-                            const mesaSnapshot = await this.dbService.traerMesa(
-                                numeroMesa
-                            );
-                            const mesa = mesaSnapshot.docs[0].data() as Mesa;
-
-                            const pedidoSnapshot =
-                                await this.dbService.traerMesaPedido(mesa.uid!);
-                            const pedido =
-                                pedidoSnapshot.docs[0].data() as Pedido;
-
-                            const newPedido: Pedido = {
-                                ...pedido,
-                                cuentaEntregada: true,
-                            };
-
-                            this.dbService.actualizarPedido(newPedido);
-                        });
+                if (notification?.notification?.data?.enlace) {
+                    this.route.navigateByUrl(
+                        notification.notification.data.enlace
+                    );
                 }
+
+                // if (this.authService.currentUserSig()?.role === 'mozo') {
+                //     this.interactionService
+                //         .presentAlert(
+                //             notification.notification.title!,
+                //             notification.notification.body!,
+                //             '',
+                //             'Entregar cuenta'
+                //         )
+                //         .then(async () => {
+                //             // hacer el qr valido
+                //             const tituloNotificacion =
+                //                 notification.notification.title!;
+                //             const numeroMesa =
+                //                 tituloNotificacion[
+                //                     tituloNotificacion.length - 1
+                //                 ];
+                //             console.log(numeroMesa);
+
+                //             const mesaSnapshot = await this.dbService.traerMesa(
+                //                 numeroMesa
+                //             );
+                //             const mesa = mesaSnapshot.docs[0].data() as Mesa;
+
+                //             const pedidoSnapshot =
+                //                 await this.dbService.traerMesaPedido(mesa.uid!);
+                //             const pedido =
+                //                 pedidoSnapshot.docs[0].data() as Pedido;
+
+                //             const newPedido: Pedido = {
+                //                 ...pedido,
+                //                 cuentaEntregada: true,
+                //             };
+
+                //             this.dbService.actualizarPedido(newPedido);
+                //         });
+                // }
             }
         );
     }

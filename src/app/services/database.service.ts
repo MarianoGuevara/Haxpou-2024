@@ -174,7 +174,12 @@ export class DatabaseService {
 
         const pedidos = query(
             col,
-            where('estado', 'in', ['pendiente', 'listo para entregar', 'cuenta pagada a revision'])
+            where('estado', 'in', [
+                'pendiente',
+                'listo para entregar',
+                'cuenta pagada a revision',
+                'cuenta solicitada',
+            ])
         );
 
         //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
@@ -235,8 +240,7 @@ export class DatabaseService {
         setDoc(documentoNuevo, pedido);
     }
 
-    agregarEncuesta(encuesta: Encuesta)
-    {
+    agregarEncuesta(encuesta: Encuesta) {
         const col = collection(this.firestore, CollectionsNames.ENCUESTAS);
         const documentoNuevo = doc(col);
         const id = documentoNuevo.id;

@@ -78,6 +78,14 @@
                 >
 				Confirmar pago
                 </button>
+                } @else if(this.pedidos[$index].estado === 'cuenta solicitada') {
+                <button
+                    (click)="entregarCuenta(this.pedidos[$index], $index)"
+                    type="button"
+                    class="btn-pago w-full my-2"
+                >
+				Entregar cuenta
+                </button>
                 }
             </div>
         </div>

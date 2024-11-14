@@ -58,7 +58,9 @@ export class ListadoPedidosPage implements OnInit {
                     this.pedidos = data.filter(
                         (p) =>
                             p.entregado === false ||
-                            p.estado === 'cuenta pagada a revision'
+                            p.estado === 'cuenta pagada a revision' ||
+                            (p.estado === 'cuenta solicitada' &&
+                                p.cuentaEntregada === false)
                     ); // si el pedido ya esta entregado no lo traemos
                     for (let i = 0; i < this.pedidos.length; i++) {
                         //console.log('PEDIDO -> ', this.pedidos[i]);
@@ -67,11 +69,6 @@ export class ListadoPedidosPage implements OnInit {
                             this.pedidos[i].id_mesa
                         );
                         const mesaReal = mesa.docs[0].data() as Mesa;
-
-                        // const mesa: Mesa = await this.traerMesaDeUnPedido(
-                        //     this.pedidos[i].
-                        // );
-                        //console.log('MESA -> ', mesaReal);
 
                         this.arrayNombresPedidos.push(
                             "Pedido mesa '" + mesaReal.numero! + "'"
@@ -144,13 +141,29 @@ export class ListadoPedidosPage implements OnInit {
         this.spinner.hide();
     }
 
+    async entregarCuenta(pedido: Pedido, index: number) {
+        this.spinner.show();
+        this.pedidos.splice(index, 1);
+
+        pedido.cuentaEntregada = true;
+
+        await this.db.actualizarPedido(pedido);
+
+        this.spinner.hide();
+
+        this.interactionService.presentAlert(
+            'Cuenta entregada',
+            'Se entregó la cuenta solicitada exitosamente'
+        );
+    }
+
     async confirmarPago(pedido: Pedido, index: number) {
-        // this.spinner.show();
-        // this.pedidos.splice(index, 1);
+        this.spinner.show();
+        this.pedidos.splice(index, 1);
 
-        // pedido.estado = 'cuenta pagada';
+        pedido.estado = 'cuenta pagada';
 
-        // await this.db.actualizarPedido(pedido);
+        await this.db.actualizarPedido(pedido);
 
         // const clientePedidoDb = await this.db.traerUsuario(pedido.id_cliente);
         // const clientePedido = clientePedidoDb.docs[0].data() as Cliente;
@@ -165,7 +178,7 @@ export class ListadoPedidosPage implements OnInit {
         // mesaPedido.idCliente = 'libre';
         // mesaPedido.disponible = true;
 
-        // this.spinner.hide();
+        this.spinner.hide();
 
         this.interactionService.presentAlert(
             'Mesa liberada',
