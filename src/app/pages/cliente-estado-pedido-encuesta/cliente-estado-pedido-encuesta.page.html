@@ -2,7 +2,7 @@
     <ion-toolbar class="estilo">
         <ion-buttons slot="start">
             <ion-back-button
-                default-href="/home"
+                default-href="/espera-cliente"
                 class="text-cyan-50"
             ></ion-back-button>
             <h2 class="font-bold text-cyan-50 text-xl">Espera pedido</h2>
@@ -14,78 +14,69 @@
     <div class="flex flex-col p-2 h-[calc(100vh-56px)]">
         <!-- solo muestra encuesta si el mozo le aprobó el pedido  -->
 
-        @if(this.clienteActual?.completoEncuesta)
-        {
-            <ion-button
-                expand="block"
-                class="pages-button text-2xl font-bold h-full"
-                routerLink="/encuestas-previas"
-            >
-                <div
-                    class="flex flex-col justify-center items-center gap-4 h-full py-6"
-                >
-                    <img
-                        class="w-40 -my-5"
-                        src="/assets/encuestas-previas.png"
-                        alt=""
-                    />
-                    <span class="text-3xl">Ver encuestas</span>
-                </div>
-            </ion-button>
-        }
-        @else {
-            <ion-button
-                expand="block"
-                class="pages-button text-2xl font-bold h-full"
-                routerLink="/encuesta-alta"
-            >
-                <div
-                    class="flex flex-col justify-center items-center gap-4 h-full py-6"
-                >
-                    <img
-                        class="w-40 -my-5"
-                        src="/assets/encuestas-previas.png"
-                        alt=""
-                    />
-                    <span class="text-3xl">Completar encuesta</span>
-                </div>
-            </ion-button>
-        }
-        
-
+        @if(this.clienteActual?.completoEncuesta) {
         <ion-button
             expand="block"
-        class="pages-button text-2xl font-bold h-full"
-            (click)="verEstadoPedido()"
+            class="pages-button text-2xl font-bold h-full"
+            routerLink="/encuestas-previas"
         >
             <div
                 class="flex flex-col justify-center items-center gap-4 h-full py-6"
             >
                 <img
-                    class="w-32 m-3"
-                    src="/assets/alta_pedido.png"
+                    class="w-40 -my-5"
+                    src="/assets/encuestas-previas.png"
                     alt=""
                 />
+                <span class="text-3xl">Ver encuestas</span>
+            </div>
+        </ion-button>
+        } @else {
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold h-full"
+            routerLink="/encuesta-alta"
+        >
+            <div
+                class="flex flex-col justify-center items-center gap-4 h-full py-6"
+            >
+                <img
+                    class="w-40 -my-5"
+                    src="/assets/encuestas-previas.png"
+                    alt=""
+                />
+                <span class="text-3xl">Completar encuesta</span>
+            </div>
+        </ion-button>
+        }
+
+        <ion-button
+            expand="block"
+            class="pages-button text-2xl font-bold h-full"
+            (click)="verEstadoPedido()"
+        >
+            <div
+                class="flex flex-col justify-center items-center gap-4 h-full py-6"
+            >
+                <img class="w-32 m-3" src="/assets/alta_pedido.png" alt="" />
                 <span class="text-3xl">Estado del pedido</span>
             </div>
         </ion-button>
 
-            <ion-button
+        @if(this.clienteActual?.situacion === 'pedidoEntregado'){
+
+        <ion-button
             expand="block"
-        class="pages-button text-2xl font-bold h-full"
-            (click)="verEstadoPedido()"
+            class="pages-button text-2xl font-bold h-full"
+            (click)="this.pedirCuenta()"
         >
             <div
                 class="flex flex-col justify-center items-center gap-4 h-full py-6"
             >
-                <img
-                class="w-32 m-3"
-                src="/assets/pedir-cuenta.png"
-                alt=""
-                />
+                <img class="w-32 m-3" src="/assets/pedir-cuenta.png" alt="" />
                 <span class="text-3xl">Pedir la cuenta</span>
             </div>
         </ion-button>
-        
+        }
     </div>
 </ion-content>

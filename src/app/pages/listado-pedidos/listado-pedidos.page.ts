@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SendPushService } from 'src/app/services/api-push.service';
 import { RouterModule } from '@angular/router';
+import { InteractionService } from 'src/app/services/interaction.service';
 
 @Component({
     selector: 'app-listado-pedidos',
@@ -39,24 +40,12 @@ export class ListadoPedidosPage implements OnInit {
     pedidos: Pedido[] = [];
     spinner = inject(NgxSpinnerService);
     db = inject(DatabaseService);
-    suscripcion: Subscription | null = null;
     alertController = inject(AlertController);
-    arrayNombresPedidos: string[] = []; // para mostrar nombre de pedido "personalizado"
     sendPush = inject(SendPushService);
-    constructor() {
-        // const pedidoEjemplo: Pedido = {
-        //     uid: '123456',
-        //     id_cliente: 'M3Kze37AVUf5MXzulj3MYH4NUX42',
-        //     id_mesa: 'F3Wm7L0RRsQsfhZDJKZO38hn9uQ2',
-        //     precio_total: 1500,
-        //     item_menu: ['hamburguesa', 'coca cola', 'fideos'],
-        //     cantidad_item_menu: ['4', '8', '3'],
-        //     estado_detalle: ['pendiente', 'pendiente', 'pendiente'],
-        //     estado: 'pendiente',
-        //     tiempo_estimado: 10,
-        // };
-        // this.db.agregarFalopaaaaaa(pedidoEjemplo, 'Pedidos');
-    }
+    private interactionService = inject(InteractionService);
+
+    suscripcion: Subscription | null = null;
+    arrayNombresPedidos: string[] = []; // para mostrar nombre de pedido "personalizado"
 
     ngOnInit() {
         this.spinner.show();
@@ -66,7 +55,13 @@ export class ListadoPedidosPage implements OnInit {
                 .subscribe(async (data) => {
                     // me trae los pendientes y listos para entregar
                     console.log(data);
-                    this.pedidos = data.filter(p => p.entregado == false)// si el pedido ya esta entregado no lo traemos
+                    this.pedidos = data.filter(
+                        (p) =>
+                            p.entregado === false ||
+                            p.estado === 'cuenta pagada a revision' ||
+                            (p.estado === 'cuenta solicitada' &&
+                                p.cuentaEntregada === false)
+                    ); // si el pedido ya esta entregado no lo traemos
                     for (let i = 0; i < this.pedidos.length; i++) {
                         //console.log('PEDIDO -> ', this.pedidos[i]);
 
@@ -74,11 +69,6 @@ export class ListadoPedidosPage implements OnInit {
                             this.pedidos[i].id_mesa
                         );
                         const mesaReal = mesa.docs[0].data() as Mesa;
-
-                        // const mesa: Mesa = await this.traerMesaDeUnPedido(
-                        //     this.pedidos[i].
-                        // );
-                        //console.log('MESA -> ', mesaReal);
 
                         this.arrayNombresPedidos.push(
                             "Pedido mesa '" + mesaReal.numero! + "'"
@@ -100,11 +90,11 @@ export class ListadoPedidosPage implements OnInit {
         return mesaReal;
     }
 
-    async actualizarPedido(pedido: Pedido, index:number) {
+    async actualizarPedido(pedido: Pedido, index: number) {
         console.log(pedido);
         this.spinner.show();
 
-		this.pedidos.splice(index, 1);
+        this.pedidos.splice(index, 1);
 
         const clientePedidoDb = await this.db.traerUsuario(pedido.id_cliente);
         const clientePedido = clientePedidoDb.docs[0].data() as Cliente;
@@ -134,8 +124,7 @@ export class ListadoPedidosPage implements OnInit {
         this.spinner.hide();
     }
 
-    async entregarPedido(p: Pedido, index:number) 
-    {
+    async entregarPedido(p: Pedido, index: number) {
         this.spinner.show();
         this.pedidos.splice(index, 1);
 
@@ -150,5 +139,50 @@ export class ListadoPedidosPage implements OnInit {
         this.db.actualizarPedido(p);
 
         this.spinner.hide();
+    }
+
+    async entregarCuenta(pedido: Pedido, index: number) {
+        this.spinner.show();
+        this.pedidos.splice(index, 1);
+
+        pedido.cuentaEntregada = true;
+
+        await this.db.actualizarPedido(pedido);
+
+        this.spinner.hide();
+
+        this.interactionService.presentAlert(
+            'Cuenta entregada',
+            'Se entregó la cuenta solicitada exitosamente'
+        );
+    }
+
+    async confirmarPago(pedido: Pedido, index: number) {
+        this.spinner.show();
+        this.pedidos.splice(index, 1);
+
+        pedido.estado = 'cuenta pagada';
+
+        await this.db.actualizarPedido(pedido);
+
+        // const clientePedidoDb = await this.db.traerUsuario(pedido.id_cliente);
+        // const clientePedido = clientePedidoDb.docs[0].data() as Cliente;
+
+        // clientePedido.situacion = 'out';
+        // clientePedido.completoEncuesta = false;
+        // clientePedido.mesaAsignada = -1;
+
+        // const mesaPedidoDb = await this.db.traerMesaByUid(pedido.id_mesa);
+        // const mesaPedido = mesaPedidoDb.docs[0].data() as Mesa;
+
+        // mesaPedido.idCliente = 'libre';
+        // mesaPedido.disponible = true;
+
+        this.spinner.hide();
+
+        this.interactionService.presentAlert(
+            'Mesa liberada',
+            'Se liberó la mesa al confirmarse el pago'
+        );
     }
 }

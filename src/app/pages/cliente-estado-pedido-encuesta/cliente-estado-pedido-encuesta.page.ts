@@ -1,22 +1,27 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     IonContent,
     IonHeader,
-    IonTitle,
     IonToolbar,
     IonButton,
     IonButtons,
     IonBackButton,
     AlertController,
 } from '@ionic/angular/standalone';
-import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { Cliente, Pedido, UserDetails } from 'src/app/interfaces/app.interface';
+import {
+    Cliente,
+    Mesa,
+    Pedido,
+    UserDetails,
+} from 'src/app/interfaces/app.interface';
 import { DatabaseService } from 'src/app/services/database.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import _default from 'emailjs-com';
+import { Router, RouterLink } from '@angular/router';
+import { SendPushService } from 'src/app/services/api-push.service';
 
 @Component({
     selector: 'app-cliente-estado-pedido-encuesta',
@@ -26,15 +31,13 @@ import _default from 'emailjs-com';
     imports: [
         IonContent,
         IonHeader,
-        IonTitle,
         IonToolbar,
         CommonModule,
         FormsModule,
         IonButton,
         IonButtons,
         IonBackButton,
-        RouterModule,
-        ReactiveFormsModule
+        RouterLink,
     ],
 })
 export class ClienteEstadoPedidoEncuestaPage {
@@ -42,13 +45,15 @@ export class ClienteEstadoPedidoEncuestaPage {
     private alertController = inject(AlertController);
     db = inject(DatabaseService);
     spinner = inject(NgxSpinnerService);
+    private router = inject(Router);
+    private sendPushService = inject(SendPushService);
+
     clienteActual: Cliente | null = null;
 
-    ngOnInit(): void {
-        this.clienteActual = this.authService.currentUserSig() as Cliente;
-    }
     constructor() {
-        this.clienteActual = this.authService.currentUserSig() as Cliente;
+        effect(() => {
+            this.clienteActual = this.authService.currentUserSig() as Cliente;
+        });
     }
 
     protected castUserToClient(user: UserDetails) {
@@ -88,11 +93,31 @@ export class ClienteEstadoPedidoEncuestaPage {
         await alert.present();
     }
 
-    async pedirCuenta() : Promise<void>
-    {
-        const pedidoDoc = await this.db.traerPedidoUsuario(this.clienteActual?.uid!);
-        const pedido = pedidoDoc.docs[0].data() as Pedido;
-    
-        //a continuacion chadcopati procede a cambiar el estado del pedido
+    async pedirCuenta(): Promise<void> {
+        this.spinner.show();
+
+        const pedidoUser = await this.db.traerPedidoUsuario(
+            this.clienteActual?.uid!
+        );
+        const pedidoReal = pedidoUser.docs[0].data() as Pedido;
+
+        const newPedido: Pedido = {
+            ...pedidoReal!,
+            estado: 'cuenta solicitada',
+        };
+        await this.db.actualizarPedido(newPedido);
+
+        const mesaSnapshot = await this.db.traerMesaByUid(pedidoReal.id_mesa);
+        const mesa = mesaSnapshot.docs[0].data() as Mesa;
+
+        await this.sendPushService.sendToRole(
+            `Cuenta pedida en mesa ${mesa.numero}`,
+            `El cliente de la mesa ${mesa.numero} solicitó la cuenta`,
+            'mozo'
+        );
+
+        this.spinner.hide();
+
+        this.router.navigateByUrl('/cuenta-pedida');
     }
 }

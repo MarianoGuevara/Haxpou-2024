@@ -15,7 +15,7 @@ export class SendPushService {
     public async sendToRole(title: string, body: string, role: PerfilesType) {
         console.log('sending push to users with role: ' + role);
 
-        const res = await fetch(this.API_BASE_URL + '/notify-role', {
+        await fetch(this.API_BASE_URL + '/notify-role', {
             method: 'POST', // Especifica que esta es una solicitud POST
             headers: {
                 'Content-Type': 'application/json', // Indica que el cuerpo de la solicitud es JSON
@@ -26,9 +26,6 @@ export class SendPushService {
                 role,
             }),
         });
-        const resData = await res.json();
-
-        console.log(resData);
     }
 
     public async sendToToken(title: string, body: string, token: string) {
@@ -45,6 +42,5 @@ export class SendPushService {
         });
         const resData = await res.json();
 
-        console.log(resData);
     }
 }

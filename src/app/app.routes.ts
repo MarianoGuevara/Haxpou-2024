@@ -16,11 +16,6 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./pages/login/login.page').then((m) => m.LoginPage),
     },
-    // {
-    //     path: '',
-    //     redirectTo: 'alta-cliente', //modificar esto
-    //     pathMatch: 'full',
-    // },
     {
         path: 'alta-cliente',
         loadComponent: () =>
@@ -47,14 +42,6 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./pages/espera-cliente/espera-cliente.page').then(
                 (m) => m.EsperaClientePage
-            ),
-    },
-    {
-        // solo para tests vvvv
-        path: 'alta-producto',
-        loadComponent: () =>
-            import('./pages/alta-producto/alta-producto.page').then(
-                (m) => m.AltaProductoPage
             ),
     },
     {
@@ -121,4 +108,19 @@ export const routes: Routes = [
                 (m) => m.EncuestaAltaPage
             ),
     },
+    {
+        path: 'detalle-cuenta',
+        loadComponent: () =>
+            import('./pages/detalle-cuenta/detalle-cuenta.page').then(
+                (m) => m.DetalleCuentaPage
+            ),
+    },  {
+    path: 'cuenta-pedida',
+    loadComponent: () => import('./pages/cuenta-pedida/cuenta-pedida.page').then( m => m.CuentaPedidaPage)
+  },
+  {
+    path: 'propina',
+    loadComponent: () => import('./pages/propina/propina.page').then( m => m.PropinaPage)
+  },
+
 ];

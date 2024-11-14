@@ -12,9 +12,7 @@
 
 <ion-content [fullscreen]="true">
     <div class="h-[calc(100vh-56px)] p-4 pt-1">
-        <form
-        class="space-y-6 text-xl flex flex-col mt-2"
-        >
+        <form class="space-y-6 text-xl flex flex-col mt-2">
             <div class="relative mt-2">
                 <label>Opinion general sobre el local</label>
                 <ion-input
@@ -27,60 +25,102 @@
             </div>
 
             <div class="relative mt-12">
-                <label>¿Que tan satisfecho se encuentra con la atención al cliente?</label>
-                <ion-range aria-label="Range with ticks" [ngModelOptions]="{standalone: true}" [(ngModel)]="satisfecho" [ticks]="true" [snaps]="true" [min]="0" [max]="10"></ion-range>
+                <label
+                    >¿Que tan satisfecho se encuentra con la atención al
+                    cliente?</label
+                >
+                <ion-range
+                    aria-label="Range with ticks"
+                    [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="satisfecho"
+                    [ticks]="true"
+                    [snaps]="true"
+                    [min]="0"
+                    [max]="10"
+                ></ion-range>
             </div>
 
             <div class="relative mt-10">
-                <ion-radio-group name="radio-group" [(ngModel)]="comida" [ngModelOptions]="{standalone: true}">
+                <ion-radio-group
+                    name="radio-group"
+                    [(ngModel)]="comida"
+                    [ngModelOptions]="{standalone: true}"
+                >
                     <label>¿Como definiría la comida del lugar?</label>
                     <ion-item>
                         <ion-label>Mala</ion-label>
-                        <ion-radio slot="start" value=0></ion-radio>
+                        <ion-radio slot="start" value="0"></ion-radio>
                     </ion-item>
-                    
+
                     <ion-item>
                         <ion-label>Buena</ion-label>
-                        <ion-radio slot="start" value=1></ion-radio>
+                        <ion-radio slot="start" value="1"></ion-radio>
                     </ion-item>
-                    
+
                     <ion-item>
-                      <ion-label>Excelente</ion-label>
-                      <ion-radio slot="start" value=2></ion-radio>
+                        <ion-label>Excelente</ion-label>
+                        <ion-radio slot="start" value="2"></ion-radio>
                     </ion-item>
-                  </ion-radio-group>
+                </ion-radio-group>
             </div>
 
             <div class="relative mt-16">
                 <ion-item>
-                    <label class="text-lg">¿Está conforme con la limpieza del lugar? </label>
-                    <ion-select name="select" [(ngModel)]="selectedOption" class="ml-5" [ngModelOptions]="{standalone: true}">
-                      <ion-select-option value=0>Si</ion-select-option>
-                      <ion-select-option value=1>No</ion-select-option>
+                    <label class="text-lg"
+                        >¿Está conforme con la limpieza del lugar?
+                    </label>
+                    <ion-select
+                        name="select"
+                        [(ngModel)]="selectedOption"
+                        class="ml-5"
+                        [ngModelOptions]="{standalone: true}"
+                    >
+                        <ion-select-option value="0">Si</ion-select-option>
+                        <ion-select-option value="1">No</ion-select-option>
                     </ion-select>
-                  </ion-item>
+                </ion-item>
             </div>
 
             <div class="relative mt-10">
                 <ion-label>¿Cómo nos conociste? </ion-label>
-                <ion-item >
+                <ion-item>
                     <div class="checkbox-container">
-                        <ion-checkbox slot="start" [(ngModel)]="isRecomendacion" [ngModelOptions]="{standalone: true}">Recomendación</ion-checkbox>
-                        <ion-checkbox slot="start" [(ngModel)]="isRedes" [ngModelOptions]="{standalone: true}">Redes</ion-checkbox>
-                        <ion-checkbox slot="start" [(ngModel)]="isPublicidad" [ngModelOptions]="{standalone: true}">Publicidad</ion-checkbox>
-                        <ion-checkbox slot="start" [(ngModel)]="isOtro" [ngModelOptions]="{standalone: true}">Otro</ion-checkbox>
+                        <ion-checkbox
+                            slot="start"
+                            [(ngModel)]="isRecomendacion"
+                            [ngModelOptions]="{standalone: true}"
+                            >Recomendación</ion-checkbox
+                        >
+                        <ion-checkbox
+                            slot="start"
+                            [(ngModel)]="isRedes"
+                            [ngModelOptions]="{standalone: true}"
+                            >Redes</ion-checkbox
+                        >
+                        <ion-checkbox
+                            slot="start"
+                            [(ngModel)]="isPublicidad"
+                            [ngModelOptions]="{standalone: true}"
+                            >Publicidad</ion-checkbox
+                        >
+                        <ion-checkbox
+                            slot="start"
+                            [(ngModel)]="isOtro"
+                            [ngModelOptions]="{standalone: true}"
+                            >Otro</ion-checkbox
+                        >
                     </div>
                 </ion-item>
             </div>
 
             <div class="relative">
                 <ion-button
-                style="height: 100px;"
-                expand="block"
-                class="text-black rounded-lg py-3 w-full text-2xl"
-                (click)="aniadirEncuesta()"
-                >Añadir</ion-button
-            >
+                    style="height: 100px"
+                    expand="block"
+                    class="text-black rounded-lg py-3 w-full text-2xl"
+                    (click)="aniadirEncuesta()"
+                    >Añadir</ion-button
+                >
             </div>
         </form>
     </div>
