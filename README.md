@@ -89,6 +89,14 @@
     </tr>
 </table>
 
+## Propina
+
+<br/>
+<div align="center">
+    <img src="https://firebasestorage.googleapis.com/v0/b/haxpou-2024.appspot.com/o/qr%2Fpropina_qr.png?alt=media&token=8332bd66-8f90-4266-8c97-b16c4cefdb9f" alt="Propina" width="250">
+</div>
+<br/>
+
 <br/>
 
 <h2 align="center">División de tareas</h2>
