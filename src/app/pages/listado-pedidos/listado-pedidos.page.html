@@ -21,28 +21,31 @@
             <div
                 class="p-4 flex flex-col justify-center items-center space-y-3"
             >
-                <h1 class="text-2xl font-bold mb-1">
+                <h1 class="text-3xl font-bold mb-1">
                     {{this.arrayNombresPedidos[$index]}}
                 </h1>
-                <h5 class="text-2xl mb-1">
+                <h5 class="text-3xl mb-1">
                     Precio total: {{ this.pedidos[$index].precio_total }}
                 </h5>
 
-				<p class="text-lg text-gray-200">
+				<p class="text-2xl text-gray-200">
                     <strong>Estado: </strong> {{this.pedidos[$index].estado}}
                 </p>
 
-                <p class="text-lg text-gray-200">
+                <p class="text-2xl text-gray-200">
                     <strong>Detalle del Pedido:</strong>
                 </p>
                 @for (item of this.pedidos[$index].item_menu; track $index) {
-                <p class="text-lg text-gray-200">
-                    {{ pedido.item_menu[$index] }} - Cantidad: {{
+                <p class="text-2xl text-gray-200">
+                    {{ pedido.item_menu[$index] }} - Cantidad:
+                    <span class="text-3xl">
+                    {{
                     pedido.cantidad_item_menu[$index] }}
+                    </span>
                 </p>
                 }
 
-                <p class="text-lg text-gray-200">
+                <p class="text-2xl text-center text-gray-200">
                     <strong>Tiempo de elaboración:</strong>
                     {{ this.pedidos[$index].tiempo_estimado }} min
                 </p>
@@ -57,6 +60,8 @@
                     (click)="actualizarPedido(this.pedidos[$index], $index)"
                     type="button"
                     class="btn-aprobar w-full my-2"
+
+                    style="font-size: 30px;"
                 >
                     Confirmar
                 </button>
@@ -65,6 +70,8 @@
                     (click)="entregarPedido(this.pedidos[$index], $index)"
                     type="button"
                     class="btn-rechazar w-full my-2"
+
+                    style="font-size: 30px;"
                 >
                     Entregar
                 </button>
@@ -75,6 +82,8 @@
                     (click)="confirmarPago(this.pedidos[$index], $index)"
                     type="button"
                     class="btn-pago w-full my-2"
+
+                    style="font-size: 30px;"
                 >
 				Confirmar pago
                 </button>
@@ -83,6 +92,8 @@
                     (click)="entregarCuenta(this.pedidos[$index], $index)"
                     type="button"
                     class="btn-pago w-full my-2"
+
+                    style="font-size: 30px;"
                 >
 				Entregar cuenta
                 </button>

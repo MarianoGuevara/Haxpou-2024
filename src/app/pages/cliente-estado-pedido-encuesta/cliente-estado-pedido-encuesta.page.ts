@@ -74,6 +74,9 @@ export class ClienteEstadoPedidoEncuestaPage {
             case 'pendiente':
                 estadoCasted = 'pendiente de aprobación por parte de un mozo';
                 break;
+            case 'en preparecion':
+                estadoCasted = 'en preparación';
+                break;
             default:
                 estadoCasted = pedidoReal.estado;
                 break;
@@ -92,6 +95,8 @@ export class ClienteEstadoPedidoEncuestaPage {
         });
         await alert.present();
     }
+
+
 
     async pedirCuenta(): Promise<void> {
         this.spinner.show();
