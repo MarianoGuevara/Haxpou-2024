@@ -19,7 +19,7 @@
             <h4 class="font-bold text-[#06b6d4] text-2xl">
                 PRECIO TOTAL: ${{ precioTotal }}
             </h4>
-            <h4 class="font-bold text-[#06b6d4] text-xl mt-2">
+            <h4 class="font-bold text-[#06b6d4] text-2xl mt-2">
                 TIEMPO ESTIMADO: {{ tiempoEstimado }} minutos
             </h4>
             }
@@ -57,14 +57,14 @@
                 class="p-4 flex flex-col justify-center items-center space-y-3"
             >
                 <h3 class="text-2xl font-bold mb-1">{{ producto.nombre }}</h3>
-                <p class="text-lg text-gray-200 mb-2 text-center">
+                <p class="text-xl text-gray-200 mb-2 text-center">
                     {{ producto.descripcion }}
                 </p>
-                <p class="text-lg text-gray-200">
+                <p class="text-xl text-center text-gray-200">
                     <strong>Tiempo de elaboración:</strong>
                     {{ producto.tiempoElaboracion }} minutos
                 </p>
-                <p class="text-2xl font-semibold text-blue-400">
+                <p class="text-2xl text-center font-semibold text-blue-400">
                     <strong>Precio:</strong> ${{ producto.precio | number :
                     "1.2-2" }}
                 </p>
@@ -84,7 +84,7 @@
                     >
                         +
                     </button>
-                    <p class="text-xl text-white font-semibold">
+                    <p class="text-4xl text-white font-semibold">
                         {{ productosCantidad[$index] }}
                     </p>
                 </div>

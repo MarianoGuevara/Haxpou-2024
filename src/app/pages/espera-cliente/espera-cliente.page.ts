@@ -101,7 +101,7 @@ export class EsperaClientePage {
                     );
                     await this.db.actualizarCliente(cliente);
                     this.showAlert(
-                        'Exito',
+                        'Éxito',
                         cliente.nombre +
                             ', usted ha ingresado en la lista de espera'
                     );
@@ -188,7 +188,7 @@ export class EsperaClientePage {
         if (mesa.idCliente !== this.cliente?.uid) {
             this.showAlert(
                 'Mesa no correspondiente',
-                `Tu mesa asignada es la numero ${
+                `Tu mesa asignada es la número ${
                     (this.cliente as Cliente).mesaAsignada
                 }`
             );

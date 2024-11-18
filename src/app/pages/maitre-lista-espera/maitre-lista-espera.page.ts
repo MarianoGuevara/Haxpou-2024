@@ -96,7 +96,7 @@ export class MaitreListaEsperaPage implements OnInit {
         
         this.db.actualizarCliente(this.clienteSeleccionado!);
         this.db.actualizarMesa(mesa);
-        this.showAlert('Mesa asignada', `Al cliente ${this.clienteSeleccionado?.nombre} se le asigno la mesa numero ${mesa.numero}`)
+        this.showAlert('Mesa asignada', `Al cliente ${this.clienteSeleccionado?.nombre} se le asignó la mesa número ${mesa.numero}`)
     }
 
     private async showAlert(header: string, message: string) {

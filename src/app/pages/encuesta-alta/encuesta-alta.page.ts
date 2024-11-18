@@ -145,19 +145,19 @@ export class EncuestaAltaPage implements OnInit {
                 this.spinner.hide();
                 this.showAlert(
                     'Encuesta añadida',
-                    'Encuesta añadida a la base de datos con éxito!',
+                    '¡Encuesta añadida a la base de datos con éxito!',
                     'cliente-estado-pedido-encuesta'
                 );
             } else {
                 this.showAlert(
                     'Error',
-                    'Datos incompletos, porfavor complete el formulario'
+                    'Datos incompletos, por favor complete el formulario'
                 );
             }
         } else {
             this.showAlert(
                 'Error',
-                'Datos incompletos, porfavor complete el formulario'
+                'Datos incompletos, por favor complete el formulario'
             );
         }
     }
