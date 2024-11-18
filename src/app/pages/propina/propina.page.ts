@@ -44,7 +44,7 @@ export class PropinaPage {
     private spinner = inject(NgxSpinnerService);
     private authService = inject(AuthService);
     private interactionService = inject(InteractionService);
-	private router = inject(Router)
+    private router = inject(Router);
 
     protected pedido: Pedido | null = null;
 
@@ -70,9 +70,7 @@ export class PropinaPage {
 
     async onConfirmClick() {
         this.spinner.show();
-        console.log(
-            this.pedido?.precio_total! * (this.porcentajePropina / 100)
-        );
+
         const newPedido: Pedido = {
             ...this.pedido!,
             propina:
@@ -86,7 +84,7 @@ export class PropinaPage {
         this.interactionService
             .presentAlert('Hecho', '¡Muchas gracias por dejar tu propina!')
             .then(() => {
-				this.router.navigateByUrl('/cuenta-pedida')
-			});
+                this.router.navigateByUrl('/cuenta-pedida');
+            });
     }
 }

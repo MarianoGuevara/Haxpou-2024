@@ -12,10 +12,11 @@ import {
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { QrscannerService } from 'src/app/services/qrscanner.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Pedido } from 'src/app/interfaces/app.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-cuenta-pedida',
@@ -31,6 +32,7 @@ import { Pedido } from 'src/app/interfaces/app.interface';
         IonButton,
         IonButtons,
         IonBackButton,
+        RouterLink,
     ],
 })
 export class CuentaPedidaPage {
@@ -42,21 +44,36 @@ export class CuentaPedidaPage {
     private spinner = inject(NgxSpinnerService);
 
     protected pedido: Pedido | null = null;
+    protected buttonDisabled = true;
+
+    private suscripcion!: Subscription;
 
     constructor() {
-        effect(async () => {
-            if (this.authService.currentUserSig()) {
+        effect(() => {
+            const currentUser = this.authService.currentUserSig();
+            if (currentUser) {
                 this.spinner.show();
 
-                const pedidoUser = await this.dbService.traerPedidoUsuario(
-                    this.authService.currentUserSig()?.uid!
-                );
+                // Nos suscribimos a traerPedidoUsuario y actualizamos 'pedido' cuando haya cambios
+                this.suscripcion = this.dbService
+                    .traerPedidoUsuarioObservable(currentUser.uid!)
+                    .subscribe({
+                        next: (pedido) => {
+                            console.log('llamado subscripcion pedido');
 
-                this.pedido = pedidoUser.docs[0].data() as Pedido;
+                            console.log(pedido);
 
-                console.log(this.pedido);
+                            this.pedido = pedido || null;
+                            console.log(this.pedido);
 
-                this.spinner.hide();
+                            this.suscripcion.unsubscribe();
+                            this.spinner.hide();
+                        },
+                        error: (err) => {
+                            console.error('Error al obtener el pedido:', err);
+                            this.spinner.hide();
+                        },
+                    });
             }
         });
     }
