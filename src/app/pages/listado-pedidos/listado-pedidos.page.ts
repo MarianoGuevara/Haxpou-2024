@@ -165,18 +165,21 @@ export class ListadoPedidosPage implements OnInit {
 
         await this.db.actualizarPedido(pedido);
 
-        // const clientePedidoDb = await this.db.traerUsuario(pedido.id_cliente);
-        // const clientePedido = clientePedidoDb.docs[0].data() as Cliente;
+        const clientePedidoDb = await this.db.traerUsuario(pedido.id_cliente);
+        const clientePedido = clientePedidoDb.docs[0].data() as Cliente;
 
-        // clientePedido.situacion = 'out';
-        // clientePedido.completoEncuesta = false;
-        // clientePedido.mesaAsignada = -1;
+        clientePedido.situacion = 'out';
+        clientePedido.completoEncuesta = false;
+        clientePedido.mesaAsignada = -1;
 
-        // const mesaPedidoDb = await this.db.traerMesaByUid(pedido.id_mesa);
-        // const mesaPedido = mesaPedidoDb.docs[0].data() as Mesa;
+        const mesaPedidoDb = await this.db.traerMesaByUid(pedido.id_mesa);
+        const mesaPedido = mesaPedidoDb.docs[0].data() as Mesa;
 
-        // mesaPedido.idCliente = 'libre';
-        // mesaPedido.disponible = true;
+        mesaPedido.idCliente = 'libre';
+        mesaPedido.disponible = true;
+
+        await this.db.actualizarCliente(clientePedido);
+        await this.db.actualizarMesa(mesaPedido);
 
         this.spinner.hide();
 

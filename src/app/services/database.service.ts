@@ -14,6 +14,8 @@ import {
     query,
     QuerySnapshot,
     setDoc,
+    docData,
+    limit,
 } from '@angular/fire/firestore';
 import {
     Cliente,
@@ -22,7 +24,7 @@ import {
     Encuesta,
     Pedido,
 } from '../interfaces/app.interface';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { CollectionsNames } from '../utils/firebase-names.enum';
 
 @Injectable({
@@ -39,22 +41,22 @@ export class DatabaseService {
         doc(clientesCol);
     }
 
-    actualizarCliente(cliente: Cliente): void {
+    actualizarCliente(cliente: Cliente) {
         const col = collection(this.firestore, CollectionsNames.USUARIOS);
 
         //Referencia hacia el documento de firebase
         const documento = doc(col, cliente.uid);
 
-        updateDoc(documento, { ...cliente });
+        return updateDoc(documento, { ...cliente });
     }
 
-    actualizarMesa(mesa: Mesa): void {
+    actualizarMesa(mesa: Mesa) {
         const col = collection(this.firestore, CollectionsNames.MESAS);
 
         //Referencia hacia el documento de firebase
         const documento = doc(col, mesa.uid);
 
-        updateDoc(documento, { ...mesa });
+        return updateDoc(documento, { ...mesa });
     }
 
     //Devolvemos un observable para que "escuche" los cambios
@@ -188,17 +190,6 @@ export class DatabaseService {
         >;
     }
 
-    traerPedidosConfirmados(): Observable<Pedido[]> {
-        const col = collection(this.firestore, CollectionsNames.PEDIDOS);
-
-        const pedidos = query(col, where('estado', '==', 'en preparecion'));
-
-        //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
-        return collectionData(pedidos, { idField: 'uid' }) as Observable<
-            Pedido[]
-        >;
-    }
-
     actualizarPedido(pedido: Pedido) {
         const col = collection(this.firestore, CollectionsNames.PEDIDOS);
 
@@ -214,6 +205,32 @@ export class DatabaseService {
         );
         const usuario = await getDocs(usuarioQuery);
         return usuario;
+    }
+
+    traerPedidosConfirmados(): Observable<Pedido[]> {
+        const col = collection(this.firestore, CollectionsNames.PEDIDOS);
+
+        const pedidos = query(col, where('estado', '==', 'en preparecion'));
+
+        //idField es el id del documento generado automaticamente por firebase, que sera el atributo de nuestro cliente
+        return collectionData(pedidos, { idField: 'uid' }) as Observable<
+            Pedido[]
+        >;
+    }
+
+    traerPedidoUsuarioObservable(idUsuario: string) {
+        const usuarioQuery = query(
+            collection(this.firestore, CollectionsNames.PEDIDOS),
+            where('id_cliente', '==', idUsuario),
+            // Limita a 1 documento, ya que esperamos solo un pedido activo
+            limit(1)
+        );
+
+        // Usamos collectionData para devolver un Observable de Pedido
+        return collectionData(usuarioQuery, { idField: 'uid' }).pipe(
+            // Mapeamos para extraer el primer documento o undefined si no existe
+            map((pedidos) => pedidos[0] as Pedido | undefined)
+        );
     }
 
     async traerPedidoUsuario(idUsuario: string) {
